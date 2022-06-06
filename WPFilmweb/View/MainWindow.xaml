@@ -1,0 +1,54 @@
+﻿<Window x:Class="WPFilmweb.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFilmweb.View"
+        xmlns:vm="clr-namespace:WPFilmweb.ViewModel"
+        xmlns:view="clr-namespace:WPFilmweb.View"
+        xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        Title="Filmweb" Height="720" Width="1280">
+    
+    <Window.DataContext>
+        <vm:MoviesViewModel/>
+    </Window.DataContext>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="15*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="13*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        
+        <view:Movies Grid.Column="1" 
+                     Grid.Row="1" 
+                     Title1="{Binding Titles[0]}"
+                     Title2="{Binding Titles[1]}"
+                     Title3="{Binding Titles[2]}"
+                     Title4="{Binding Titles[3]}"
+                     Poster1="{Binding Posters[0]}"
+                     Poster2="{Binding Posters[1]}"
+                     Poster3="{Binding Posters[2]}"
+                     Poster4="{Binding Posters[3]}"
+                     CurrentPage="{Binding CurrentPage}"
+                     >
+            <Behaviors:Interaction.Triggers>
+                <Behaviors:EventTrigger EventName="evNext_Page_handler">
+                    <Behaviors:InvokeCommandAction Command="{Binding NextPage}"/>
+                </Behaviors:EventTrigger>
+                <Behaviors:EventTrigger EventName="evPrevious_Page_handler">
+                    <Behaviors:InvokeCommandAction Command="{Binding PreviousPage}"/>
+                </Behaviors:EventTrigger>
+                <Behaviors:EventTrigger EventName="evMovie_Click_handler">
+                    <Behaviors:InvokeCommandAction Command="{Binding MovieClick}"/>
+                </Behaviors:EventTrigger>
+            </Behaviors:Interaction.Triggers>
+        </view:Movies>
+    </Grid>
+</Window>
