@@ -53,7 +53,7 @@ namespace WPFilmweb.DAL.Repozytoria
             using (var connection = DBConnection.Instance.Connection)
             {
                 string EDIT_ACTOR = $"UPDATE aktorzy SET imie='{actor.Name}', nazwisko='{actor.Surname}', data_urodzenia='{actor.BirthDate}', " +
-                    $"biografia='{actor.Bio}', zdjecie='{actor.ActorImage}'";
+                    $"biografia='{actor.Bio}', zdjecie='{actor.ActorImage}' WHERE IDaktora = {IDActor}";
                 MySqlCommand command = new MySqlCommand(EDIT_ACTOR, connection);
                 connection.Open();
                 var id = command.ExecuteNonQuery();
@@ -65,12 +65,12 @@ namespace WPFilmweb.DAL.Repozytoria
             return state;
         }
 
-        public static bool DeleteActor(int IDActor)
+        public static bool DeleteActor(Aktorzy actor)
         {
             bool state = false;
             using(var connection = DBConnection.Instance.Connection)
             {
-                string DELETE_ACTOR = $"DELETE FROM aktorzy WHERE IDaktora = {IDActor}";
+                string DELETE_ACTOR = $"DELETE FROM aktorzy WHERE IDaktora = {actor.IDActor}";
                 MySqlCommand command = new MySqlCommand(DELETE_ACTOR, connection);
                 connection.Open();
                 var id = command.ExecuteNonQuery();

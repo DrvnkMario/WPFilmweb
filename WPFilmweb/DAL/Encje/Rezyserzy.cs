@@ -54,6 +54,7 @@ namespace WPFilmweb.DAL.Encje
             DirectorImage = director.DirectorImage;
         }
         #endregion
+
         #region Methods
         public string ToInsert()
         {

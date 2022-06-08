@@ -20,7 +20,7 @@ namespace WPFilmweb.Model
         private Filmy emptyMovie = new Filmy("", 0, "", "", null);
         public Model()
         {
-            var movies = RepozytoriumFilmy.getMovies();
+            var movies = RepozytoriumFilmy.GetMovies();
             foreach (var movie in movies)
             {
                 MoviesList.Add(movie);
