@@ -65,12 +65,12 @@ namespace WPFilmweb.DAL.Repozytoria
             return state;
         }
 
-        public static bool DeleteActor(Aktorzy actor)
+        public static bool DeleteActor(int IDActor)
         {
             bool state = false;
             using(var connection = DBConnection.Instance.Connection)
             {
-                string DELETE_ACTOR = $"DELETE FROM aktorzy WHERE IDaktora = {actor.IDActor}";
+                string DELETE_ACTOR = $"DELETE FROM aktorzy WHERE IDaktora = {IDActor}";
                 MySqlCommand command = new MySqlCommand(DELETE_ACTOR, connection);
                 connection.Open();
                 var id = command.ExecuteNonQuery();
