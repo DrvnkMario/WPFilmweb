@@ -14,61 +14,40 @@ namespace WPFilmweb.Model
     class Model
     {
         public ObservableCollection<Filmy> MoviesList { get; set; } = new ObservableCollection<Filmy>();
-        public ObservableCollection<string> TitleList { get; set; } = new ObservableCollection<string>();
-        public ObservableCollection<ImageSource> PosterList { get; set; } = new ObservableCollection<ImageSource>();
 
         private Filmy emptyMovie = new Filmy("", 0, "", "", null);
         public Model()
         {
+
+            GetMovies();
+        }
+        public void GetMovies()
+        {
             var movies = RepozytoriumFilmy.GetMovies();
+            MoviesList.Clear();
             foreach (var movie in movies)
             {
                 MoviesList.Add(movie);
-                TitleList.Add(movie.Title);
-                PosterList.Add(movie.Poster);
             }
         }
-
-        public ObservableCollection<string> RefreshTitles(ObservableCollection<string> m, int n)
+        public ObservableCollection<Filmy> RefreshMovies(ObservableCollection<Filmy> m, int n)
         {
-            int j = 0;
-            ObservableCollection<string> temp = new ObservableCollection<string>(m);
+            ObservableCollection<Filmy> movies = new ObservableCollection<Filmy>();
             for (int i = 4 * n - 4; i <= n * 3 + 1; i++)
             {
-                if (i == m.Count())
+                if (i == MoviesList.Count())
                 {
                     for (int z = i; z <= n * 3 + 2; z++)
                     {
-                        temp[j] = emptyMovie.Title;
-                        j++;
+                        movies.Add(emptyMovie);
                     }
                     break;
                 }
-                temp[j] = TitleList[i];
-                j++;
+                movies.Add(MoviesList[i]);
             }
-            return temp;
+            m.Clear();
+            return movies;
         }
-
-        public ObservableCollection<ImageSource> RefreshPosters(ObservableCollection<ImageSource> p, int n)
-        {
-            int j = 0;
-            ObservableCollection<ImageSource> temp = new ObservableCollection<ImageSource>(p);
-            for (int i = 4 * n - 4; i <= n * 3 + 1; i++)
-            {
-                if (i == p.Count())
-                {
-                    for (int z = i; z <= n * 3 + 2; z++)
-                    {
-                        temp[j] = emptyMovie.Poster;
-                        j++;
-                    }
-                    break;
-                }
-                temp[j] = PosterList[i];
-                j++;
-            }
-            return temp;
-        }
+        
     }
 }

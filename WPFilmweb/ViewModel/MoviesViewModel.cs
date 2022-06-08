@@ -20,55 +20,31 @@ namespace WPFilmweb.ViewModel
     class MoviesViewModel : ViewModelBase
     {
         private Model model { get; set; }
+        public Model Model
+        {
+            get { return model; }
+            set { model = value; }
+        }
         private ObservableCollection<Filmy> movies {get; set;}
-
-        private ObservableCollection<string> titles { get; set; }
-
-        private ObservableCollection<ImageSource> posters { get; set; }
+        public ObservableCollection<Filmy> Movies
+        {
+            get { return movies; }
+            set 
+            {
+                movies = value; 
+                onPropertyChanged(nameof(Movies));
+            }
+        }
 
         private int currentPage { get; set; }
 
         public MoviesViewModel()
         {
-            model = new Model();
-            movies = new ObservableCollection<Filmy>();
-            titles = new ObservableCollection<string>();
-
-            movies = model.MoviesList;
-            titles = model.TitleList;
-            posters = model.PosterList;
-
-            currentPage = 1;
-            
+            Model = new Model();
+            Movies = new ObservableCollection<Filmy>();
+            CurrentPage = 1;
+            Movies = model.RefreshMovies(movies,currentPage);
         }
-
-
-        public ObservableCollection<string> Titles
-        {
-            get
-            {
-                return titles;
-            }
-            set
-            {
-                titles = value;
-                onPropertyChanged(nameof(Titles));
-            }
-        }
-
-        public ObservableCollection<ImageSource> Posters
-        {
-            get
-            {
-                return posters;
-            }
-            set
-            {
-                posters = value;
-                onPropertyChanged(nameof(Posters));
-            }
-        }
-
         public int CurrentPage
         {
             get
@@ -87,11 +63,10 @@ namespace WPFilmweb.ViewModel
         public ICommand NextPage => nextPage ?? (nextPage = new RelayCommand(
             o =>
             {
-               if(CurrentPage <= movies.Count()/4)
+               if(CurrentPage <= Model.MoviesList.Count()/4)
                 {
                     CurrentPage++;
-                    Titles = model.RefreshTitles(Titles, CurrentPage);
-                    Posters = model.RefreshPosters(Posters,CurrentPage);
+                    Movies = model.RefreshMovies(Movies,currentPage);
                 }
                     
             }, null));
@@ -104,8 +79,7 @@ namespace WPFilmweb.ViewModel
                 if (CurrentPage > 1)
                 {
                     CurrentPage--;
-                    Titles = model.RefreshTitles(Titles, CurrentPage);
-                    Posters = model.RefreshPosters(Posters, CurrentPage);
+                    Movies = model.RefreshMovies(Movies, currentPage);
                 }
 
             }, null));
