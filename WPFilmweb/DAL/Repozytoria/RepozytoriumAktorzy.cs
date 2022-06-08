@@ -12,7 +12,7 @@ namespace WPFilmweb.DAL.Repozytoria
     class RepozytoriumAktorzy
     {
         #region Queries
-        private const string EVERY_ACTOR = "SELECT * FROM aktorzy";
+        private const string GET_EVERY_ACTOR = "SELECT * FROM aktorzy";
         private const string ADD_ACTOR = "INSERT INTO 'aktorzy'( 'imie', 'nazwisko', 'data_urodzenia', 'biografia', 'zdjecie') VALUES";
         #endregion
 
@@ -22,7 +22,7 @@ namespace WPFilmweb.DAL.Repozytoria
             ObservableCollection<Aktorzy> actors = new ObservableCollection<Aktorzy>();
             using(var connection = DBConnection.Instance.Connection)
             {
-                MySqlCommand command = new MySqlCommand(EVERY_ACTOR, connection);
+                MySqlCommand command = new MySqlCommand(GET_EVERY_ACTOR, connection);
                 connection.Open();
                 var reader = command.ExecuteReader();
                 while(reader.Read())
@@ -30,6 +30,56 @@ namespace WPFilmweb.DAL.Repozytoria
                 connection.Close();
             }
             return actors;
+        }
+
+        public static bool AddActor(Aktorzy actor)
+        {
+            bool state = false;
+            using (var connection = DBConnection.Instance.Connection)
+            {
+                MySqlCommand command = new MySqlCommand($"{ADD_ACTOR} {actor.ToInsert()}", connection);
+                connection.Open();
+                var id = command.ExecuteNonQuery();
+                state = true;
+                actor.IDActor = (int)command.LastInsertedId;
+                connection.Close();
+            }
+            return state;
+        }
+
+        public static bool EditActor(Aktorzy actor, int IDActor)
+        {
+            bool state = false;
+            using (var connection = DBConnection.Instance.Connection)
+            {
+                string EDIT_ACTOR = $"UPDATE aktorzy SET imie='{actor.Name}', nazwisko='{actor.Surname}', data_urodzenia='{actor.BirthDate}', " +
+                    $"biografia='{actor.Bio}', zdjecie='{actor.ActorImage}'";
+                MySqlCommand command = new MySqlCommand(EDIT_ACTOR, connection);
+                connection.Open();
+                var id = command.ExecuteNonQuery();
+                if(id == 1)
+                    state = true;
+                
+                connection.Close();
+            }
+            return state;
+        }
+
+        public static bool DeleteActor(Aktorzy actor)
+        {
+            bool state = false;
+            using(var connection = DBConnection.Instance.Connection)
+            {
+                string DELETE_ACTOR = $"DELETE FROM aktorzy WHERE IDaktora = {actor.IDActor}";
+                MySqlCommand command = new MySqlCommand(DELETE_ACTOR, connection);
+                connection.Open();
+                var id = command.ExecuteNonQuery();
+                if (id == 1)
+                    state = true;
+
+                connection.Close();
+            }
+            return state;
         }
         #endregion
     }
