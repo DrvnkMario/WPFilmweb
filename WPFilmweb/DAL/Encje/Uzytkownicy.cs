@@ -18,6 +18,7 @@ namespace WPFilmweb.DAL.Encje
         #endregion
 
         #region Constructors
+        // MySqlDataReader constructor - creates object based on MySql data
         public Uzytkownicy(MySqlDataReader reader)
         {
             IDUser = int.Parse(reader["IDuzytkownika"].ToString());
