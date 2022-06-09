@@ -4,13 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFilmweb.View"
-            
+             xmlns:ViewModels="clr-namespace:WPFilmweb.ViewModel"
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:vm="clr-namespace:WPFilmweb.ViewModel"
-             xmlns:view="clr-namespace:WPFilmweb.View"
              mc:Ignorable="d" 
              d:DesignHeight="540" d:DesignWidth="1129">
-    
     <UserControl.Resources>
         <Style x:Key="MoviesStyle" TargetType="Button">
             <Setter Property="Margin" Value="10" />
@@ -25,7 +22,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Background="LightGray" DataContext="moviesVM">
+    <Grid Background="LightGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="12*"/>
             <RowDefinition Height="2*"/>
@@ -39,37 +36,37 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <Button Grid.Column="0" Grid.Row="0" Style="{StaticResource MoviesStyle}" Click="Movie_Click">
-            <Image Stretch="Fill" Source="{Binding Poster1, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
+        <Button Grid.Column="0" Grid.Row="0" Style="{StaticResource MoviesStyle}" Command="{Binding MovieClick}">
+            <Image Stretch="Fill" Source="{Binding Movies[0].Poster}"/>
         </Button>
         <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource MoviesStyle}">
-            <Image Stretch="Fill" Source="{Binding Poster2, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
+            <Image Stretch="Fill" Source="{Binding Movies[1].Poster}"/>
         </Button>
         <Button Grid.Column="2" Grid.Row="0" Style="{StaticResource MoviesStyle}">
-            <Image Stretch="Fill" Source="{Binding Poster3, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
+            <Image Stretch="Fill" Source="{Binding Movies[2].Poster}"/>
         </Button>
         <Button Grid.Column="3" Grid.Row="0" Style="{StaticResource MoviesStyle}">
-            <Image Stretch="Fill" Source="{Binding Poster4, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
+            <Image Stretch="Fill" Source="{Binding Movies[3].Poster}"/>
         </Button>
 
         <TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource TitleStyle}"
-            Text="{Binding Title1, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
+            Text="{Binding Movies[0].Title}"/>
         <TextBlock Grid.Column="1" Grid.Row="1" Style="{StaticResource TitleStyle}"
-            Text="{Binding Title2, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
+           Text="{Binding Movies[1].Title}"/>
         <TextBlock Grid.Column="2" Grid.Row="1" Style="{StaticResource TitleStyle}"
-            Text="{Binding Title3, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
+            Text="{Binding Movies[2].Title}"/>
         <TextBlock Grid.Column="3" Grid.Row="1" Style="{StaticResource TitleStyle}"
-            Text="{Binding Title4, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
+            Text="{Binding Movies[3].Title}"/>
         <Grid Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Margin="5" Content="Poprzednia" Click="Previous_Page"/>
+            <Button Grid.Column="0" Margin="5" Content="Previous" Command="{Binding PreviousPage}"/>
             <TextBlock Grid.Column="1" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Height="26" Width="40"
-                Text="{Binding CurrentPage, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
-            <Button Grid.Column="2" Margin="5" Content="Następna" Click="Next_Page"/>
+               Text="{Binding CurrentPage}"/>
+            <Button Grid.Column="2" Margin="5" Content="Next" Command="{Binding NextPage}"/>
 
         </Grid>
     </Grid>

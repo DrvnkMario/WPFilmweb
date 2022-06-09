@@ -18,10 +18,9 @@ namespace WPFilmweb.Model
         private Filmy emptyMovie = new Filmy("", 0, "", "", null);
         public Model()
         {
-
             GetMovies();
         }
-        public void GetMovies()
+        public void GetMovies() // Filling up models movie list
         {
             var movies = RepozytoriumFilmy.GetMovies();
             MoviesList.Clear();
@@ -29,10 +28,11 @@ namespace WPFilmweb.Model
             {
                 MoviesList.Add(movie);
             }
+            MoviesList = new ObservableCollection<Filmy>(MoviesList.OrderBy(movie => movie.Title).ToList());
         }
-        public ObservableCollection<Filmy> RefreshMovies(ObservableCollection<Filmy> m, int n)
+        public void RefreshMovies(ObservableCollection<Filmy> movies, int n)
         {
-            ObservableCollection<Filmy> movies = new ObservableCollection<Filmy>();
+            movies.Clear(); // this line is intentional. It's purpouse is clearing ObservableCollection passed as reference, that way it is always
             for (int i = 4 * n - 4; i <= n * 3 + 1; i++)
             {
                 if (i == MoviesList.Count())
@@ -45,8 +45,6 @@ namespace WPFilmweb.Model
                 }
                 movies.Add(MoviesList[i]);
             }
-            m.Clear();
-            return movies;
         }
         
     }

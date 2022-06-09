@@ -19,19 +19,20 @@ namespace WPFilmweb.ViewModel
 
     class MoviesViewModel : ViewModelBase
     {
+        public string Test { get; set; }
         private Model model { get; set; }
         public Model Model
         {
             get { return model; }
             set { model = value; }
         }
-        private ObservableCollection<Filmy> movies {get; set;}
+        private ObservableCollection<Filmy> movies { get; set; }
         public ObservableCollection<Filmy> Movies
         {
             get { return movies; }
-            set 
+            set
             {
-                movies = value; 
+                movies = value;
                 onPropertyChanged(nameof(Movies));
             }
         }
@@ -43,7 +44,7 @@ namespace WPFilmweb.ViewModel
             Model = new Model();
             Movies = new ObservableCollection<Filmy>();
             CurrentPage = 1;
-            Movies = model.RefreshMovies(movies,currentPage);
+            model.RefreshMovies(movies, currentPage);
         }
         public int CurrentPage
         {
@@ -63,12 +64,12 @@ namespace WPFilmweb.ViewModel
         public ICommand NextPage => nextPage ?? (nextPage = new RelayCommand(
             o =>
             {
-               if(CurrentPage <= Model.MoviesList.Count()/4)
+                if (CurrentPage <= Model.MoviesList.Count() / 4)
                 {
                     CurrentPage++;
-                    Movies = model.RefreshMovies(Movies,currentPage);
+                    model.RefreshMovies(Movies, currentPage);
                 }
-                    
+
             }, null));
 
         private ICommand previousPage;
@@ -79,7 +80,7 @@ namespace WPFilmweb.ViewModel
                 if (CurrentPage > 1)
                 {
                     CurrentPage--;
-                    Movies = model.RefreshMovies(Movies, currentPage);
+                    model.RefreshMovies(Movies, currentPage);
                 }
 
             }, null));
@@ -89,9 +90,7 @@ namespace WPFilmweb.ViewModel
         public ICommand MovieClick => movieClick ?? (movieClick = new RelayCommand(
             o =>
             {
-                Console.WriteLine("test");
-                //NavigationService.GetNavigationService(null).Navigate(new MovieDescription());
-                //NavigationService.Navigate(new MovieDescription());
+                Console.WriteLine("xD");
             }, null
             ));
     }

@@ -4,16 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFilmweb.View"
-        xmlns:vm="clr-namespace:WPFilmweb.ViewModel"
-        xmlns:view="clr-namespace:WPFilmweb.View"
+        xmlns:ViewModels="clr-namespace:WPFilmweb.ViewModel"
+        xmlns:Views="clr-namespace:WPFilmweb.View"
         xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="Filmweb" Height="720" Width="1280">
 
     <Window.DataContext>
-        <vm:MainViewModel/>
+        <ViewModels:MainViewModel/>
     </Window.DataContext>
-    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -55,7 +54,7 @@
                     FontSize="20" 
                     HorizontalAlignment="Center" 
                     VerticalAlignment="Center">
-                    Search for: 
+                    Search for:
                 </Label>
                 <ComboBox
                     Grid.Row="0" 
@@ -75,7 +74,7 @@
                 <TextBox 
                     Grid.Row="1" 
                     Grid.Column="1" 
-                    Text="{Binding SearchbarText}"
+                    Text="{Binding SearchbarText, UpdateSourceTrigger=PropertyChanged}"
                     FontSize="20"/>
             </Grid>
             <TextBlock 
@@ -85,30 +84,19 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 FontSize="30"/>
+            <Button Content="NOWA STRONA" Command="{Binding ChangePage}" Grid.Column="2"/>
         </Grid>
-        <view:Movies Grid.Column="1" 
-                     Grid.Row="1" 
-                     Title1="{Binding moviesPanel.Movies[0].Title}"
-                     Title2="{Binding moviesPanel.Movies[1].Title}"
-                     Title3="{Binding moviesPanel.Movies[2].Title}"
-                     Title4="{Binding moviesPanel.Movies[3].Title}"
-                     Poster1="{Binding moviesPanel.Movies[0].Poster}"
-                     Poster2="{Binding moviesPanel.Movies[1].Poster}"
-                     Poster3="{Binding moviesPanel.Movies[2].Poster}"
-                     Poster4="{Binding moviesPanel.Movies[3].Poster}"
-                     CurrentPage="{Binding moviesPanel.CurrentPage}"
-                     >
-            <Behaviors:Interaction.Triggers>
-                <Behaviors:EventTrigger EventName="evNext_Page_handler">
-                    <Behaviors:InvokeCommandAction Command="{Binding moviesPanel.NextPage}"/>
-                </Behaviors:EventTrigger>
-                <Behaviors:EventTrigger EventName="evPrevious_Page_handler">
-                    <Behaviors:InvokeCommandAction Command="{Binding moviesPanel.PreviousPage}"/>
-                </Behaviors:EventTrigger>
-                <Behaviors:EventTrigger EventName="evMovie_Click_handler">
-                    <Behaviors:InvokeCommandAction Command="{Binding moviesPanel.MovieClick}"/>
-                </Behaviors:EventTrigger>
-            </Behaviors:Interaction.Triggers>
-        </view:Movies>
+        <ContentControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Content="{Binding CurrentViewModel}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type ViewModels:MoviesViewModel}">
+                    <Views:Movies />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type ViewModels:MovieDescriptionViewModel}">
+                    <Views:MovieDescription/>
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
+        
     </Grid>
+        
 </Window>
