@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace WPFilmweb.ViewModel.BaseClasses
 {
-    class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
 
         readonly Action<object> _execute;

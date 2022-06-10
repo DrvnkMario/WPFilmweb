@@ -19,7 +19,16 @@ namespace WPFilmweb.ViewModel
 
     class MoviesViewModel : ViewModelBase
     {
-        public string Test { get; set; }
+        private NavigationModel navigationModel { get; set; }
+        public NavigationModel NavigationModel
+        {
+            get { return navigationModel; }
+            set 
+            { 
+                navigationModel = value;
+                onPropertyChanged(nameof(NavigationModel));
+            }
+        }
         private Model model { get; set; }
         public Model Model
         {
@@ -37,14 +46,42 @@ namespace WPFilmweb.ViewModel
             }
         }
 
+        private ObservableCollection<Aktorzy> actors { get; set; }
+        public ObservableCollection<Aktorzy> Actors
+        {
+            get { return actors; }
+            set
+            {
+                actors = value;
+                onPropertyChanged(nameof(Actors));
+            }
+        }
+
+        private ObservableCollection<Rezyserzy> directors { get; set; }
+        public ObservableCollection<Rezyserzy> Directors
+        {
+            get { return directors; }
+            set
+            {
+                directors = value;
+                onPropertyChanged(nameof(Directors));
+            }
+        }
+
         private int currentPage { get; set; }
 
-        public MoviesViewModel()
+        public MoviesViewModel(Model m, NavigationModel navimodel)
         {
-            Model = new Model();
+            NavigationModel = navimodel;
+            Model = m;
             Movies = new ObservableCollection<Filmy>();
+            Directors = new ObservableCollection<Rezyserzy>();
+            Actors = new ObservableCollection<Aktorzy>();
             CurrentPage = 1;
             model.RefreshMovies(movies, currentPage);
+            Directors = model.DirectorsList;
+            Actors = model.ActorList;
+
         }
         public int CurrentPage
         {
@@ -85,12 +122,49 @@ namespace WPFilmweb.ViewModel
 
             }, null));
 
-        private ICommand movieClick;
+        private ICommand movieClick1;
 
-        public ICommand MovieClick => movieClick ?? (movieClick = new RelayCommand(
+        public ICommand MovieClick1 => movieClick1 ?? (movieClick1 = new RelayCommand(
             o =>
             {
-                Console.WriteLine("xD");
+
+                if (Movies[0].Title != "")
+                {
+                    NavigationModel.ChangeVM(new MovieDescriptionViewModel(Movies[0], Actors, Directors));
+                }
+            }, null
+            ));
+        private ICommand movieClick2;
+
+        public ICommand MovieClick2 => movieClick2 ?? (movieClick2 = new RelayCommand(
+            o =>
+            {
+                if(Movies[1].Title != "")
+                {
+                    NavigationModel.ChangeVM(new MovieDescriptionViewModel(Movies[1], Actors, Directors));
+                }
+            }, null
+            ));
+        private ICommand movieClick3;
+
+        public ICommand MovieClick3 => movieClick3 ?? (movieClick3 = new RelayCommand(
+            o =>
+            {
+                if (Movies[2].Title != "")
+                {
+                    NavigationModel.ChangeVM(new MovieDescriptionViewModel(Movies[2], Actors, Directors));
+                }
+            }, null
+            ));
+        private ICommand movieClick4;
+
+        public ICommand MovieClick4 => movieClick4 ?? (movieClick4 = new RelayCommand(
+            o =>
+            {
+                if (Movies[3].Title != "")
+                {
+                    NavigationModel.ChangeVM(new MovieDescriptionViewModel(Movies[3], Actors, Directors));
+                }
             }, null
             ));
     }

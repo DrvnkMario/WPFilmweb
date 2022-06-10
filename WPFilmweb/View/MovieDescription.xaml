@@ -23,8 +23,8 @@
         <StackPanel Grid.Column="1" Margin="5" >
             <TextBlock FontSize="24" Text="{Binding Title}" HorizontalAlignment="Center" 
                 Height="70" TextWrapping="Wrap" TextAlignment="Center"/>
-            <TextBlock Text="Reżyser:" Style="{StaticResource MoviesStyle}"/>
-            <TextBlock Text="Obsada:" Style="{StaticResource MoviesStyle}"/>
+            <TextBlock Text="{Binding Directors}" Style="{StaticResource MoviesStyle}"/>
+            <TextBlock Text="{Binding Actors}" Style="{StaticResource MoviesStyle}"/>
             <TextBlock Text="{Binding ReleaseYear}" Style="{StaticResource MoviesStyle}" />
             <TextBlock Text="{Binding Length}" Style="{StaticResource MoviesStyle}"/>
             <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">

@@ -18,14 +18,24 @@ namespace WPFilmweb.ViewModel
     internal class MainViewModel : ViewModelBase
     {
         #region Properties
-        private ViewModelBase currentViewModel { get; set; }
-        public ViewModelBase CurrentViewModel
+        private NavigationModel navigationModel { get; set; }
+        public NavigationModel NavigationModel
         {
-            get { return currentViewModel; }
+            get { return navigationModel; }
             set
             {
-                currentViewModel = value;
-                onPropertyChanged(nameof(CurrentViewModel));
+                navigationModel = value;
+                onPropertyChanged(nameof(NavigationModel));
+            }
+        }
+        private Model model { get ; set; }
+        public Model Model 
+        {
+            get { return model; }
+            set 
+            {
+                model = value; 
+                onPropertyChanged(nameof(Model));
             }
         }
         private string welcomeText { get; set; }
@@ -45,14 +55,6 @@ namespace WPFilmweb.ViewModel
             {
                 searchbarText = value;
                 onPropertyChanged(nameof(SearchbarText));
-                Console.WriteLine("TEST");
-                //if (searchbarText == string.Empty)
-                //{
-                //    moviesPanel.Model.RefreshMovies(moviesPanel.Movies, moviesPanel.CurrentPage);
-                //}
-                //else if (SelectedItem == "Movies")
-                //{
-                //}
             }
         }
         private List<string> comboContent { get; set; }
@@ -77,9 +79,9 @@ namespace WPFilmweb.ViewModel
         #region Constructors 
         public MainViewModel()
         {
-            //CurrentViewModel = new MoviesViewModel();
-            MoviesViewModel temp = new MoviesViewModel();
-            CurrentViewModel = new MovieDescriptionViewModel(temp.Movies[0]);
+            Model = new Model();
+            NavigationModel = new NavigationModel();
+            NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel));
             welcomeText = "Welcome to MVVM movies!";
             ComboContent = new List<string>()
             {   "Movies",
@@ -87,16 +89,6 @@ namespace WPFilmweb.ViewModel
                 "Directors" };
             SelectedItem = ComboContent[0];
         }
-        #endregion
-
-        #region Commands
-        private ICommand changePage { get; set; }
-        public ICommand ChangePage => changePage ?? (changePage = new RelayCommand(
-            o =>
-            {
-                //CurrentViewModel = new MovieDescriptionViewModel();
-            }, null
-            ));
         #endregion
     }
 }

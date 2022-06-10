@@ -84,9 +84,8 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 FontSize="30"/>
-            <Button Content="NOWA STRONA" Command="{Binding ChangePage}" Grid.Column="2"/>
         </Grid>
-        <ContentControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Content="{Binding CurrentViewModel}">
+        <ContentControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Content="{Binding NavigationModel.CurrentViewModel, UpdateSourceTrigger=PropertyChanged}">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type ViewModels:MoviesViewModel}">
                     <Views:Movies />
