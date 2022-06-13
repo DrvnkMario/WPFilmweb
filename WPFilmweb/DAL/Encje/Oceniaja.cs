@@ -12,6 +12,9 @@ namespace WPFilmweb.DAL.Encje
 
         public int IDmovie { get; set; }
         public int IDuser { get; set; }
+        public string Comment { get; set; }
+        
+        public int Grade { get; set; } 
 
         #endregion
 
@@ -21,6 +24,8 @@ namespace WPFilmweb.DAL.Encje
         {
             IDmovie = int.Parse(reader["IDfilmu"].ToString());
             IDuser = int.Parse(reader["IDuzytkownika"].ToString());
+            Comment = reader["komentarz"].ToString();
+            Grade = int.Parse(reader["wartosc"].ToString());
         }
         #endregion
     }

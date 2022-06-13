@@ -55,6 +55,21 @@ namespace WPFilmweb.ViewModel
             {
                 searchbarText = value;
                 onPropertyChanged(nameof(SearchbarText));
+                if(SelectedItem == "Movies")
+                {
+                    Model.GetMoviesByTitle(SearchbarText);
+                    NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel));
+                    //Model.RefreshMovies();
+                }
+                else if (SelectedItem == "Actors")
+                {
+                    Model.GetActorsByName(SearchbarText);
+                    NavigationModel.ChangeVM(new ActorsViewModel(Model, NavigationModel));
+                }
+                else if(SelectedItem == "Directors")
+                {
+
+                }
             }
         }
         private List<string> comboContent { get; set; }
@@ -71,8 +86,28 @@ namespace WPFilmweb.ViewModel
 
         public string SelectedItem
         {
-            get { return selectedItem; }
-            set { selectedItem = value; }
+            get 
+            { 
+                return selectedItem; 
+            }
+            set 
+            { 
+                selectedItem = value;
+                onPropertyChanged(nameof(SelectedItem));
+                if(selectedItem == "Movies")
+                {
+                    NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel));
+                }
+                else if(selectedItem == "Actors")
+                {
+                    NavigationModel.ChangeVM(new ActorsViewModel(Model, NavigationModel));
+                }
+                else if(selectedItem == "Directors")
+                {
+                    NavigationModel.ChangeVM(new DirectorsViewModel(Model, NavigationModel));
+                }
+                SearchbarText = String.Empty;
+            }
         }
         #endregion
 

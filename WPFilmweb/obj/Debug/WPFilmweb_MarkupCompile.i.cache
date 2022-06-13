@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\Programowanie\C#\WPFilmweb\WPFilmweb\App.xaml
-31105350889
+61891620674
 
-37675185248
+43-770354889
 341802002309
-View\MainWindow.xaml;View\MovieDescription.xaml;View\Movies.xaml;
+View\ActorDescription.xaml;View\Actors.xaml;View\Directors.xaml;View\MainWindow.xaml;View\MovieDescription.xaml;View\Movies.xaml;
 
 True
 

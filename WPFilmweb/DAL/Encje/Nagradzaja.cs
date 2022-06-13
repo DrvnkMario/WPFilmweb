@@ -11,7 +11,8 @@ namespace WPFilmweb.DAL.Encje
         #region 
         public int IDmovie { get; set; }
         public int IDaward { get; set; }
-        #endregion
+        public string AwardingDate { get; set; }
+        #endregion Properties
 
         #region Constructors
         // MySqlDataReader constructor - creates object based on MySql data
@@ -19,6 +20,7 @@ namespace WPFilmweb.DAL.Encje
         {
             IDmovie = int.Parse(reader["IDfilmu"].ToString());
             IDaward = int.Parse(reader["IDnagrody"].ToString());
+            AwardingDate = reader["data_przyznania"].ToString();
         }
         #endregion
 

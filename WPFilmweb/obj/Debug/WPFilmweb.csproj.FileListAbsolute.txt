@@ -92,3 +92,9 @@ D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\WPFilmweb.csproj.CoreCompileIn
 D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\WPFilmweb.csproj.CopyComplete
 D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\WPFilmweb.exe
 D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\WPFilmweb.pdb
+D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\ActorDescription.g.cs
+D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\ActorDescription.baml
+D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\Actors.g.cs
+D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\Actors.baml
+D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\Directors.g.cs
+D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\Directors.baml

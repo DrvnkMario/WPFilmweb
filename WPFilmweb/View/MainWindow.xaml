@@ -31,14 +31,6 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
-            <!--<TextBox 
-                Grid.Row="0" 
-                Grid.Column="0" 
-                HorizontalAlignment="Stretch" 
-                VerticalAlignment="Center" 
-                Width="auto" 
-                Margin="10"
-                Text="{Binding SearchbarText, UpdateSourceTrigger=PropertyChanged}"/>-->
             <Grid Grid.Row="0" Grid.Column="0" Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
@@ -92,6 +84,15 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type ViewModels:MovieDescriptionViewModel}">
                     <Views:MovieDescription/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type ViewModels:ActorDescriptionViewModel}">
+                    <Views:ActorDescription/> 
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type ViewModels:ActorsViewModel}">
+                    <Views:Actors/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type ViewModels:DirectorsViewModel}">
+                    <Views:Directors/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

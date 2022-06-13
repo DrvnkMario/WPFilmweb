@@ -2,7 +2,7 @@
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.IO;
-
+using System;
 namespace WPFilmweb.DAL.Encje
 {
     class Rezyserzy
@@ -20,12 +20,12 @@ namespace WPFilmweb.DAL.Encje
         // MySqlDataReader constructor - creates object based on MySql data
         public Rezyserzy(MySqlDataReader reader)
         {
-            IDDirector = int.Parse(reader["IDaktora"].ToString());
+            IDDirector = int.Parse(reader["IDrezysera"].ToString());
             Name = reader["imie"].ToString();
             Surname = reader["nazwisko"].ToString();
-            Birthdate = reader["data_urodzenia"].ToString();
+            Birthdate = reader["data_urodzenia"].ToString(); 
             Bio = reader["biografia"].ToString();
-
+            //DateTime.ToString()
             BitmapImage temp = new BitmapImage();
             MemoryStream ms = new MemoryStream((byte[])reader["zdjecie"]);
             temp.BeginInit();

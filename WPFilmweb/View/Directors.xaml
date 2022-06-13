@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="WPFilmweb.View.Movies"
+﻿<UserControl x:Class="WPFilmweb.View.Directors"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -28,7 +28,7 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
@@ -36,31 +36,31 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <Button Grid.Column="0" Grid.Row="0" Style="{StaticResource MoviesStyle}" Command="{Binding MovieClick1}" 
-            Visibility="{Binding MoviesVisibility[0]}">
-            <Image Stretch="Fill" Source="{Binding Movies[0].Poster}"/>
+        <Button Grid.Column="0" Grid.Row="0" Style="{StaticResource MoviesStyle}" Command="{Binding DirectorClick1}"
+            Visibility="{Binding DirectorsVisibility[0]}">
+            <Image Stretch="Fill" Source="{Binding Directors[0].DirectorImage}"/>
         </Button>
-        <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource MoviesStyle}" Command="{Binding MovieClick2}" 
-            Visibility="{Binding MoviesVisibility[1]}">
-            <Image Stretch="Fill" Source="{Binding Movies[1].Poster}"/>
+        <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource MoviesStyle}" Command="{Binding DirectorClick2}"
+            Visibility="{Binding DirectorsVisibility[1]}">
+            <Image Stretch="Fill" Source="{Binding Directors[1].DirectorImage}"/>
         </Button>
-        <Button Grid.Column="2" Grid.Row="0" Style="{StaticResource MoviesStyle}" Command="{Binding MovieClick3}" 
-            Visibility="{Binding MoviesVisibility[2]}">
-            <Image Stretch="Fill" Source="{Binding Movies[2].Poster}"/>
+        <Button Grid.Column="2" Grid.Row="0" Style="{StaticResource MoviesStyle}" Command="{Binding DirectorClick3}"
+            Visibility="{Binding DirectorsVisibility[2]}">
+            <Image Stretch="Fill" Source="{Binding Directors[2].DirectorImage}"/>
         </Button>
-        <Button Grid.Column="3" Grid.Row="0" Style="{StaticResource MoviesStyle}" Command="{Binding MovieClick4}" 
-            Visibility="{Binding MoviesVisibility[3]}">
-            <Image Stretch="Fill" Source="{Binding Movies[3].Poster}"/>
+        <Button Grid.Column="3" Grid.Row="0" Style="{StaticResource MoviesStyle}" Command="{Binding DirectorClick4}"
+            Visibility="{Binding DirectorsVisibility[3]}">
+            <Image Stretch="Fill" Source="{Binding Directors[3].DirectorImage}"/>
         </Button>
 
         <TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource TitleStyle}"
-            Text="{Binding Movies[0].Title}"/>
+            Text="{Binding Directors[0].Name}"/>
         <TextBlock Grid.Column="1" Grid.Row="1" Style="{StaticResource TitleStyle}"
-           Text="{Binding Movies[1].Title}"/>
+           Text="{Binding Directors[1].Name}"/>
         <TextBlock Grid.Column="2" Grid.Row="1" Style="{StaticResource TitleStyle}"
-            Text="{Binding Movies[2].Title}"/>
+            Text="{Binding Directors[3].Name}"/>
         <TextBlock Grid.Column="3" Grid.Row="1" Style="{StaticResource TitleStyle}"
-            Text="{Binding Movies[3].Title}"/>
+            Text="{Binding Directors[4].Name}"/>
         <Grid Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

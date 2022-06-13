@@ -6,12 +6,24 @@ using System.Threading.Tasks;
 using WPFilmweb.ViewModel.BaseClasses;
 using System.Windows.Media;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 namespace WPFilmweb.ViewModel
 {
     using Model;
     using DAL.Encje;
     internal class MovieDescriptionViewModel : ViewModelBase
     {
+        private NavigationModel navigationModel { get; set; }
+        public NavigationModel NavigationModel
+        {
+            get { return navigationModel; }
+            set
+            {
+                navigationModel = value;
+                onPropertyChanged(nameof(NavigationModel));
+            }
+        }
+
         private Model model { get; set; }
         public Model Model
         {
@@ -63,7 +75,7 @@ namespace WPFilmweb.ViewModel
             }
         }
 
-        public MovieDescriptionViewModel(Filmy movie, ObservableCollection<Aktorzy> actors, ObservableCollection<Rezyserzy> director)
+        public MovieDescriptionViewModel(Filmy movie, ObservableCollection<Aktorzy> actors, ObservableCollection<Rezyserzy> director, NavigationModel navi)
         {
             Model = new Model();
             CurrentMovie = movie;
@@ -71,7 +83,7 @@ namespace WPFilmweb.ViewModel
             CurrentActors = Model.GetActorsFromMovie(movie);
             CurrentDirectors = director;
             CurrentDirectors = Model.GetDirectorsFromMovie(movie);
-
+            NavigationModel = navi;
         }
 
         public string Title => CurrentMovie.Title;
@@ -139,5 +151,13 @@ namespace WPFilmweb.ViewModel
                 return result;
             }
         }
+        private ICommand back;
+
+        public ICommand Back => back ?? (back = new RelayCommand(
+            o =>
+            {
+                NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel));
+            }, null
+            ));
     }
 }
