@@ -134,6 +134,7 @@
     <Compile Include="ViewModel\ActorsViewModel.cs" />
     <Compile Include="ViewModel\BaseClasses\RelayCommand.cs" />
     <Compile Include="ViewModel\BaseClasses\ViewModelBase.cs" />
+    <Compile Include="ViewModel\DirectorDescriptionViewModel.cs" />
     <Compile Include="ViewModel\DirectorsViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MovieDescriptionViewModel.cs" />
@@ -143,6 +144,9 @@
     </Compile>
     <Compile Include="View\Actors.xaml.cs">
       <DependentUpon>Actors.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DirectorDescription.xaml.cs">
+      <DependentUpon>DirectorDescription.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Directors.xaml.cs">
       <DependentUpon>Directors.xaml</DependentUpon>
@@ -193,6 +197,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Actors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DirectorDescription.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

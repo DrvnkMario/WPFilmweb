@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Media;
 using System.Windows.Navigation;
-
+using System.Windows.Input;
 namespace WPFilmweb.ViewModel
 {
     using DAL.Encje;
@@ -118,7 +118,7 @@ namespace WPFilmweb.ViewModel
 
                 if (Directors[0].Name != "")
                 {
-                    NavigationModel.ChangeVM(new ActorDescriptionViewModel(Directors[0], Model.MoviesList, NavigationModel));
+                    NavigationModel.ChangeVM(new DirectorDescriptionViewModel(Directors[0], Model.MoviesList, NavigationModel));
                 }
             }, null
             ));
@@ -129,7 +129,7 @@ namespace WPFilmweb.ViewModel
             {
                 if (Directors[1].Name != "")
                 {
-                    //NavigationModel.ChangeVM(new ActorDescriptionViewModel(Actors[1], Model.MoviesList, NavigationModel));
+                    NavigationModel.ChangeVM(new DirectorDescriptionViewModel(Directors[1], Model.MoviesList, NavigationModel));
                 }
             }, null
             ));
@@ -140,7 +140,7 @@ namespace WPFilmweb.ViewModel
             {
                 if (Directors[2].Name != "")
                 {
-                    //NavigationModel.ChangeVM(new ActorDescriptionViewModel(Actors[2], Model.MoviesList, NavigationModel));
+                    NavigationModel.ChangeVM(new DirectorDescriptionViewModel(Directors[2], Model.MoviesList, NavigationModel));
                 }
             }, null
             ));
@@ -151,7 +151,7 @@ namespace WPFilmweb.ViewModel
             {
                 if (Directors[3].Name != "")
                 {
-                    //NavigationModel.ChangeVM(new ActorDescriptionViewModel(Actors[3], Model.MoviesList, NavigationModel));
+                    NavigationModel.ChangeVM(new DirectorDescriptionViewModel(Directors[3], Model.MoviesList, NavigationModel));
                 }
             }, null
             ));

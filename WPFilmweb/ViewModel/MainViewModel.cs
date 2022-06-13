@@ -68,7 +68,8 @@ namespace WPFilmweb.ViewModel
                 }
                 else if(SelectedItem == "Directors")
                 {
-
+                    Model.GetDirectorsByName(SearchbarText);
+                    NavigationModel.ChangeVM(new DirectorsViewModel(Model,NavigationModel));
                 }
             }
         }

@@ -11,7 +11,7 @@ namespace WPFilmweb.ViewModel
 {
     using Model;
     using DAL.Encje;
-    internal class ActorDescriptionViewModel : ViewModelBase
+    internal class DirectorDescriptionViewModel : ViewModelBase
     {
         private NavigationModel navigationModel { get; set; }
         public NavigationModel NavigationModel
@@ -30,18 +30,18 @@ namespace WPFilmweb.ViewModel
             get { return model; }
             set { model = value; }
         }
-        private Aktorzy currentActor;
+        private Rezyserzy currentDirector;
 
-        public Aktorzy CurrentActor
+        public Rezyserzy CurrentDirector
         {
             get
             {
-                return currentActor;
+                return currentDirector;
             }
             set
             {
-                currentActor = value;
-                onPropertyChanged(nameof(CurrentActor));
+                currentDirector = value;
+                onPropertyChanged(nameof(CurrentDirector));
             }
         }
 
@@ -60,31 +60,38 @@ namespace WPFilmweb.ViewModel
             }
         }
 
-        public ActorDescriptionViewModel(Aktorzy actor, ObservableCollection<Filmy> movies, NavigationModel navi)
+        private string tempBirthDate;
+
+        public string TempBirthDate
+        {
+            get { return tempBirthDate; }
+            set { tempBirthDate = value; }
+        }
+
+        public DirectorDescriptionViewModel(Rezyserzy director, ObservableCollection<Filmy> movies, NavigationModel navi)
         {
             Model = new Model();
-            CurrentActor = actor;
+            CurrentDirector = director;
             CurrentMovies = movies;
-            CurrentMovies = Model.GetMoviesFromActor(actor);
+            CurrentMovies = Model.GetMoviesFromDirector(director);
             NavigationModel = navi;
         }
 
-        public string NameSurname => CurrentActor.Name + " " + CurrentActor.Surname;
-        public string Bio => "Biografia: " + CurrentActor.Bio;
-        public ImageSource ActorImage => CurrentActor.ActorImage;
+        public string NameSurname => CurrentDirector.Name + " " + CurrentDirector.Surname;
+        public string Bio => "Biografia: " + CurrentDirector.Bio;
+        public ImageSource ActorImage => CurrentDirector.DirectorImage;
         public string BirthDate => "Data Urodzenia: " + BirthDateToString();
-        public string Movies => "Zagrał w: " + MoviesListToString();
+        public string Movies => "Wyreżyserował: " + MoviesListToString();
 
         public string BirthDateToString()
         {
             string result = string.Empty;
             for (int i = 0; i < 10; i++)
             {
-                result += CurrentActor.BirthDate.ToString()[i];
+                result += CurrentDirector.Birthdate.ToString()[i];
             }
             return result;
         }
-
         public string MoviesListToString()
         {
             string result = String.Empty;
@@ -110,14 +117,16 @@ namespace WPFilmweb.ViewModel
             }
         }
 
-        
+
         private ICommand back;
 
         public ICommand Back => back ?? (back = new RelayCommand(
             o =>
             {
-                NavigationModel.ChangeVM(new ActorsViewModel(Model, NavigationModel));
+                NavigationModel.ChangeVM(new DirectorsViewModel(Model, NavigationModel));
             }, null
             ));
     }
 }
+    
+

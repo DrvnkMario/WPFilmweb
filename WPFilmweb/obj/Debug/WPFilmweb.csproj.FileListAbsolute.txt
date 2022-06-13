@@ -98,3 +98,5 @@ D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\Actors.g.cs
 D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\Actors.baml
 D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\Directors.g.cs
 D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\Directors.baml
+D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\DirectorDescription.g.cs
+D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\DirectorDescription.baml

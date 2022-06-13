@@ -78,10 +78,12 @@ namespace WPFilmweb.Model
         public void GetDirectors()
         {
             var directors = RepozytoriumRezyserzy.GetAllDirectors();
+            DirectorsList.Clear();
             foreach (var director in directors)
             {
                 DirectorsList.Add(director);
             }
+            DirectorsList = new ObservableCollection<Rezyserzy>(DirectorsList.OrderBy(director => (director.Name + director.Surname)).ToList());
         }
 
         public void GetDirectorsMovies()
@@ -315,6 +317,26 @@ namespace WPFilmweb.Model
                 }
                 ActorList.Clear();
                 ActorList = temp;
+            }
+        }
+
+        public void GetDirectorsByName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                GetDirectors();
+            }
+            else
+            {
+                GetDirectors();
+                ObservableCollection<Rezyserzy> temp = new ObservableCollection<Rezyserzy>();
+                foreach (var director in DirectorsList)
+                {
+                    if ((director.Name + " " + director.Surname).ToLower().Contains(name.ToLower()))
+                        temp.Add(director);
+                }
+                DirectorsList.Clear();
+                DirectorsList = temp;
             }
         }
     }
