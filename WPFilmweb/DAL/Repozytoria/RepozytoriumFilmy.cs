@@ -11,7 +11,7 @@ namespace WPFilmweb.DAL.Repozytoria
     class RepozytoriumFilmy
     {
         private const string GET_ALL_MOVIES = "SELECT * FROM filmy";
-        private const string ADD_MOVIE = "INSERT INTO 'filmy'('tytul','rok_wydania','czas_trwania','opis','plakat') VALUES";
+        private const string ADD_MOVIE = "INSERT INTO filmy(tytul,rok_wydania,czas_trwania,opis,plakat) VALUES";
         public static List<Filmy> GetMovies()
         {
             List<Filmy> movies = new List<Filmy>();
@@ -31,8 +31,9 @@ namespace WPFilmweb.DAL.Repozytoria
             bool state = false;
             using (var connection = DBConnection.Instance.Connection)
             {
-                MySqlCommand command = new MySqlCommand($"{ADD_MOVIE} {movie.ToInsert()}", connection);
+                MySqlCommand command = new MySqlCommand($"{ADD_MOVIE} ({movie.ToInsert()})", connection);
                 connection.Open();
+                Console.WriteLine(command.CommandText);
                 var id = command.ExecuteNonQuery();
                 state = true;
                 movie.IDmovie = (int)command.LastInsertedId;

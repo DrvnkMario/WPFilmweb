@@ -70,6 +70,11 @@ namespace WPFilmweb.ViewModel
                     Model.GetDirectorsByName(SearchbarText);
                     NavigationModel.ChangeVM(new DirectorsViewModel(Model,NavigationModel));
                 }
+                else if(SelectedItem == "Awards")
+                {
+                    Model.GetAwardsByName(SearchbarText);
+                    NavigationModel.ChangeVM(new AwardsViewModel(Model, NavigationModel));
+                }
             }
         }
         private List<string> comboContent { get; set; }
@@ -105,6 +110,10 @@ namespace WPFilmweb.ViewModel
                 else if(selectedItem == "Directors")
                 {
                     NavigationModel.ChangeVM(new DirectorsViewModel(Model, NavigationModel));
+                }
+                else if(selectedItem == "Awards")
+                {
+                    NavigationModel.ChangeVM(new AwardsViewModel(Model, NavigationModel));
                 }
                 SearchbarText = String.Empty;
             }
@@ -145,17 +154,16 @@ namespace WPFilmweb.ViewModel
             ComboContent = new List<string>()
             {   "Movies",
                 "Actors",
-                "Directors"
+                "Directors",
+                "Awards"
             };
             welcomeText = "Welcome to MVVM movies!";
             ComboVisibility = "Hidden";
             AdminPanelVisibility = "Hidden";
-            //NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel));
-            //ComboVisibility = "Visible";
         }
 
         //tu dopisalem
-        private string currentUsername { get; set; }
+        private string currentUsername { get; set; } = "admin";
 
         public string CurrentUsername
         {
@@ -166,7 +174,7 @@ namespace WPFilmweb.ViewModel
                 onPropertyChanged(nameof(CurrentUsername));
             }
         }
-        private string currentPassword { get; set; }
+        private string currentPassword { get; set; } = "123";
 
         public string CurrentPassword
         {
@@ -203,17 +211,18 @@ namespace WPFilmweb.ViewModel
                         NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel, CurrentUserId));
                         SelectedItem = ComboContent[0];
                         ComboVisibility = "Visible";
-                        AdminPanelVisibility = "Visible";
+                        if(Model.checkAdmin(CurrentUserId))
+                            AdminPanelVisibility = "Visible";
                     }
                 }
             }, null));
 
-        private ICommand logout;
+        private ICommand adminPanel;
 
-        public ICommand Logout => logout ?? (logout = new RelayCommand(
+        public ICommand AdminPanel => adminPanel ?? (adminPanel = new RelayCommand(
             o =>
             {
-                //NavigationModel.ChangeVM(new MainViewModel());
+                NavigationModel.ChangeVM(new AdminPanelViewModel(Model, NavigationModel));
             }, null));
         #endregion
     }

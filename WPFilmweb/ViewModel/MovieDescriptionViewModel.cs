@@ -32,8 +32,8 @@ namespace WPFilmweb.ViewModel
         }
         private Filmy currentMovie;
 
-        public Filmy CurrentMovie 
-        { 
+        public Filmy CurrentMovie
+        {
             get
             {
                 return currentMovie;
@@ -129,7 +129,7 @@ namespace WPFilmweb.ViewModel
             //
             CurrentRating = Model.GetMovieRatio(CurrentMovie);
             CurrentUserId = id;
-            CurretUserRatio = Model.GetUserRatio(CurrentMovie,CurrentUserId);
+            CurretUserRatio = Model.GetUserRatio(CurrentMovie, CurrentUserId);
         }
 
         public string Title => CurrentMovie.Title;
@@ -139,7 +139,9 @@ namespace WPFilmweb.ViewModel
         public string Length => "Czas trwania: " + CurrentMovie.Length;
         public string Actors => "Obsada: " + ActorsListToString();
         public string Directors => "Reżyserzy: " + DirectorsListToString();
+        public string Genres => "Gatunki: " + Model.GetMovieGenres(CurrentMovie);
 
+        public string Awards => "Przyznane nagrody: " + Model.GetMovieAwards(CurrentMovie);
         public string ActorsListToString()
         {
             string result = String.Empty;

@@ -14,7 +14,8 @@ namespace WPFilmweb.Model
 
     class Model
     {
-        public ObservableCollection<Filmy> MoviesList { get; set; } = new ObservableCollection<Filmy>();
+        public ObservableCollection<Filmy> MoviesList { get; set; } = new ObservableCollection<Filmy>(); // ok
+        public ObservableCollection<string> MoviesVisibility { get; set; } = new ObservableCollection<string>(); // ok
 
         public ObservableCollection<Aktorzy> ActorList { get; set; } = new ObservableCollection<Aktorzy>();
 
@@ -24,7 +25,7 @@ namespace WPFilmweb.Model
 
         public ObservableCollection<Rezyseruja> DirectorsMoviesList { get; set; } = new ObservableCollection<Rezyseruja>();
 
-        public ObservableCollection<string> MoviesVisibility { get; set; } = new ObservableCollection<string>();
+        
 
         public ObservableCollection<string> ActorsVisibility { get; set; } = new ObservableCollection<string>();
 
@@ -35,10 +36,16 @@ namespace WPFilmweb.Model
         public ObservableCollection<Uzytkownicy> UsersList { get; set; } = new ObservableCollection<Uzytkownicy>();
 
         public ObservableCollection<Oceniaja> MoviesRatio { get; set; } = new ObservableCollection<Oceniaja>();
+        public ObservableCollection<Gatunek> Genres { get; set; } = new ObservableCollection<Gatunek>();
+        public ObservableCollection<Okresla> MoviesAndGenresList { get; set; } = new ObservableCollection<Okresla>();
+        public ObservableCollection<Nagrody> Awards { get; set; } = new ObservableCollection<Nagrody>();
+        public ObservableCollection<string> AwardsVisibility { get; set; } = new ObservableCollection<string>();
+        public ObservableCollection<Nagradzaja> MoviesAwards { get; set; } = new ObservableCollection<Nagradzaja>();
 
         private Filmy emptyMovie = new Filmy("", 0, "", "", null);
         private Aktorzy emptyActor = new Aktorzy("", "", "", "", null);
         private Rezyserzy emptyDirector = new Rezyserzy("", "", "", "", null);
+        private Nagrody emptyAward = new Nagrody("", "", null);
         public Model()
         {
             GetMovies();
@@ -52,13 +59,156 @@ namespace WPFilmweb.Model
             DirectorsVisibility.Clear();
             //
             GetMoviesRatio();
+            GetGenres();
+            MoviesAndGenres();
+            GetAwards();
+            GetMoviesAwards();
         }
         //tu      sad
-
+        public void GetAwards()
+        {
+            var awards = RepozytoriumNagrody.GetAllAwards();
+            Awards.Clear();
+            foreach (var award in awards)
+            {
+                Awards.Add(award);
+            }
+        }
+        public void RefreshAwards(ObservableCollection<Nagrody> awards, int n)
+        {
+            if (Awards.Count != 0)
+            {
+                awards.Clear(); // this line is intentional. It's purpouse is clearing ObservableCollection passed as reference, that way it is always filled with 4 objects
+                AwardsVisibility.Clear();
+                for (int i = 4 * n - 4; i <= n * 3 + 1; i++)
+                {
+                    if (i == Awards.Count())
+                    {
+                        for (int z = i; z <= n * 3 + 2; z++)
+                        {
+                            awards.Add(emptyAward);
+                            AwardsVisibility.Add("Hidden");
+                        }
+                        break;
+                    }
+                    awards.Add(Awards[i]);
+                    AwardsVisibility.Add("Visible");
+                }
+            }
+            else
+            {
+                for (int i = 0; i <= 4; i++)
+                {
+                    awards.Add(emptyAward);
+                    AwardsVisibility.Add("Hidden");
+                }
+            }
+        }
+        public void GetAwardsByName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                GetAwards();
+            }
+            else
+            {
+                GetAwards();
+                ObservableCollection<Nagrody> temp = new ObservableCollection<Nagrody>();
+                AwardsVisibility.Clear();
+                foreach (var award in Awards)
+                {
+                    if (award.Name.ToLower().Contains(name.ToLower()))
+                    {
+                        temp.Add(award);
+                        AwardsVisibility.Add("Visible");
+                    }
+                    else
+                    {
+                        AwardsVisibility.Add("Hidden");
+                    }
+                }
+                Awards.Clear();
+                Awards = temp;
+            }
+        }
+        public void GetMoviesAwards()
+        {
+            var MoviesRewards = RepozytoriumNagradzaja.GetMovieRewards();
+            foreach(var mr in MoviesRewards)
+            {
+                MoviesAwards.Add(mr);
+            }
+        }
+        private Nagrody GetAwardById(int id)
+        {
+            foreach (var a in Awards)
+            {
+                if (a.IDAward == id)
+                    return a;
+            }
+            return null;
+        }
+        public string GetMovieAwards(Filmy movie)
+        {
+            string awards = "";
+            foreach (var a in MoviesAwards)
+            {
+                if (a.IDmovie == movie.IDmovie)
+                {
+                    awards +=  GetAwardById(a.IDaward).Name;
+                }
+            }
+            if (awards != String.Empty)
+                return awards;
+            else
+                return "Brak danych";
+        }
+        public void GetGenres()
+        {
+            var genres = RepozytoriumGatunek.GetGenres();
+            Genres.Clear();
+            foreach (var genre in genres)
+            {
+                Genres.Add(genre);
+            }
+        }
+        public void MoviesAndGenres()
+        {
+            var MoviesAndGenres = RepozytoriumOkresla.GetDefiningGenres();
+            MoviesAndGenresList.Clear();
+            foreach(var mg in MoviesAndGenres)
+            {
+                MoviesAndGenresList.Add(mg);
+            }
+        }
+        private Gatunek FindGenreByID(int id)
+        {
+            foreach (var g in Genres)
+            {
+                if (g.IDgenre == id)
+                    return g;
+            }
+            return null;
+        }
+        public string GetMovieGenres(Filmy movie)
+        {
+            string genre = "";
+            foreach (var g in MoviesAndGenresList)
+            {
+                if (g.IDmovie == movie.IDmovie)
+                {
+                    genre += FindGenreByID(g.IDgenre).Name;
+                }
+            }
+            if (genre != String.Empty)
+                return genre;
+            else
+                return "Brak danych";
+        }
         public void UpdateAddGrade(int movieId, int userId, int grade)
         {
             bool temp = true;
-            for(int i = 0; i<MoviesRatio.Count; i++)
+            for(int i = 0; i < MoviesRatio.Count; i++)
             {
                 if(MoviesRatio[i].IDmovie == movieId && MoviesRatio[i].IDuser == userId)
                 {
@@ -69,9 +219,10 @@ namespace WPFilmweb.Model
             }
             if(temp)
             {
-
                 RepozytoriumOceniaja.AddGrade(movieId, userId, grade);
             }
+            MoviesRatio.Clear();
+            GetMoviesRatio();
         }
         public void GetMoviesRatio()
         {
@@ -93,10 +244,13 @@ namespace WPFilmweb.Model
                 {
                     result += (MoviesRatio[i].Grade);
                     temp++;
-                }
-                    
+                }    
             }
-            return (result/temp).ToString("F");
+            // 
+            if (temp > 0)
+                return "Ocena filmu: " + (result / temp).ToString("F");
+            else
+                return "Ocena filmu: " + 0.ToString("F");
         }
         public int GetUserRatio(Filmy m, int user)
         {
@@ -146,6 +300,7 @@ namespace WPFilmweb.Model
         public void GetActorsMovies()
         {
             var actorsMovies = RepozytoriumGraja_w.GetPlayingActors();
+            ActorsMoviesList.Clear();
             foreach (var actorsMovie in actorsMovies)
             {
                 ActorsMoviesList.Add(actorsMovie);
@@ -166,6 +321,7 @@ namespace WPFilmweb.Model
         public void GetDirectorsMovies()
         {
             var directorMovies = RepozytoriumRezyseruja.GetMovieDirectors();
+            DirectorsMoviesList.Clear();
             foreach(var directorMovie in directorMovies)
             {
                 DirectorsMoviesList.Add(directorMovie);
@@ -288,7 +444,7 @@ namespace WPFilmweb.Model
             var actors = new ObservableCollection<Aktorzy>();
             foreach (var a in ActorsMoviesList)
             {
-                if (a.IDactor == movie.IDmovie)
+                if (a.IDmovie == movie.IDmovie)
                 {
                     actors.Add(FindActorById(a.IDactor));
                 }
@@ -301,7 +457,7 @@ namespace WPFilmweb.Model
             var directors = new ObservableCollection<Rezyserzy>();
             foreach (var d in DirectorsMoviesList)
             {
-                if (d.IDdirector == movie.IDmovie)
+                if (d.IDmovie == movie.IDmovie)
                 {
                     directors.Add(FindDirectorById(d.IDdirector));
                 }
@@ -431,5 +587,48 @@ namespace WPFilmweb.Model
 
         //tu
         
+        //
+        public ObservableCollection<string> GetRatingsForMovieList(ObservableCollection<Filmy> movies)
+        {
+            double grade = 0;
+            int temp = 0;
+            ObservableCollection<string> result = new ObservableCollection<string>();
+            for (int i = 0; i < movies.Count; i++)
+            {
+                if(movies[i].Title != "") // check if list isnt filled with empty movie
+                {
+                    for (int j = 0; j < MoviesRatio.Count; j++)
+                    {
+                        if (movies[i].IDmovie == MoviesRatio[j].IDmovie)
+                        {
+                            grade += MoviesRatio[j].Grade;
+                            temp++;
+                        }
+                    }
+                    if (temp > 0)
+                        result.Add((grade / temp).ToString("F"));
+                    else
+                        result.Add(0.ToString("F"));
+                    grade = 0;
+                    temp = 0;
+                }
+                else
+                {
+                    result.Add("");
+                }
+            }
+            return result;
+            
+        }
+        public bool checkAdmin(int userID)
+        {
+            var users = UsersList;
+            for(int i = 0; i< UsersList.Count(); i++)
+            {
+                if (users[i].IDUser == userID && users[i].AccountType == "Administrator")
+                    return true;
+            }
+            return false;
+        }
     }
 }

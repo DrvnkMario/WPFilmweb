@@ -129,10 +129,15 @@
     <Compile Include="DAL\Repozytoria\RepozytoriumRezyseruja.cs" />
     <Compile Include="DAL\Repozytoria\RepozytoriumRezyserzy.cs" />
     <Compile Include="DAL\Repozytoria\RepozytoriumUzytkownicy.cs" />
+    <Compile Include="Model\AdminPanel.cs" />
     <Compile Include="Model\Model.cs" />
+    <Compile Include="Model\Movies.cs" />
     <Compile Include="Model\NavigationModel.cs" />
     <Compile Include="ViewModel\ActorDescirptionViewModel.cs" />
     <Compile Include="ViewModel\ActorsViewModel.cs" />
+    <Compile Include="ViewModel\AdminPanelViewModel.cs" />
+    <Compile Include="ViewModel\AwardDescriptionViewModel.cs" />
+    <Compile Include="ViewModel\AwardsViewModel.cs" />
     <Compile Include="ViewModel\BaseClasses\RelayCommand.cs" />
     <Compile Include="ViewModel\BaseClasses\ViewModelBase.cs" />
     <Compile Include="ViewModel\DirectorDescriptionViewModel.cs" />
@@ -149,6 +154,12 @@
     </Compile>
     <Compile Include="View\AdminPanel.xaml.cs">
       <DependentUpon>AdminPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AwardDescription.xaml.cs">
+      <DependentUpon>AwardDescription.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Awards.xaml.cs">
+      <DependentUpon>Awards.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DirectorDescription.xaml.cs">
       <DependentUpon>DirectorDescription.xaml</DependentUpon>
@@ -209,6 +220,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AdminPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AwardDescription.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Awards.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

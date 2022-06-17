@@ -35,10 +35,15 @@ namespace WPFilmweb.DAL.Encje
 
             BitmapImage temp = new BitmapImage();
             MemoryStream ms = new MemoryStream((byte[])reader["plakat"]);
-            temp.BeginInit();
-            temp.StreamSource = ms;
-            temp.EndInit();
-            Poster = temp as ImageSource;
+            if (ms.Length > 0)
+            {
+                temp.BeginInit();
+                temp.StreamSource = ms;
+                temp.EndInit();
+                Poster = temp as ImageSource;
+            }
+            else
+                Poster = null;
         }
         // New object ctcreated from scratch, to add into database
         public Filmy(string title, int releaseYear, string length, string description, ImageSource poster)
@@ -50,7 +55,17 @@ namespace WPFilmweb.DAL.Encje
             Description = description;
             Poster = poster;
         }
-        
+
+        public Filmy(string title, int releaseYear, string length, string description)
+        {
+            //IDmovie = null;
+            Title = title;
+            ReleaseYear = releaseYear;
+            Length = length;
+            Description = description;
+            Poster = null;
+        }
+
         //Copty ctor
         public Filmy(Filmy movie)
         {

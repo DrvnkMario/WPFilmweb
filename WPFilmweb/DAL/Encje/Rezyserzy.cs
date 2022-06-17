@@ -28,10 +28,18 @@ namespace WPFilmweb.DAL.Encje
             //DateTime.ToString()
             BitmapImage temp = new BitmapImage();
             MemoryStream ms = new MemoryStream((byte[])reader["zdjecie"]);
-            temp.BeginInit();
-            temp.StreamSource = ms;
-            temp.EndInit();
-            DirectorImage = temp as ImageSource;
+            if(ms.Length > 0)
+            {
+                temp.BeginInit();
+                temp.StreamSource = ms;
+                temp.EndInit();
+                DirectorImage = temp as ImageSource;
+            }
+            else
+            {
+                DirectorImage = null;
+            }
+            
         }
         // New object ctcreated from scratch, to add into database
         public Rezyserzy(string name, string surname, string birthdate, string bio, ImageSource image)

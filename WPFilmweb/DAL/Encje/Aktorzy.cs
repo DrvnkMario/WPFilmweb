@@ -33,10 +33,17 @@ namespace WPFilmweb.DAL.Encje
 
             BitmapImage temp = new BitmapImage();
             MemoryStream ms = new MemoryStream((byte[])reader["zdjecie"]);
-            temp.BeginInit();
-            temp.StreamSource = ms;
-            temp.EndInit();
-            ActorImage = temp as ImageSource;
+            
+            if (ms.Length > 0)
+            {
+                temp.BeginInit();
+                temp.StreamSource = ms;
+                temp.EndInit();
+                ActorImage = temp as ImageSource;
+            }
+            else
+                ActorImage = null;
+
         }
         // New object ctcreated from scratch, to add into database
         public Aktorzy(string name, string surname, string birthdate, string bio, ImageSource actorImage)

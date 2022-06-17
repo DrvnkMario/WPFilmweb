@@ -35,6 +35,8 @@
                 MaxHeight="70" TextWrapping="Wrap" TextAlignment="Left"/>
             <TextBlock Text="{Binding ReleaseYear}" Style="{StaticResource MoviesStyle}" />
             <TextBlock Text="{Binding Length}" Style="{StaticResource MoviesStyle}"/>
+            <TextBlock Text="{Binding Genres}" Style="{StaticResource MoviesStyle}"/>
+            <TextBlock Text="{Binding Awards}" Style="{StaticResource MoviesStyle}"/>
         </StackPanel>
         <ScrollViewer Grid.Row="1" Grid.Column="1" Margin="15">
             <TextBlock Text="{Binding Description}" TextWrapping="Wrap"  Style="{StaticResource MoviesStyle}"/>

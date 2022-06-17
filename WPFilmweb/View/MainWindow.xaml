@@ -93,7 +93,7 @@
                 VerticalAlignment="Top"
                 FontSize="30"/>
             <Button Content="Admin Panel" Grid.Column="2" FontSize="18" Margin="10" 
-                    Visibility="{Binding AdminPanelVisibility}" />
+                    Visibility="{Binding AdminPanelVisibility}" Command="{Binding AdminPanel}"/>
         </Grid>
         <ContentControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Content="{Binding NavigationModel.CurrentViewModel, UpdateSourceTrigger=PropertyChanged}">
             <ContentControl.Resources>
@@ -118,7 +118,15 @@
                 <DataTemplate DataType="{x:Type ViewModels:DirectorDescriptionViewModel}">
                     <Views:DirectorDescription/>
                 </DataTemplate>
-                
+                <DataTemplate DataType="{x:Type ViewModels:AwardsViewModel}">
+                    <Views:Awards/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type ViewModels:AdminPanelViewModel}">
+                    <Views:AdminPanel/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type ViewModels:AwardDescriptionViewModel}">
+                    <Views:AwardDescription/>
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
         

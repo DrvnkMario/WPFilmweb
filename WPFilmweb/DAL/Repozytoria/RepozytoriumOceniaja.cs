@@ -31,7 +31,7 @@ namespace WPFilmweb.DAL.Repozytoria
             bool state = false;
             using (var connection = DBConnection.Instance.Connection)
             {
-                MySqlCommand command = new MySqlCommand($"UPDATE oceniaja SET Wartość={grade} WHERE IDfilmu={movieId}" +
+                MySqlCommand command = new MySqlCommand($"UPDATE oceniaja SET Wartosc={grade} WHERE IDfilmu={movieId}" +
                     $" AND IDuzytkownika={userId};", connection);
                 connection.Open();
                 var id = command.ExecuteNonQuery();
@@ -45,7 +45,7 @@ namespace WPFilmweb.DAL.Repozytoria
             bool state = false;
             using (var connection = DBConnection.Instance.Connection)
             {
-                MySqlCommand command = new MySqlCommand($"INSERT INTO oceniaja (IDfilmu, IDuzytkownika, Komentarz, Wartość) " +
+                MySqlCommand command = new MySqlCommand($"INSERT INTO oceniaja (IDfilmu, IDuzytkownika, Komentarz, Wartosc) " +
                     $"VALUES({movieId},{userId},'xD',{grade});",connection);
                 connection.Open();
                 var id = command.ExecuteNonQuery();

@@ -84,6 +84,8 @@ namespace WPFilmweb.ViewModel
             model.RefreshMovies(movies, currentPage);
             MoviesVisibility = model.MoviesVisibility;
             CurrentUderId = id;
+            Ratings = model.GetRatingsForMovieList(Movies);
+            
         }
         public int CurrentPage
         {
@@ -97,7 +99,20 @@ namespace WPFilmweb.ViewModel
                 onPropertyChanged(nameof(CurrentPage));
             }
         }
-
+        //
+        private ObservableCollection<string> ratings{ get; set; }
+        public ObservableCollection<string> Ratings
+        {
+            get
+            {
+                return ratings;
+            }
+            set
+            {
+                ratings = value;
+                onPropertyChanged(nameof(Ratings));
+            }
+        }
         private ICommand nextPage;
 
         public ICommand NextPage => nextPage ?? (nextPage = new RelayCommand(
@@ -108,6 +123,7 @@ namespace WPFilmweb.ViewModel
                     CurrentPage++;
                     model.RefreshMovies(Movies, currentPage);
                     MoviesVisibility = model.MoviesVisibility;
+                    Ratings = model.GetRatingsForMovieList(Movies);
                 }
 
             }, null));
@@ -122,6 +138,7 @@ namespace WPFilmweb.ViewModel
                     CurrentPage--;
                     model.RefreshMovies(Movies, currentPage);
                     MoviesVisibility = model.MoviesVisibility;
+                    Ratings = model.GetRatingsForMovieList(Movies);
                 }
 
             }, null));

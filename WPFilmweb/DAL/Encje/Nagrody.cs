@@ -22,14 +22,21 @@ namespace WPFilmweb.DAL.Encje
         {
             IDAward = int.Parse(reader["IDnagrody"].ToString());
             Name = reader["nazwa"].ToString();
-            Description = reader["opis"].ToString();
+            Description = reader["opis_nagrody"].ToString();
 
             BitmapImage temp = new BitmapImage();
             MemoryStream ms = new MemoryStream((byte[])reader["zdjecie"]);
-            temp.BeginInit();
-            temp.StreamSource = ms;
-            temp.EndInit();
-            AwardImage = temp as ImageSource;
+            if (ms.Length > 0)
+            {
+                temp.BeginInit();
+                temp.StreamSource = ms;
+                temp.EndInit();
+                AwardImage = temp as ImageSource;
+            }
+            else
+            {
+                AwardImage = null;
+            }
         }
 
         // New object created from scratch, to add into database

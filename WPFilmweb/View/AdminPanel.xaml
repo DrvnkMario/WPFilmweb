@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFilmweb.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="540" d:DesignWidth="1129">
 
     <UserControl.Resources>
         <Style x:Key="TextStyle" TargetType="TextBlock">
@@ -27,21 +27,21 @@
             <TextBlock Text="Movie" HorizontalAlignment="Center" Style="{StaticResource TextStyle}"/>
             <DockPanel>
                 <TextBlock Text="Title:" Style="{StaticResource TextStyle}" Margin="5"/>
-                <TextBox Margin="5"/>
+                <TextBox Margin="5" Text="{Binding MovieTitle}"/>
             </DockPanel>
             <DockPanel>
                 <TextBlock Text="Release Year:" Style="{StaticResource TextStyle}" Margin="5"/>
-                <TextBox Margin="5"/>
+                <TextBox Margin="5" Text="{Binding MovieReleaseYear}"/>
             </DockPanel>
             <DockPanel>
                 <TextBlock Text="Length:" Style="{StaticResource TextStyle}" Margin="5"/>
-                <TextBox Margin="5"/>
+                <TextBox Margin="5" Text="{Binding MovieLength}" MaxLength="4"/>
             </DockPanel>
             <TextBlock Text="Description:                        " Style="{StaticResource TextStyle}" Margin="5"/>
             <ScrollViewer>
-                <TextBox Height="245"/>
+                <TextBox Height="245" Text="{Binding MovieDescription}"/>
             </ScrollViewer>
-            <Button Content="Add" FontSize="20"/>
+            <Button Content="Add" FontSize="20" Command="{Binding AddMovie}"/>
         </StackPanel>
         
         
@@ -49,21 +49,21 @@
             <TextBlock Text="Actor" HorizontalAlignment="Center" Style="{StaticResource TextStyle}"/>
             <DockPanel>
                 <TextBlock Text="Name:" Style="{StaticResource TextStyle}" Margin="5"/>
-                <TextBox Margin="5"/>
+                <TextBox Margin="5" Text="{Binding ActorName}"/>
             </DockPanel>
             <DockPanel>
                 <TextBlock Text="Surname:" Style="{StaticResource TextStyle}" Margin="5"/>
-                <TextBox Margin="5"/>
+                <TextBox Margin="5" Text="{Binding ActorSurname}"/>
             </DockPanel>
             <DockPanel>
                 <TextBlock Text="Date of birth:" Style="{StaticResource TextStyle}" Margin="5"/>
-                <TextBox Margin="5"/>
+                <TextBox Margin="5" Text="{Binding ActorDateOfBirth}"/>
             </DockPanel>
             <TextBlock Text="Biography:                          " Style="{StaticResource TextStyle}" Margin="5"/>
             <ScrollViewer>
-                <TextBox Height="245"/>
+                <TextBox Height="245" Text="{Binding ActorBio}"/>
             </ScrollViewer>
-            <Button Content="Add" FontSize="20"/>
+            <Button Content="Add" FontSize="20" Command="{Binding AddActor}"/>
         </StackPanel>
         
         

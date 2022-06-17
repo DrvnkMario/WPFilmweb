@@ -27,6 +27,7 @@
             <RowDefinition Height="12*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         
         <Grid.ColumnDefinitions>
@@ -55,13 +56,29 @@
 
         <TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource TitleStyle}"
             Text="{Binding Movies[0].Title}"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource TitleStyle}" 
+                   Text="{Binding Ratings[0]}"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center"/>
         <TextBlock Grid.Column="1" Grid.Row="1" Style="{StaticResource TitleStyle}"
            Text="{Binding Movies[1].Title}"/>
+        <TextBlock Grid.Column="1" Grid.Row="2" Style="{StaticResource TitleStyle}" 
+                   Text="{Binding Ratings[1]}"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center"/>
         <TextBlock Grid.Column="2" Grid.Row="1" Style="{StaticResource TitleStyle}"
             Text="{Binding Movies[2].Title}"/>
+        <TextBlock Grid.Column="2" Grid.Row="2" Style="{StaticResource TitleStyle}" 
+                   Text="{Binding Ratings[2]}"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center"/>
         <TextBlock Grid.Column="3" Grid.Row="1" Style="{StaticResource TitleStyle}"
             Text="{Binding Movies[3].Title}"/>
-        <Grid Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1">
+        <TextBlock Grid.Column="3" Grid.Row="2" Style="{StaticResource TitleStyle}" 
+                   Text="{Binding Ratings[3]}"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center"/>
+        <Grid Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>

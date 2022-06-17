@@ -13,7 +13,7 @@ namespace WPFilmweb.DAL.Repozytoria
     {
         #region Queries
         private const string GET_EVERY_ACTOR = "SELECT * FROM aktorzy";
-        private const string ADD_ACTOR = "INSERT INTO 'aktorzy'( 'imie', 'nazwisko', 'data_urodzenia', 'biografia', 'zdjecie') VALUES";
+        private const string ADD_ACTOR = "INSERT INTO aktorzy(imie, nazwisko, data_urodzenia, biografia, zdjecie) VALUES";
         #endregion
 
         #region CRUD methods
