@@ -28,16 +28,26 @@
         <Button Grid.Column="0" Grid.Row="3" Margin="10" Content="Back" FontSize="18" Command="{Binding Back}"/>
         <StackPanel Grid.Column="1" Margin="15" >
             <TextBlock FontSize="24" Text="{Binding Title}" HorizontalAlignment="Center" 
-                Height="70" TextWrapping="Wrap" TextAlignment="Center"/>
+                MaxHeight="70"  TextWrapping="Wrap" TextAlignment="Center"/>
             <TextBlock Text="{Binding Directors}" Style="{StaticResource MoviesStyle}"
-                Height="70" TextWrapping="Wrap" TextAlignment="Left"/>
+                MaxHeight="70" TextWrapping="Wrap" TextAlignment="Left"/>
             <TextBlock Text="{Binding Actors}" Style="{StaticResource MoviesStyle}"
-                Height="70" TextWrapping="Wrap" TextAlignment="Left"/>
+                MaxHeight="70" TextWrapping="Wrap" TextAlignment="Left"/>
             <TextBlock Text="{Binding ReleaseYear}" Style="{StaticResource MoviesStyle}" />
             <TextBlock Text="{Binding Length}" Style="{StaticResource MoviesStyle}"/>
         </StackPanel>
-        <ScrollViewer Grid.Row="1" Grid.Column="2" Margin="15">
-                <TextBlock Text="{Binding Description}" TextWrapping="Wrap"  Style="{StaticResource MoviesStyle}"/>
-        </ScrollViewer> 
+        <ScrollViewer Grid.Row="1" Grid.Column="1" Margin="15">
+            <TextBlock Text="{Binding Description}" TextWrapping="Wrap"  Style="{StaticResource MoviesStyle}"/>
+        </ScrollViewer>
+        <DockPanel Grid.Column="2" Grid.Row="2" Margin="12">
+            <TextBlock Text="{Binding CurrentRating}" Width="200" FontSize="18"/>
+            <TextBlock Text="Twoja Ocena:  " FontSize="18"/>
+            <Slider Name="s1" Width="150" Minimum="0" Maximum="5" TickFrequency="1" TickPlacement="BottomRight" IsSnapToTickEnabled="True" 
+                    Value="{Binding CurretUserRatio}"/>
+            
+            <TextBlock Text="{Binding CurretUserRatio}"  FontSize="18"/>
+
+            <Button Content="Update" Command="{Binding UpdateRatio}" Width="200"/>
+        </DockPanel>
     </Grid>
 </UserControl>

@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="WPFilmweb.View.AdminPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFilmweb.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Style x:Key="TextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid Background="LightGray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Margin="10" Grid.Column="0">
+            <TextBlock Text="Movie" HorizontalAlignment="Center" Style="{StaticResource TextStyle}"/>
+            <DockPanel>
+                <TextBlock Text="Title:" Style="{StaticResource TextStyle}" Margin="5"/>
+                <TextBox Margin="5"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Release Year:" Style="{StaticResource TextStyle}" Margin="5"/>
+                <TextBox Margin="5"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Length:" Style="{StaticResource TextStyle}" Margin="5"/>
+                <TextBox Margin="5"/>
+            </DockPanel>
+            <TextBlock Text="Description:                        " Style="{StaticResource TextStyle}" Margin="5"/>
+            <ScrollViewer>
+                <TextBox Height="245"/>
+            </ScrollViewer>
+            <Button Content="Add" FontSize="20"/>
+        </StackPanel>
+        
+        
+        <StackPanel Margin="10" Grid.Column="1">
+            <TextBlock Text="Actor" HorizontalAlignment="Center" Style="{StaticResource TextStyle}"/>
+            <DockPanel>
+                <TextBlock Text="Name:" Style="{StaticResource TextStyle}" Margin="5"/>
+                <TextBox Margin="5"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Surname:" Style="{StaticResource TextStyle}" Margin="5"/>
+                <TextBox Margin="5"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Date of birth:" Style="{StaticResource TextStyle}" Margin="5"/>
+                <TextBox Margin="5"/>
+            </DockPanel>
+            <TextBlock Text="Biography:                          " Style="{StaticResource TextStyle}" Margin="5"/>
+            <ScrollViewer>
+                <TextBox Height="245"/>
+            </ScrollViewer>
+            <Button Content="Add" FontSize="20"/>
+        </StackPanel>
+        
+        
+        <StackPanel Margin="10" Grid.Column="2">
+            <TextBlock Text="Director" HorizontalAlignment="Center" Style="{StaticResource TextStyle}"/>
+            <DockPanel>
+                <TextBlock Text="Name:" Style="{StaticResource TextStyle}" Margin="5"/>
+                <TextBox Margin="5"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Surname:" Style="{StaticResource TextStyle}" Margin="5"/>
+                <TextBox Margin="5"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Date of birth:" Style="{StaticResource TextStyle}" Margin="5"/>
+                <TextBox Margin="5"/>
+            </DockPanel>
+            <TextBlock Text="Biography:                          " Style="{StaticResource TextStyle}" Margin="5"/>
+            <ScrollViewer>
+                <TextBox Height="245"/>
+            </ScrollViewer>
+            <Button Content="Add" FontSize="20"/>
+        </StackPanel>
+
+
+    </Grid>
+</UserControl>

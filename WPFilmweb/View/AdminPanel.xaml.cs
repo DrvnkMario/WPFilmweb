@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace WPFilmweb.View
 {
     /// <summary>
-    /// Logika interakcji dla klasy Actors.xaml
+    /// Logika interakcji dla klasy AdminPanel.xaml
     /// </summary>
-    public partial class Actors : UserControl
+    public partial class AdminPanel : UserControl
     {
-        public Actors()
+        public AdminPanel()
         {
             InitializeComponent();
         }

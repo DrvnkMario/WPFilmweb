@@ -8,6 +8,7 @@ namespace WPFilmweb.DAL.Repozytoria
     {
         #region Queries
         private const string ALL_REVIEWS = "SELECT * FROM oceniaja";
+        
         #endregion
 
         public static ObservableCollection<Oceniaja> GetAllReviews()
@@ -23,6 +24,35 @@ namespace WPFilmweb.DAL.Repozytoria
                 connection.Close();
             }
             return reviews;
+        }
+
+        public static bool UpdateGrade(int movieId, int userId, int grade)
+        {
+            bool state = false;
+            using (var connection = DBConnection.Instance.Connection)
+            {
+                MySqlCommand command = new MySqlCommand($"UPDATE oceniaja SET Wartość={grade} WHERE IDfilmu={movieId}" +
+                    $" AND IDuzytkownika={userId};", connection);
+                connection.Open();
+                var id = command.ExecuteNonQuery();
+                state = true;
+                connection.Close();
+            }
+            return state;
+        }
+        public static bool AddGrade(int movieId, int userId, int grade)
+        {
+            bool state = false;
+            using (var connection = DBConnection.Instance.Connection)
+            {
+                MySqlCommand command = new MySqlCommand($"INSERT INTO oceniaja (IDfilmu, IDuzytkownika, Komentarz, Wartość) " +
+                    $"VALUES({movieId},{userId},'xD',{grade});",connection);
+                connection.Open();
+                var id = command.ExecuteNonQuery();
+                state = true;
+                connection.Close();
+            }
+            return state;
         }
     }
 }

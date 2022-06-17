@@ -58,8 +58,7 @@ namespace WPFilmweb.ViewModel
                 if(SelectedItem == "Movies")
                 {
                     Model.GetMoviesByTitle(SearchbarText);
-                    NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel));
-                    //Model.RefreshMovies();
+                    NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel, CurrentUserId));
                 }
                 else if (SelectedItem == "Actors")
                 {
@@ -97,7 +96,7 @@ namespace WPFilmweb.ViewModel
                 onPropertyChanged(nameof(SelectedItem));
                 if(selectedItem == "Movies")
                 {
-                    NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel));
+                    NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel, CurrentUserId));
                 }
                 else if(selectedItem == "Actors")
                 {
@@ -110,6 +109,32 @@ namespace WPFilmweb.ViewModel
                 SearchbarText = String.Empty;
             }
         }
+
+        //tu dopisalem 
+
+        private string comboVisibility { get; set; }
+
+        public string ComboVisibility
+        {
+            get { return comboVisibility; }
+            set
+            {
+                comboVisibility = value;
+                onPropertyChanged(nameof(ComboVisibility));
+            }
+        }
+
+        private string adminPanelVisibility { get; set; }
+
+        public string AdminPanelVisibility
+        {
+            get { return adminPanelVisibility; }
+            set
+            {
+                adminPanelVisibility = value;
+                onPropertyChanged(nameof(AdminPanelVisibility));
+            }
+        }
         #endregion
 
         #region Constructors 
@@ -117,14 +142,79 @@ namespace WPFilmweb.ViewModel
         {
             Model = new Model();
             NavigationModel = new NavigationModel();
-            NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel));
-            welcomeText = "Welcome to MVVM movies!";
             ComboContent = new List<string>()
             {   "Movies",
                 "Actors",
-                "Directors" };
-            SelectedItem = ComboContent[0];
+                "Directors"
+            };
+            welcomeText = "Welcome to MVVM movies!";
+            ComboVisibility = "Hidden";
+            AdminPanelVisibility = "Hidden";
+            //NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel));
+            //ComboVisibility = "Visible";
         }
+
+        //tu dopisalem
+        private string currentUsername { get; set; }
+
+        public string CurrentUsername
+        {
+            get { return currentUsername; }
+            set
+            {
+                currentUsername = value;
+                onPropertyChanged(nameof(CurrentUsername));
+            }
+        }
+        private string currentPassword { get; set; }
+
+        public string CurrentPassword
+        {
+            get { return currentPassword; }
+            set
+            {
+                currentPassword = value;
+                onPropertyChanged(nameof(CurrentPassword));
+            }
+        }
+
+        private int currentUserId { get; set; }
+
+        public int CurrentUserId
+        {
+            get { return currentUserId; }
+            set
+            {
+                currentUserId = value;
+                onPropertyChanged(nameof(CurrentUserId));
+            }
+        }
+
+        private ICommand login;
+
+        public ICommand Login => login ?? (login = new RelayCommand(
+            o =>
+            {
+                for (int i = 0; i < Model.UsersList.Count; i++)
+                {
+                    if (Model.UsersList[i].Nickname == CurrentUsername && Model.UsersList[i].Password == CurrentPassword)
+                    {
+                        CurrentUserId = Model.UsersList[i].IDUser;
+                        NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel, CurrentUserId));
+                        SelectedItem = ComboContent[0];
+                        ComboVisibility = "Visible";
+                        AdminPanelVisibility = "Visible";
+                    }
+                }
+            }, null));
+
+        private ICommand logout;
+
+        public ICommand Logout => logout ?? (logout = new RelayCommand(
+            o =>
+            {
+                //NavigationModel.ChangeVM(new MainViewModel());
+            }, null));
         #endregion
     }
 }

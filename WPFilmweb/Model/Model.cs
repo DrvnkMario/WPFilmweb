@@ -9,6 +9,7 @@ namespace WPFilmweb.Model
 {
     using DAL.Encje;
     using DAL.Repozytoria;
+    
     using System.Collections.ObjectModel;
 
     class Model
@@ -29,6 +30,12 @@ namespace WPFilmweb.Model
 
         public ObservableCollection<string> DirectorsVisibility { get; set; } = new ObservableCollection<string>();
 
+        //Tu dopisuje
+
+        public ObservableCollection<Uzytkownicy> UsersList { get; set; } = new ObservableCollection<Uzytkownicy>();
+
+        public ObservableCollection<Oceniaja> MoviesRatio { get; set; } = new ObservableCollection<Oceniaja>();
+
         private Filmy emptyMovie = new Filmy("", 0, "", "", null);
         private Aktorzy emptyActor = new Aktorzy("", "", "", "", null);
         private Rezyserzy emptyDirector = new Rezyserzy("", "", "", "", null);
@@ -39,11 +46,69 @@ namespace WPFilmweb.Model
             GetActorsMovies();
             GetDirectors();
             GetDirectorsMovies();
+            GetUsers();
             MoviesVisibility.Clear();
             ActorsVisibility.Clear();
             DirectorsVisibility.Clear();
+            //
+            GetMoviesRatio();
+        }
+        //tu      sad
+
+        public void UpdateAddGrade(int movieId, int userId, int grade)
+        {
+            bool temp = true;
+            for(int i = 0; i<MoviesRatio.Count; i++)
+            {
+                if(MoviesRatio[i].IDmovie == movieId && MoviesRatio[i].IDuser == userId)
+                {
+                    RepozytoriumOceniaja.UpdateGrade(movieId, userId, grade);
+                    temp = false;
+                    break;
+                }
+            }
+            if(temp)
+            {
+
+                RepozytoriumOceniaja.AddGrade(movieId, userId, grade);
+            }
+        }
+        public void GetMoviesRatio()
+        {
+            var moviesratio = RepozytoriumOceniaja.GetAllReviews();
+            MoviesRatio.Clear();
+            foreach (var mr in moviesratio)
+            {
+                MoviesRatio.Add(mr);
+            }
         }
 
+        public string GetMovieRatio(Filmy m)
+        {
+            double result = 0;
+            int temp = 0;
+            for(int i = 0; i < MoviesRatio.Count; i++)
+            {
+                if(MoviesRatio[i].IDmovie == m.IDmovie)
+                {
+                    result += (MoviesRatio[i].Grade);
+                    temp++;
+                }
+                    
+            }
+            return (result/temp).ToString("F");
+        }
+        public int GetUserRatio(Filmy m, int user)
+        {
+            for (int i = 0; i < MoviesRatio.Count; i++)
+            {
+                if(MoviesRatio[i].IDmovie == m.IDmovie && MoviesRatio[i].IDuser == user)
+                {
+                    return int.Parse(MoviesRatio[i].Grade.ToString());
+                }
+            }
+            return 0;
+        }
         public void GetMovies() // Filling up models movie list
         {
             var movies = RepozytoriumFilmy.GetMovies();
@@ -64,6 +129,18 @@ namespace WPFilmweb.Model
                 ActorList.Add(actor);
             }
             ActorList = new ObservableCollection<Aktorzy>(ActorList.OrderBy(actor => (actor.Name + actor.Surname)).ToList());
+        }
+
+        //tu dopisuje
+        public void GetUsers()
+        {
+            var users = RepozytoriumUzytkownicy.GetAllUsers();
+            UsersList.Clear();
+            foreach (var user in users)
+            {
+                UsersList.Add(user);
+            }
+            UsersList = new ObservableCollection<Uzytkownicy>(UsersList.OrderBy(user => user.Nickname).ToList());
         }
 
         public void GetActorsMovies()
@@ -160,6 +237,7 @@ namespace WPFilmweb.Model
         {
             if (DirectorsList.Count != 0)
             {
+                DirectorsVisibility.Clear();
                 directors.Clear(); // this line is intentional. It's purpouse is clearing ObservableCollection passed as reference, that way it is always filled with 4 objects
                 for (int i = 4 * n - 4; i <= n * 3 + 1; i++)
                 {
@@ -185,18 +263,6 @@ namespace WPFilmweb.Model
                 }
             }
         }
-        //Do sprawdzenia
-
-        //private Filmy FindMovieById(int id)
-        //{
-        //    foreach (var m in MoviesList)
-        //    {
-        //        if (m.IDmovie == id)
-        //            return m;
-        //    }
-        //    return null;
-        //}
-
         private Aktorzy FindActorById(int id)
         {
             foreach (var a in ActorList)
@@ -243,7 +309,6 @@ namespace WPFilmweb.Model
             return directors;
         }
 
-        //
         private Filmy FindMovieById(int id)
         {
             foreach (var m in MoviesList)
@@ -291,10 +356,18 @@ namespace WPFilmweb.Model
             {
                 GetMovies();
                 ObservableCollection<Filmy> temp = new ObservableCollection<Filmy>();
+                MoviesVisibility.Clear();
                 foreach (var movie in MoviesList)
                 {
-                    if(movie.Title.ToLower().Contains(title.ToLower()))
+                    if (movie.Title.ToLower().Contains(title.ToLower()))
+                    {
                         temp.Add(movie);
+                        MoviesVisibility.Add("Visible");
+                    }
+                    else
+                    {
+                        MoviesVisibility.Add("Hidden");
+                    }
                 }
                 MoviesList.Clear();
                 MoviesList = temp;
@@ -310,10 +383,18 @@ namespace WPFilmweb.Model
             {
                 GetActors();
                 ObservableCollection<Aktorzy> temp = new ObservableCollection<Aktorzy>();
+                ActorsVisibility.Clear();
                 foreach (var actor in ActorList)
                 {
                     if ((actor.Name + " " + actor.Surname).ToLower().Contains(name.ToLower()))
+                    {
                         temp.Add(actor);
+                        ActorsVisibility.Add("Visible");
+                    }
+                    else
+                    {
+                        ActorsVisibility.Add("Hidden");
+                    }
                 }
                 ActorList.Clear();
                 ActorList = temp;
@@ -330,14 +411,25 @@ namespace WPFilmweb.Model
             {
                 GetDirectors();
                 ObservableCollection<Rezyserzy> temp = new ObservableCollection<Rezyserzy>();
+                DirectorsVisibility.Clear();
                 foreach (var director in DirectorsList)
                 {
                     if ((director.Name + " " + director.Surname).ToLower().Contains(name.ToLower()))
+                    {
                         temp.Add(director);
+                        DirectorsVisibility.Add("Visible");
+                    }
+                    else
+                    {
+                        DirectorsVisibility.Add("Hidden");
+                    }
                 }
                 DirectorsList.Clear();
                 DirectorsList = temp;
             }
         }
+
+        //tu
+        
     }
 }

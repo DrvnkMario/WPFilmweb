@@ -13,6 +13,7 @@
     <Window.DataContext>
         <ViewModels:MainViewModel/>
     </Window.DataContext>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -24,6 +25,17 @@
             <RowDefinition Height="13*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1" Grid.Column="1" Background="LightGray" Width="600" Height="180">
+            <StackPanel Grid.Row="1" Grid.Column="1" Background="#bababa">
+                <Label Margin="5">Username:</Label>
+                <TextBox Margin="5" Height="25" Text="{Binding CurrentUsername}"/>
+                <Label Margin="5">Password:</Label>
+                <TextBox Margin="5" Height="25" Text="{Binding CurrentPassword}"/>
+                <!--Password="{Binding CurrentPassword}"-->
+                <Button Margin="5" Height="30" Content="Login" Command="{Binding Login}"/>
+                <!--<Button Margin="5" Height="30" Content="Create account"/>-->
+            </StackPanel>
+        </StackPanel>
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
@@ -45,7 +57,8 @@
                     Grid.Column="0" 
                     FontSize="20" 
                     HorizontalAlignment="Center" 
-                    VerticalAlignment="Center">
+                    VerticalAlignment="Center"
+                    Visibility="{Binding ComboVisibility}">
                     Search for:
                 </Label>
                 <ComboBox
@@ -54,20 +67,23 @@
                     FontSize="20"
                     ItemsSource="{Binding ComboContent}"
                     SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                    Visibility="{Binding ComboVisibility}"
                     />
                 <Label 
                     Grid.Row="1" 
                     Grid.Column="0" 
                     FontSize="15" 
                     HorizontalAlignment="Center" 
-                    VerticalAlignment="Center">
+                    VerticalAlignment="Center"
+                    Visibility="{Binding ComboVisibility}">
                     Write your phrase:
                 </Label>
                 <TextBox 
                     Grid.Row="1" 
                     Grid.Column="1" 
                     Text="{Binding SearchbarText, UpdateSourceTrigger=PropertyChanged}"
-                    FontSize="20"/>
+                    FontSize="20"
+                    Visibility="{Binding ComboVisibility}"/>
             </Grid>
             <TextBlock 
                 Grid.Row="0" 
@@ -76,9 +92,14 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 FontSize="30"/>
+            <Button Content="Admin Panel" Grid.Column="2" FontSize="18" Margin="10" 
+                    Visibility="{Binding AdminPanelVisibility}" />
         </Grid>
         <ContentControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Content="{Binding NavigationModel.CurrentViewModel, UpdateSourceTrigger=PropertyChanged}">
             <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type ViewModels:LoginViewModel}">
+                    <Views:Login/>
+                </DataTemplate>
                 <DataTemplate DataType="{x:Type ViewModels:MoviesViewModel}">
                     <Views:Movies />
                 </DataTemplate>
@@ -97,6 +118,7 @@
                 <DataTemplate DataType="{x:Type ViewModels:DirectorDescriptionViewModel}">
                     <Views:DirectorDescription/>
                 </DataTemplate>
+                
             </ContentControl.Resources>
         </ContentControl>
         

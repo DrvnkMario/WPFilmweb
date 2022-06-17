@@ -75,7 +75,49 @@ namespace WPFilmweb.ViewModel
             }
         }
 
-        public MovieDescriptionViewModel(Filmy movie, ObservableCollection<Aktorzy> actors, ObservableCollection<Rezyserzy> director, NavigationModel navi)
+        private string currentRating;
+
+        public string CurrentRating
+        {
+            get
+            {
+                return currentRating;
+            }
+            set
+            {
+                currentRating = value;
+                onPropertyChanged(nameof(CurrentRating));
+            }
+        }
+
+        private int currentUserId;
+
+        public int CurrentUserId
+        {
+            get
+            {
+                return currentUserId;
+            }
+            set
+            {
+                currentUserId = value;
+                onPropertyChanged(nameof(CurrentUserId));
+            }
+        }
+
+        private double curretUserRatio;
+
+        public double CurretUserRatio
+        {
+            get { return curretUserRatio; }
+            set
+            {
+                curretUserRatio = value;
+                onPropertyChanged(nameof(CurretUserRatio));
+            }
+        }
+
+        public MovieDescriptionViewModel(Filmy movie, ObservableCollection<Aktorzy> actors, ObservableCollection<Rezyserzy> director, int id, NavigationModel navi)
         {
             Model = new Model();
             CurrentMovie = movie;
@@ -84,6 +126,10 @@ namespace WPFilmweb.ViewModel
             CurrentDirectors = director;
             CurrentDirectors = Model.GetDirectorsFromMovie(movie);
             NavigationModel = navi;
+            //
+            CurrentRating = Model.GetMovieRatio(CurrentMovie);
+            CurrentUserId = id;
+            CurretUserRatio = Model.GetUserRatio(CurrentMovie,CurrentUserId);
         }
 
         public string Title => CurrentMovie.Title;
@@ -156,7 +202,18 @@ namespace WPFilmweb.ViewModel
         public ICommand Back => back ?? (back = new RelayCommand(
             o =>
             {
-                NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel));
+                NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel, CurrentUserId)); 
+            }, null
+            ));
+
+        private ICommand updateRatio;
+
+        public ICommand UpdateRatio => updateRatio ?? (updateRatio = new RelayCommand(
+            o =>
+            {
+                Model.UpdateAddGrade(CurrentMovie.IDmovie, CurrentUserId, int.Parse(CurretUserRatio.ToString()));
+                Model.GetMoviesRatio();
+                CurrentRating = Model.GetMovieRatio(CurrentMovie);
             }, null
             ));
     }

@@ -100,3 +100,7 @@ D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\Directors.g.cs
 D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\Directors.baml
 D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\DirectorDescription.g.cs
 D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\DirectorDescription.baml
+D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\AdminPanel.g.cs
+D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\Login.g.cs
+D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\AdminPanel.baml
+D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\Login.baml

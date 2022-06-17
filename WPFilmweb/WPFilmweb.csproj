@@ -128,6 +128,7 @@
     <Compile Include="DAL\Repozytoria\RepozytoriumOkresla.cs" />
     <Compile Include="DAL\Repozytoria\RepozytoriumRezyseruja.cs" />
     <Compile Include="DAL\Repozytoria\RepozytoriumRezyserzy.cs" />
+    <Compile Include="DAL\Repozytoria\RepozytoriumUzytkownicy.cs" />
     <Compile Include="Model\Model.cs" />
     <Compile Include="Model\NavigationModel.cs" />
     <Compile Include="ViewModel\ActorDescirptionViewModel.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="ViewModel\BaseClasses\ViewModelBase.cs" />
     <Compile Include="ViewModel\DirectorDescriptionViewModel.cs" />
     <Compile Include="ViewModel\DirectorsViewModel.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MovieDescriptionViewModel.cs" />
     <Compile Include="ViewModel\MoviesViewModel.cs" />
@@ -145,11 +147,17 @@
     <Compile Include="View\Actors.xaml.cs">
       <DependentUpon>Actors.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AdminPanel.xaml.cs">
+      <DependentUpon>AdminPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\DirectorDescription.xaml.cs">
       <DependentUpon>DirectorDescription.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Directors.xaml.cs">
       <DependentUpon>Directors.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -200,11 +208,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\AdminPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\DirectorDescription.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Directors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

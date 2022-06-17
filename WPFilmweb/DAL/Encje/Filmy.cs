@@ -14,7 +14,7 @@ namespace WPFilmweb.DAL.Encje
     {
         #region Properties
 
-        public int? IDmovie { get; set; }
+        public int IDmovie { get; set; }
         public string Title { get; set; }
         public int ReleaseYear { get; set; }
         public string Length { get; set; }
@@ -43,7 +43,7 @@ namespace WPFilmweb.DAL.Encje
         // New object ctcreated from scratch, to add into database
         public Filmy(string title, int releaseYear, string length, string description, ImageSource poster)
         {
-            IDmovie = null;
+            //IDmovie = null;
             Title = title;
             ReleaseYear = releaseYear;
             Length = length;
