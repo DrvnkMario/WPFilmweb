@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 namespace WPFilmweb.DAL.Encje
 {
-    class Oceniaja
+    public class Oceniaja
     {
         #region Properties
 

@@ -5,7 +5,7 @@ using System.IO;
 using System;
 namespace WPFilmweb.DAL.Encje
 {
-    class Rezyserzy
+    public class Rezyserzy
     {
         #region Properties
         public int? IDDirector { get; set; }
@@ -66,7 +66,7 @@ namespace WPFilmweb.DAL.Encje
         #region Methods
         public string ToInsert()
         {
-            return $"'{Name}','{Surname}','{Birthdate}','{Bio}','{DirectorImage}'";
+            return $"('{Name}', '{Surname}', '{Birthdate}', '{Bio}', '{DirectorImage}')";
         }
         // Override Equals method to check if actor is not duplicated with Contains function
         public override bool Equals(object obj)

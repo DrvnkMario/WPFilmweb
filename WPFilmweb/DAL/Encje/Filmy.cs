@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 
 namespace WPFilmweb.DAL.Encje
 {
-    class Filmy
+    public class Filmy
     {
         #region Properties
 

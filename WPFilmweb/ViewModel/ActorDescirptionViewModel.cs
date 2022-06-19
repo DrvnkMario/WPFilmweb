@@ -60,9 +60,9 @@ namespace WPFilmweb.ViewModel
             }
         }
 
-        public ActorDescriptionViewModel(Aktorzy actor, ObservableCollection<Filmy> movies, NavigationModel navi)
+        public ActorDescriptionViewModel(Aktorzy actor, ObservableCollection<Filmy> movies, NavigationModel navi, Model model)
         {
-            Model = new Model();
+            Model = model;
             CurrentActor = actor;
             CurrentMovies = movies;
             CurrentMovies = Model.GetMoviesFromActor(actor);

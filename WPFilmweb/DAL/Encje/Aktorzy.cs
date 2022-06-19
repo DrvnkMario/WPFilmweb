@@ -10,7 +10,7 @@ using System.IO;
 
 namespace WPFilmweb.DAL.Encje
 {
-    class Aktorzy
+    public class Aktorzy
     {
         #region Properties
         public int? IDActor { get; set; }

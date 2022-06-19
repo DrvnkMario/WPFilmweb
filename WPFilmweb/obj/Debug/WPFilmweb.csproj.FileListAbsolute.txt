@@ -108,3 +108,5 @@ D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\Awards.g.cs
 D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\Awards.baml
 D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\AwardDescription.g.cs
 D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\AwardDescription.baml
+D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\AdminPanel2.g.cs
+D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\AdminPanel2.baml

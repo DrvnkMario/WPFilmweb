@@ -117,9 +117,9 @@ namespace WPFilmweb.ViewModel
             }
         }
 
-        public MovieDescriptionViewModel(Filmy movie, ObservableCollection<Aktorzy> actors, ObservableCollection<Rezyserzy> director, int id, NavigationModel navi)
+        public MovieDescriptionViewModel(Filmy movie, ObservableCollection<Aktorzy> actors, ObservableCollection<Rezyserzy> director, int id, NavigationModel navi, Model model)
         {
-            Model = new Model();
+            Model = model;
             CurrentMovie = movie;
             CurrentActors = actors;
             CurrentActors = Model.GetActorsFromMovie(movie);
@@ -204,7 +204,7 @@ namespace WPFilmweb.ViewModel
         public ICommand Back => back ?? (back = new RelayCommand(
             o =>
             {
-                NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel, CurrentUserId)); 
+                NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel, CurrentUserId));
             }, null
             ));
 

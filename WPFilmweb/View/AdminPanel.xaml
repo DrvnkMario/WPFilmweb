@@ -19,10 +19,14 @@
     
     <Grid Background="LightGray">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <StackPanel Margin="10" Grid.Column="0">
             <TextBlock Text="Movie" HorizontalAlignment="Center" Style="{StaticResource TextStyle}"/>
             <DockPanel>
@@ -31,7 +35,7 @@
             </DockPanel>
             <DockPanel>
                 <TextBlock Text="Release Year:" Style="{StaticResource TextStyle}" Margin="5"/>
-                <TextBox Margin="5" Text="{Binding MovieReleaseYear}"/>
+                <TextBox Margin="5" Text="{Binding MovieReleaseYear}" MaxLength="5"/>
             </DockPanel>
             <DockPanel>
                 <TextBlock Text="Length:" Style="{StaticResource TextStyle}" Margin="5"/>
@@ -57,7 +61,7 @@
             </DockPanel>
             <DockPanel>
                 <TextBlock Text="Date of birth:" Style="{StaticResource TextStyle}" Margin="5"/>
-                <TextBox Margin="5" Text="{Binding ActorDateOfBirth}"/>
+                <TextBox Margin="5" Text="{Binding ActorDateOfBirth}" MaxLength="10"/>
             </DockPanel>
             <TextBlock Text="Biography:                          " Style="{StaticResource TextStyle}" Margin="5"/>
             <ScrollViewer>
@@ -71,23 +75,23 @@
             <TextBlock Text="Director" HorizontalAlignment="Center" Style="{StaticResource TextStyle}"/>
             <DockPanel>
                 <TextBlock Text="Name:" Style="{StaticResource TextStyle}" Margin="5"/>
-                <TextBox Margin="5"/>
+                <TextBox Margin="5" Text="{Binding DirectorName}"/>
             </DockPanel>
             <DockPanel>
                 <TextBlock Text="Surname:" Style="{StaticResource TextStyle}" Margin="5"/>
-                <TextBox Margin="5"/>
+                <TextBox Margin="5" Text="{Binding DirectorSurname}"/>
             </DockPanel>
             <DockPanel>
                 <TextBlock Text="Date of birth:" Style="{StaticResource TextStyle}" Margin="5"/>
-                <TextBox Margin="5"/>
+                <TextBox Margin="5" Text="{Binding DirectorDateOfBirth}" MaxLength="10"/>
             </DockPanel>
             <TextBlock Text="Biography:                          " Style="{StaticResource TextStyle}" Margin="5"/>
             <ScrollViewer>
-                <TextBox Height="245"/>
+                <TextBox Height="245" Text="{Binding DirectorBio}"/>
             </ScrollViewer>
-            <Button Content="Add" FontSize="20"/>
+            <Button Content="Add" FontSize="20" Command="{Binding AddDirector}"/>
         </StackPanel>
-
+        <Button Content="Next" FontSize="20" Grid.Column="2" Grid.Row="1" Margin="10" Command="{Binding NextPage}"/>
 
     </Grid>
 </UserControl>

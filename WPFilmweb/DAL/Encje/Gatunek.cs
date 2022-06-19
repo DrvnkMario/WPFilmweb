@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace WPFilmweb.DAL.Encje
 {
-    class Gatunek
+    public class Gatunek
     {
         #region Properties
         public int? IDgenre { get; set; }

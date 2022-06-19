@@ -46,9 +46,9 @@ namespace WPFilmweb.ViewModel
         }
 
 
-        public AwardDescriptionViewModel(Nagrody award, NavigationModel navi)
+        public AwardDescriptionViewModel(Nagrody award, NavigationModel navi, Model model)
         {
-            Model = new Model();
+            Model = model;
             CurrentAward = award;
             NavigationModel = navi;
         }

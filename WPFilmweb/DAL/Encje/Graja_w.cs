@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 namespace WPFilmweb.DAL.Encje
 {
-    class Graja_w
+    public class Graja_w
     {
         #region Properties
         public int IDmovie { get; set; }

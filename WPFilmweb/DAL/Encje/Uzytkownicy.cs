@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace WPFilmweb.DAL.Encje
 {
-    class Uzytkownicy
+    public class Uzytkownicy
     {
         #region Properties
         public int IDUser { get; set; }

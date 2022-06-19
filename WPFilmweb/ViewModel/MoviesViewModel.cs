@@ -80,7 +80,7 @@ namespace WPFilmweb.ViewModel
             NavigationModel = navimodel;
             Model = m;
             Movies = new ObservableCollection<Filmy>();
-            CurrentPage = 1;
+            CurrentPage = navimodel.CurrentPage;
             model.RefreshMovies(movies, currentPage);
             MoviesVisibility = model.MoviesVisibility;
             CurrentUderId = id;
@@ -99,7 +99,6 @@ namespace WPFilmweb.ViewModel
                 onPropertyChanged(nameof(CurrentPage));
             }
         }
-        //
         private ObservableCollection<string> ratings{ get; set; }
         public ObservableCollection<string> Ratings
         {
@@ -118,9 +117,10 @@ namespace WPFilmweb.ViewModel
         public ICommand NextPage => nextPage ?? (nextPage = new RelayCommand(
             o =>
             {
-                if (CurrentPage <= Model.MoviesList.Count() / 4)
+                if ((float)CurrentPage < (float)Model.MoviesList.Count() / 4)
                 {
                     CurrentPage++;
+                    NavigationModel.CurrentPage = CurrentPage;
                     model.RefreshMovies(Movies, currentPage);
                     MoviesVisibility = model.MoviesVisibility;
                     Ratings = model.GetRatingsForMovieList(Movies);
@@ -136,6 +136,7 @@ namespace WPFilmweb.ViewModel
                 if (CurrentPage > 1)
                 {
                     CurrentPage--;
+                    NavigationModel.CurrentPage = CurrentPage;
                     model.RefreshMovies(Movies, currentPage);
                     MoviesVisibility = model.MoviesVisibility;
                     Ratings = model.GetRatingsForMovieList(Movies);
@@ -151,7 +152,7 @@ namespace WPFilmweb.ViewModel
 
                 if (Movies[0].Title != "")
                 {
-                    NavigationModel.ChangeVM(new MovieDescriptionViewModel(Movies[0], Model.ActorList, Model.DirectorsList, CurrentUderId, NavigationModel));
+                    NavigationModel.ChangeVM(new MovieDescriptionViewModel(Movies[0], Model.ActorList, Model.DirectorsList, CurrentUderId, NavigationModel, Model));
                 }
             }, null
             ));
@@ -162,7 +163,7 @@ namespace WPFilmweb.ViewModel
             {
                 if(Movies[1].Title != "")
                 {
-                    NavigationModel.ChangeVM(new MovieDescriptionViewModel(Movies[1], Model.ActorList, Model.DirectorsList, CurrentUderId, NavigationModel));
+                    NavigationModel.ChangeVM(new MovieDescriptionViewModel(Movies[1], Model.ActorList, Model.DirectorsList, CurrentUderId, NavigationModel, Model));
                 }
             }, null
             ));
@@ -173,7 +174,7 @@ namespace WPFilmweb.ViewModel
             {
                 if (Movies[2].Title != "")
                 {
-                    NavigationModel.ChangeVM(new MovieDescriptionViewModel(Movies[2], Model.ActorList, Model.DirectorsList, CurrentUderId, NavigationModel));
+                    NavigationModel.ChangeVM(new MovieDescriptionViewModel(Movies[2], Model.ActorList, Model.DirectorsList, CurrentUderId, NavigationModel, Model));
                 }
             }, null
             ));
@@ -184,7 +185,7 @@ namespace WPFilmweb.ViewModel
             {
                 if (Movies[3].Title != "")
                 {
-                    NavigationModel.ChangeVM(new MovieDescriptionViewModel(Movies[3], Model.ActorList, Model.DirectorsList, CurrentUderId, NavigationModel));
+                    NavigationModel.ChangeVM(new MovieDescriptionViewModel(Movies[3], Model.ActorList, Model.DirectorsList, CurrentUderId, NavigationModel, Model));
                 }
             }, null
             ));

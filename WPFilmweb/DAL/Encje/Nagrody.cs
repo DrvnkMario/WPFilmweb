@@ -5,7 +5,7 @@ using System.IO;
 
 namespace WPFilmweb.DAL.Encje
 {
-    class Nagrody
+    public class Nagrody
     {
         #region Properties
 

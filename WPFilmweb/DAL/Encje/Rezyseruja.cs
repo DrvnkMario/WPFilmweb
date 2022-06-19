@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 namespace WPFilmweb.DAL.Encje
 {
-    class Rezyseruja
+    public class Rezyseruja
     {
         #region Properties
         public int IDdirector { get; set; }

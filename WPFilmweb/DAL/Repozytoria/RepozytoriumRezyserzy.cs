@@ -8,7 +8,7 @@ namespace WPFilmweb.DAL.Repozytoria
     {
         #region Queries
         private const string GET_EVERY_DIRECTOR = "SELECT * FROM rezyserzy";
-        private const string ADD_DIRECTOR = "INSERT INTO 'rezyserzy'( 'imie', 'nazwisko', 'data_urodzenia', 'biografia', 'zdjecie') VALUES";
+        private const string ADD_DIRECTOR = "INSERT INTO rezyserzy(imie, nazwisko, data_urodzenia, biografia, zdjecie) VALUES";
         #endregion
 
         #region CRUD methods

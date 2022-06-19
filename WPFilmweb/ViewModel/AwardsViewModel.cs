@@ -65,7 +65,7 @@ namespace WPFilmweb.ViewModel
             NavigationModel = navimodel;
             Model = m;
             Awards = new ObservableCollection<Nagrody>();
-            CurrentPage = 1;
+            CurrentPage = navimodel.CurrentPage;
             model.RefreshAwards(Awards, CurrentPage);
             AwardsVisibility = model.AwardsVisibility;
         }
@@ -87,9 +87,10 @@ namespace WPFilmweb.ViewModel
         public ICommand NextPage => nextPage ?? (nextPage = new RelayCommand(
             o =>
             {
-                if (CurrentPage <= Model.Awards.Count() / 4)
+                if ((float)CurrentPage < (float)Model.Awards.Count() / 4)
                 {
                     CurrentPage++;
+                    NavigationModel.CurrentPage = CurrentPage;
                     model.RefreshAwards(Awards, CurrentPage);
                     AwardsVisibility = model.AwardsVisibility;
                 }
@@ -104,6 +105,7 @@ namespace WPFilmweb.ViewModel
                 if (CurrentPage > 1)
                 {
                     CurrentPage--;
+                    NavigationModel.CurrentPage = CurrentPage;
                     model.RefreshAwards(Awards, CurrentPage);
                     AwardsVisibility = model.AwardsVisibility;
                 }
@@ -118,7 +120,7 @@ namespace WPFilmweb.ViewModel
 
                 if (Awards[0].Name != "")
                 {
-                    NavigationModel.ChangeVM(new AwardDescriptionViewModel(Awards[0], NavigationModel));
+                    NavigationModel.ChangeVM(new AwardDescriptionViewModel(Awards[0], NavigationModel, Model));
                 }
             }, null
             ));
@@ -129,7 +131,7 @@ namespace WPFilmweb.ViewModel
             {
                 if (Awards[1].Name != "")
                 {
-                    NavigationModel.ChangeVM(new AwardDescriptionViewModel(Awards[1], NavigationModel));
+                    NavigationModel.ChangeVM(new AwardDescriptionViewModel(Awards[1], NavigationModel, Model));
                 }
             }, null
             ));
@@ -140,7 +142,7 @@ namespace WPFilmweb.ViewModel
             {
                 if (Awards[2].Name != "")
                 {
-                    NavigationModel.ChangeVM(new AwardDescriptionViewModel(Awards[2], NavigationModel));
+                    NavigationModel.ChangeVM(new AwardDescriptionViewModel(Awards[2], NavigationModel, Model));
                 }
             }, null
             ));
@@ -151,7 +153,7 @@ namespace WPFilmweb.ViewModel
             {
                 if (Awards[3].Name != "")
                 {
-                    NavigationModel.ChangeVM(new AwardDescriptionViewModel(Awards[3], NavigationModel));
+                    NavigationModel.ChangeVM(new AwardDescriptionViewModel(Awards[3], NavigationModel, Model));
                 }
             }, null
             ));

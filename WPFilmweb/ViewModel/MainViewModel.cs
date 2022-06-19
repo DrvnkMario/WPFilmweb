@@ -99,6 +99,7 @@ namespace WPFilmweb.ViewModel
             { 
                 selectedItem = value;
                 onPropertyChanged(nameof(SelectedItem));
+                navigationModel.CurrentPage = 1;
                 if(selectedItem == "Movies")
                 {
                     NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel, CurrentUserId));
@@ -149,8 +150,8 @@ namespace WPFilmweb.ViewModel
         #region Constructors 
         public MainViewModel()
         {
-            Model = new Model();
-            NavigationModel = new NavigationModel();
+            Model = Model.getInstance();
+            NavigationModel = NavigationModel.getInstance();
             ComboContent = new List<string>()
             {   "Movies",
                 "Actors",

@@ -63,8 +63,9 @@ namespace WPFilmweb.DAL.Repozytoria
             bool state = false;
             using (var connection = DBConnection.Instance.Connection)
             {
-                string DELETE_MOVIE = $"DELETE FROM filmy WHERE filmy.IDfilmu = '{movie.IDmovie}'";
+                string DELETE_MOVIE = $"DELETE FROM filmy WHERE filmy.tytul = '{movie.Title}'";
                 MySqlCommand command= new MySqlCommand(DELETE_MOVIE, connection);
+                connection.Open();
                 var id = command.ExecuteNonQuery();
                 if (id == 1)
                     state = true;

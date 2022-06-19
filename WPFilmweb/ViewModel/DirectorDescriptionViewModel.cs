@@ -68,9 +68,9 @@ namespace WPFilmweb.ViewModel
             set { tempBirthDate = value; }
         }
 
-        public DirectorDescriptionViewModel(Rezyserzy director, ObservableCollection<Filmy> movies, NavigationModel navi)
+        public DirectorDescriptionViewModel(Rezyserzy director, ObservableCollection<Filmy> movies, NavigationModel navi, Model model)
         {
-            Model = new Model();
+            Model = model; 
             CurrentDirector = director;
             CurrentMovies = movies;
             CurrentMovies = Model.GetMoviesFromDirector(director);

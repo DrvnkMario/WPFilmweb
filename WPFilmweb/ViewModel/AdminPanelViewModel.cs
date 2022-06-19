@@ -37,12 +37,6 @@ namespace WPFilmweb.ViewModel
             set { model = value; }
         }
 
-        private AdminPanel adminPanel { get; set; }
-        public AdminPanel AdminPanel
-        {
-            get { return adminPanel; }
-            set { adminPanel = value; }
-        }
 
         #region MovieProperties
 
@@ -148,11 +142,62 @@ namespace WPFilmweb.ViewModel
 
         #endregion
 
+        #region DirectorProperties
+
+        private string directorName { get; set; }
+
+        public string DirectorName
+        {
+            get { return directorName; }
+            set
+            {
+                directorName = value;
+                onPropertyChanged(nameof(DirectorName));
+            }
+        }
+
+        private string directorSurname { get; set; }
+
+        public string DirectorSurname
+        {
+            get { return directorSurname; }
+            set
+            {
+                directorSurname = value;
+                onPropertyChanged(nameof(DirectorSurname));
+            }
+        }
+
+        private string directorDateOfBirth { get; set; }
+
+        public string DirectorDateOfBirth
+        {
+            get { return directorDateOfBirth; }
+            set
+            {
+                directorDateOfBirth = value;
+                onPropertyChanged(nameof(DirectorDateOfBirth));
+            }
+        }
+
+        private string directorBio { get; set; }
+
+        public string DirectorBio
+        {
+            get { return directorBio; }
+            set
+            {
+                directorBio = value;
+                onPropertyChanged(nameof(DirectorBio));
+            }
+        }
+
+        #endregion
+
         public AdminPanelViewModel(Model m, NavigationModel navimodel)
         {
             NavigationModel = navimodel;
             Model = m;
-            AdminPanel = new AdminPanel();
         }
 
         private ICommand addMovie;
@@ -163,7 +208,11 @@ namespace WPFilmweb.ViewModel
                 int i = 0;
                 if(int.TryParse(MovieReleaseYear,out i) && MovieTitle != "" && MovieReleaseYear != "" && MovieLength != "")
                 {
-                    AdminPanel.AddMovie(MovieTitle,int.Parse(MovieReleaseYear), MovieLength, MovieDescription);
+                    Model.AddMovie(MovieTitle,int.Parse(MovieReleaseYear), MovieLength, MovieDescription);
+                    MovieReleaseYear = "";
+                    MovieLength = "";
+                    MovieTitle = "";
+                    MovieDescription = "";
                 }
             }, null
             ));
@@ -173,12 +222,40 @@ namespace WPFilmweb.ViewModel
         public ICommand AddActor => addActor ?? (addActor = new RelayCommand(
             o =>
             {
-                int i = 0;
-                if (ActorName != "" && ActorSurname != "" && ActorDateOfBirth != "")
+                if (ActorName != "" && ActorSurname != "" && ActorDateOfBirth != "" && ActorDateOfBirth.Contains('-'))
                 {
-                    AdminPanel.AddActor(ActorName, ActorSurname, ActorDateOfBirth, ActorBio);
+                    Model.AddActor(ActorName, ActorSurname, ActorDateOfBirth, ActorBio);
+                    ActorName = "";
+                    ActorSurname = "";
+                    ActorDateOfBirth = "";
+                    ActorBio = "";
                 }
             }, null
             ));
+
+        private ICommand addDirector;
+
+        public ICommand AddDirector => addDirector ?? (addDirector = new RelayCommand(
+            o =>
+            {
+                if (DirectorName != "" && DirectorSurname != "" && DirectorDateOfBirth != "" && DirectorDateOfBirth.Contains('-'))
+                {
+                    Model.AddDirector(DirectorName, DirectorSurname, DirectorDateOfBirth, DirectorBio);
+                    DirectorName = "";
+                    DirectorSurname = "";
+                    DirectorDateOfBirth = "";
+                    DirectorBio = "";
+                }
+
+            }, null
+            ));
+
+        private ICommand nextPage;
+
+        public ICommand NextPage => nextPage ?? (nextPage = new RelayCommand(
+            o=>
+            {
+                NavigationModel.ChangeVM(new AdminPanel2ViewModel(Model, NavigationModel));
+            },null));
     }
 }
