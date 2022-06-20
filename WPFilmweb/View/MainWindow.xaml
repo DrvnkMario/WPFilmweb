@@ -124,9 +124,6 @@
                 <DataTemplate DataType="{x:Type ViewModels:AdminPanelViewModel}">
                     <Views:AdminPanel/>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type ViewModels:AdminPanel2ViewModel}">
-                    <Views:AdminPanel2/>
-                </DataTemplate>
                 <DataTemplate DataType="{x:Type ViewModels:AwardDescriptionViewModel}">
                     <Views:AwardDescription/>
                 </DataTemplate>

@@ -140,6 +140,17 @@ namespace WPFilmweb.ViewModel
             }
         }
 
+        private ObservableCollection<string> selectedActors { get; set; }
+
+        public ObservableCollection<string> SelectedActors
+        {
+            get { return selectedActors; }
+            set
+            {
+                selectedActors = value;
+                onPropertyChanged(nameof(SelectedActors));
+            }
+        }
         #endregion
 
         #region DirectorProperties
@@ -194,26 +205,125 @@ namespace WPFilmweb.ViewModel
 
         #endregion
 
+        private ObservableCollection<string> movieTitles { get; set; }
+        public ObservableCollection<string> MovieTitles
+        {
+            get { return movieTitles; }
+            set
+            {
+                movieTitles = value;
+                onPropertyChanged(nameof(MovieTitles));
+            }
+        }
+
+        private ObservableCollection<string> actorNames { get; set; }
+        public ObservableCollection<string> ActorNames
+        {
+            get { return actorNames; }
+            set
+            {
+                actorNames = value;
+                onPropertyChanged(nameof(ActorNames));
+            }
+        }
+
+        
+
+        private ObservableCollection<string> directorNames { get; set; }
+        public ObservableCollection<string> DirectorNames
+        {
+            get { return directorNames; }
+            set
+            {
+                directorNames = value;
+                onPropertyChanged(nameof(DirectorNames));
+            }
+        }
+
+        private int movieIndex { get; set; }
+        public int MovieIndex
+        {
+            get { return movieIndex; }
+            set
+            {
+                movieIndex = value;
+                onPropertyChanged(nameof(MovieIndex));
+            }
+        }
+
+        private int actorIndex { get; set; }
+        public int ActorIndex
+        {
+            get { return actorIndex; }
+            set
+            {
+                actorIndex = value;
+                onPropertyChanged(nameof(ActorIndex));
+            }
+        }
+
+        private int directorIndex { get; set; }
+        public int DirectorIndex
+        {
+            get { return directorIndex; }
+            set
+            {
+                directorIndex = value;
+                onPropertyChanged(nameof(DirectorIndex));
+            }
+        }
+        // --------------------------------------------------------------------------
+        private ObservableCollection<Aktorzy> actorToAddNames { get; set; }
+        public ObservableCollection<Aktorzy> ActorToAddNames
+        {
+            get { return actorToAddNames; }
+            set
+            {
+                actorToAddNames = value;
+                onPropertyChanged(nameof(actorToAddNames));
+            }
+        }
+
+
         public AdminPanelViewModel(Model m, NavigationModel navimodel)
         {
             NavigationModel = navimodel;
             Model = m;
+            MovieIndex = 0;
+            MovieTitles = Model.MoviesTitles;
+            DirectorNames = Model.DirectorNames;
+            ActorNames = Model.ActorNames;
+            Model.GetActors();
+            ActorToAddNames = Model.ActorList;
+
         }
+
+        private ICommand addActorToList;
+
+        public ICommand AddActorToList => addActorToList ?? (addActorToList = new RelayCommand(
+            o =>
+            {
+
+            }, null
+            ));
 
         private ICommand addMovie;
 
         public ICommand AddMovie => addMovie ?? (addMovie = new RelayCommand(
             o =>
             {
+                
                 int i = 0;
-                if(int.TryParse(MovieReleaseYear,out i) && MovieTitle != "" && MovieReleaseYear != "" && MovieLength != "")
+                if (int.TryParse(MovieReleaseYear, out i) && MovieTitle != "" && MovieReleaseYear != "" && MovieLength != "")
                 {
-                    Model.AddMovie(MovieTitle,int.Parse(MovieReleaseYear), MovieLength, MovieDescription);
+                    Model.AddMovie(MovieTitle, int.Parse(MovieReleaseYear), MovieLength, MovieDescription);
+                    
                     MovieReleaseYear = "";
                     MovieLength = "";
                     MovieTitle = "";
                     MovieDescription = "";
                 }
+                
             }, null
             ));
 
@@ -250,12 +360,42 @@ namespace WPFilmweb.ViewModel
             }, null
             ));
 
-        private ICommand nextPage;
+        private ICommand deleteMovie;
 
-        public ICommand NextPage => nextPage ?? (nextPage = new RelayCommand(
-            o=>
+        public ICommand DeleteMovie => deleteMovie ?? (deleteMovie = new RelayCommand(
+            o =>
             {
-                NavigationModel.ChangeVM(new AdminPanel2ViewModel(Model, NavigationModel));
-            },null));
+                Model.DeleteMovie(MovieIndex);
+                Model.GetMovies();
+                Model.GetMovieTitles();
+                MovieTitles = Model.MoviesTitles;
+            }, null
+            ));
+
+        private ICommand deleteActor;
+
+        public ICommand DeleteActor => deleteActor ?? (deleteActor = new RelayCommand(
+            o =>
+            {
+                Model.DeleteActor(ActorIndex);
+                Model.GetActors();
+                Model.GetActorNames();
+                ActorNames = Model.ActorNames;
+            }, null
+            ));
+
+        private ICommand deleteDirector;
+
+        public ICommand DeleteDirector => deleteDirector ?? (deleteDirector = new RelayCommand(
+            o =>
+            {
+                Model.DeleteDirector(DirectorIndex);
+                Model.GetDirectors();
+                Model.GetDirectorNames();
+                DirectorNames = Model.DirectorNames;
+            }, null
+            ));
+
+        
     }
 }

@@ -140,7 +140,6 @@ namespace WPFilmweb.ViewModel
         public string Actors => "Obsada: " + ActorsListToString();
         public string Directors => "Reżyserzy: " + DirectorsListToString();
         public string Genres => "Gatunki: " + Model.GetMovieGenres(CurrentMovie);
-
         public string Awards => "Przyznane nagrody: " + Model.GetMovieAwards(CurrentMovie);
         public string ActorsListToString()
         {

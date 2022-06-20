@@ -133,7 +133,6 @@
     <Compile Include="Model\NavigationModel.cs" />
     <Compile Include="ViewModel\ActorDescirptionViewModel.cs" />
     <Compile Include="ViewModel\ActorsViewModel.cs" />
-    <Compile Include="ViewModel\AdminPanel2ViewModel.cs" />
     <Compile Include="ViewModel\AdminPanelViewModel.cs" />
     <Compile Include="ViewModel\AwardDescriptionViewModel.cs" />
     <Compile Include="ViewModel\AwardsViewModel.cs" />
@@ -153,9 +152,6 @@
     </Compile>
     <Compile Include="View\AdminPanel.xaml.cs">
       <DependentUpon>AdminPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\AdminPanel2.xaml.cs">
-      <DependentUpon>AdminPanel2.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AwardDescription.xaml.cs">
       <DependentUpon>AwardDescription.xaml</DependentUpon>
@@ -222,10 +218,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AdminPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\AdminPanel2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
