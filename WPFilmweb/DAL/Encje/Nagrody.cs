@@ -61,7 +61,7 @@ namespace WPFilmweb.DAL.Encje
         #region Methods
         public string ToInsert()
         {
-            return $"'{Name}','{Description}','{AwardImage}'";
+            return $"('{Name}','{Description}','{AwardImage}')";
         }
         // Override Equals method to check if actor is not duplicated with Contains function
         public override bool Equals(object obj)
@@ -75,6 +75,11 @@ namespace WPFilmweb.DAL.Encje
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return $"{Name}";
         }
         #endregion
     }

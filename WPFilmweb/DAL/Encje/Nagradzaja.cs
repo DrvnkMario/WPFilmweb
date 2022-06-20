@@ -22,6 +22,13 @@ namespace WPFilmweb.DAL.Encje
             IDaward = int.Parse(reader["IDnagrody"].ToString());
             AwardingDate = reader["data_przyznania"].ToString();
         }
+
+        public Nagradzaja(int movieId, int awardId)
+        {
+            IDmovie = movieId;
+            IDaward = awardId;
+            AwardingDate = null;
+        }
         #endregion
 
 

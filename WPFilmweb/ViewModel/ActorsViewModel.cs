@@ -47,16 +47,6 @@ namespace WPFilmweb.ViewModel
             }
         }
 
-        private ObservableCollection<string> actorsNamesSurnames { get; set; }
-        public ObservableCollection<string> ActorsNamesSurnames
-        {
-            get { return actorsNamesSurnames; }
-            set
-            {
-                actorsNamesSurnames = value;
-                onPropertyChanged(nameof(ActorsNamesSurnames));
-            }
-        }
 
         private ObservableCollection<string> actorsVisibility { get; set; }
         public ObservableCollection<string> ActorsVisibility
@@ -131,7 +121,7 @@ namespace WPFilmweb.ViewModel
 
                 if (Actors[0].Name != "")
                 {
-                    NavigationModel.ChangeVM(new ActorDescriptionViewModel(Actors[0], Model.MoviesList, NavigationModel, Model));
+                    NavigationModel.ChangeVM(new ActorDescriptionViewModel(Actors[0], NavigationModel, Model));
                 }
             }, null
             ));
@@ -142,7 +132,7 @@ namespace WPFilmweb.ViewModel
             {
                 if (Actors[1].Name != "")
                 {
-                    NavigationModel.ChangeVM(new ActorDescriptionViewModel(Actors[1], Model.MoviesList, NavigationModel, Model));
+                    NavigationModel.ChangeVM(new ActorDescriptionViewModel(Actors[1], NavigationModel, Model));
                 }
             }, null
             ));
@@ -153,7 +143,7 @@ namespace WPFilmweb.ViewModel
             {
                 if (Actors[2].Name != "")
                 {
-                    NavigationModel.ChangeVM(new ActorDescriptionViewModel(Actors[2], Model.MoviesList, NavigationModel, Model));
+                    NavigationModel.ChangeVM(new ActorDescriptionViewModel(Actors[2], NavigationModel, Model));
                 }
             }, null
             ));
@@ -164,7 +154,7 @@ namespace WPFilmweb.ViewModel
             {
                 if (Actors[3].Name != "")
                 {
-                    NavigationModel.ChangeVM(new ActorDescriptionViewModel(Actors[3], Model.MoviesList, NavigationModel, Model));
+                    NavigationModel.ChangeVM(new ActorDescriptionViewModel(Actors[3], NavigationModel, Model));
                 }
             }, null
             ));

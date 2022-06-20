@@ -87,7 +87,7 @@ namespace WPFilmweb.ViewModel
         public ICommand NextPage => nextPage ?? (nextPage = new RelayCommand(
             o =>
             {
-                if ((float)CurrentPage < (float)Model.Awards.Count() / 4)
+                if ((float)CurrentPage < (float)Model.AwardList.Count() / 4)
                 {
                     CurrentPage++;
                     NavigationModel.CurrentPage = CurrentPage;

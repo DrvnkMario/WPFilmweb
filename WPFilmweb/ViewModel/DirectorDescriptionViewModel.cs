@@ -45,79 +45,21 @@ namespace WPFilmweb.ViewModel
             }
         }
 
-        private ObservableCollection<Filmy> currentMovies;
 
-        public ObservableCollection<Filmy> CurrentMovies
-        {
-            get
-            {
-                return currentMovies;
-            }
-            set
-            {
-                currentMovies = value;
-                onPropertyChanged(nameof(CurrentMovies));
-            }
-        }
-
-        private string tempBirthDate;
-
-        public string TempBirthDate
-        {
-            get { return tempBirthDate; }
-            set { tempBirthDate = value; }
-        }
-
-        public DirectorDescriptionViewModel(Rezyserzy director, ObservableCollection<Filmy> movies, NavigationModel navi, Model model)
+        public DirectorDescriptionViewModel(Rezyserzy director, NavigationModel navi, Model model)
         {
             Model = model; 
             CurrentDirector = director;
-            CurrentMovies = movies;
-            CurrentMovies = Model.GetMoviesFromDirector(director);
             NavigationModel = navi;
         }
 
         public string NameSurname => CurrentDirector.Name + " " + CurrentDirector.Surname;
         public string Bio => "Biografia: " + CurrentDirector.Bio;
         public ImageSource ActorImage => CurrentDirector.DirectorImage;
-        public string BirthDate => "Data Urodzenia: " + BirthDateToString();
-        public string Movies => "Wyreżyserował: " + MoviesListToString();
+        public string BirthDate => "Data Urodzenia: " + Model.BirthDateToString(CurrentDirector.Birthdate);
+        public string Movies => "Wyreżyserował: " + Model.GetDirectorsMovies(CurrentDirector);
 
-        public string BirthDateToString()
-        {
-            string result = string.Empty;
-            for (int i = 0; i < 10; i++)
-            {
-                result += CurrentDirector.Birthdate.ToString()[i];
-            }
-            return result;
-        }
-        public string MoviesListToString()
-        {
-            string result = String.Empty;
-            if (CurrentMovies.Count == 0)
-            {
-                return "Brak danych";
-            }
-            else
-            {
-                for (int i = 0; i < CurrentMovies.Count; i++)
-                {
-                    if (i != CurrentMovies.Count - 1)
-                    {
-                        result += CurrentMovies[i].Title;
-                        result += ", ";
-                    }
-                    else
-                    {
-                        result += CurrentMovies[i].Title;
-                    }
-                }
-                return result;
-            }
-        }
-
-
+        
         private ICommand back;
 
         public ICommand Back => back ?? (back = new RelayCommand(

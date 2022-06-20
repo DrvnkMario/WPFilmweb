@@ -46,15 +46,47 @@
                             <TextBlock Text="Length:" Style="{StaticResource TextStyle}" Margin="5"/>
                             <TextBox Margin="5" Text="{Binding MovieLength}" MaxLength="4"/>
                         </DockPanel>
-                        <TextBlock Text="{Binding CastList[0]}" Style="{StaticResource TextStyle}" HorizontalAlignment="Left" Margin="5"/>
-                        <ListBox Height="100" Margin="5" SelectionMode="Single"
-                                 ItemsSource="{Binding ActorToAddNames}"
-                                 
-                                 
+                        <DockPanel>
+                            <TextBlock Text="Image:" Style="{StaticResource TextStyle}" Margin="5"/>
+                            <Button Margin="5" Content="Add Image" Command="{Binding AddMovieImage}"/>
+                        </DockPanel>
+                        <TextBlock Text="Cast:" Style="{StaticResource TextStyle}" HorizontalAlignment="Left" Margin="5"/>
+                        
+                        <ListBox Height="75" Margin="5" SelectionMode="Single"
+                                 ItemsSource="{Binding ActorsToAdd}" SelectedItem="{Binding SelectedActor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  >
+                         </ListBox>
+                        <ListBox Height="75" Margin="5" SelectionMode="Single"
+                                ItemsSource="{Binding CastActors,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                         </ListBox>
                         <Button Content="Add Actor" Command="{Binding AddActorToList}"/>
+                        <Button Content="Reset Actors" Command="{Binding ResetActors}"/>
+                        
 
+                        <TextBlock Text="Directors:" Style="{StaticResource TextStyle}" HorizontalAlignment="Left" Margin="5"/>
+                        
+                        <ListBox Height="75" Margin="5" SelectionMode="Single"
+                                 ItemsSource="{Binding DirectorsToAdd}" SelectedItem="{Binding SelectedDirector, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 >
+                         </ListBox>
+                        <ListBox Height="75" Margin="5" SelectionMode="Single"
+                                ItemsSource="{Binding MovieDirectors,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                        </ListBox>
+                        <Button Content="Add Actor" Command="{Binding AddDirectorToList}"/>
+                        <Button Content="Reset Actors" Command="{Binding ResetDirectors}"/>
+
+
+                        <TextBlock Text="Awards:" Style="{StaticResource TextStyle}" HorizontalAlignment="Left" Margin="5"/>
+                        
+                        <ListBox Height="75" Margin="5" SelectionMode="Single"
+                                 ItemsSource="{Binding AwardToAdd}" SelectedItem="{Binding SelectedAward, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 >
+                         </ListBox>
+                        <ListBox Height="75" Margin="5" SelectionMode="Single"
+                                ItemsSource="{Binding MovieAward,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                        </ListBox>
+                        <Button Content="Add Awarts" Command="{Binding AddAwardToList}"/>
+                        <Button Content="Reset Awards" Command="{Binding ResetAwards}"/>
 
                     </StackPanel>
                 </ScrollViewer>
@@ -114,12 +146,19 @@
                     </ScrollViewer>
                     <Button Content="Add" FontSize="20" Command="{Binding AddDirector}"/>
                 </StackPanel>
+                
+
+
+
+
+
+
 
                 <StackPanel Margin="10" Grid.Column="3">
                     <TextBlock Text="Award" HorizontalAlignment="Center" Style="{StaticResource TextStyle}"/>
                     <DockPanel>
                         <TextBlock Text="Name:" Style="{StaticResource TextStyle}" Margin="5"/>
-                        <TextBox Margin="5" Text="{Binding DirectorName}"/>
+                        <TextBox Margin="5" Text="{Binding AwardName}"/>
                     </DockPanel>
                     
                     
@@ -128,9 +167,9 @@
                 <StackPanel Grid.Row="1" Grid.Column="3">
                     <TextBlock Text="Description:" Style="{StaticResource TextStyle}" Margin="5" HorizontalAlignment="Left"/>
                     <ScrollViewer>
-                        <TextBox Height="165" Text="{Binding DirectorBio}"/>
+                        <TextBox Height="165" Text="{Binding AwardDescription}"/>
                     </ScrollViewer>
-                    <Button Content="Add" FontSize="20" Command="{Binding AddDirector}"/>
+                    <Button Content="Add" FontSize="20" Command="{Binding AddAward}"/>
                 </StackPanel>
 
             </Grid>

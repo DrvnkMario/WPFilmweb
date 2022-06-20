@@ -36,8 +36,7 @@ namespace WPFilmweb.Model
         private NavigationModel()
         {
             CurrentPage = 1;
-        }
-        
+        }   
         public static NavigationModel getInstance()
         {
             if(instance == null)

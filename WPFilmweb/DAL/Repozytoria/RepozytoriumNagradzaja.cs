@@ -8,6 +8,7 @@ namespace WPFilmweb.DAL.Repozytoria
     {
         #region Queries
         private static string GET_MOVIE_REWARDS = "SELECT * FROM nagradzaja";
+        private static string ADD_REWARD = "INSERT INTO nagradzaja(IDfilmu, IDnagrody) VALUES";
         #endregion
 
         public static ObservableCollection<Nagradzaja> GetMovieRewards()
@@ -23,6 +24,21 @@ namespace WPFilmweb.DAL.Repozytoria
                 connection.Close();
             }
             return movieRewards;
+        }
+
+        public static bool AddReward(Nagradzaja reward)
+        {
+            bool state = false;
+            using (var connection = DBConnection.Instance.Connection)
+            {
+                MySqlCommand command = new MySqlCommand($"{ADD_REWARD} ({reward.IDmovie}, {reward.IDaward})", connection);
+                connection.Open();
+                var id = command.ExecuteNonQuery();
+                state = true;
+                reward.IDaward = (int)command.LastInsertedId;
+                connection.Close();
+            }
+            return state;
         }
     }
 }

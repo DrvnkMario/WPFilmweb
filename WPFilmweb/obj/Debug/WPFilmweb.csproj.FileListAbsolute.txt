@@ -108,8 +108,6 @@ D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\Awards.g.cs
 D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\Awards.baml
 D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\AwardDescription.g.cs
 D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\AwardDescription.baml
-D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\AdminPanel2.g.cs
-D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\AdminPanel2.baml
 C:\Users\fojo\Desktop\WPFilmweb-main\WPFilmweb\bin\Debug\WPFilmweb.exe.config
 C:\Users\fojo\Desktop\WPFilmweb-main\WPFilmweb\bin\Debug\WPFilmweb.exe
 C:\Users\fojo\Desktop\WPFilmweb-main\WPFilmweb\bin\Debug\WPFilmweb.pdb
@@ -173,3 +171,5 @@ C:\Users\fojo\Desktop\WPFilmweb-main\WPFilmweb\obj\Debug\WPFilmweb.csproj.CoreCo
 C:\Users\fojo\Desktop\WPFilmweb-main\WPFilmweb\obj\Debug\WPFilmweb.csproj.CopyComplete
 C:\Users\fojo\Desktop\WPFilmweb-main\WPFilmweb\obj\Debug\WPFilmweb.exe
 C:\Users\fojo\Desktop\WPFilmweb-main\WPFilmweb\obj\Debug\WPFilmweb.pdb
+D:\Programowanie\C#\WPFilmweb\WPFilmweb\bin\Debug\Microsoft.Win32.dll
+D:\Programowanie\C#\WPFilmweb\WPFilmweb\bin\Debug\Microsoft.Win32.xml

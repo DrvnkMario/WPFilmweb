@@ -8,6 +8,7 @@ namespace WPFilmweb.DAL.Repozytoria
     {
         #region Queries
         private const string GET_MOVIE_DIRECTORS = "SELECT * FROM rezyseruja";
+        private const string ADD_DIRECT = "INSERT INTO rezyseruja(IDfilmu, IDrezysera) VALUES";
         #endregion
 
         public static ObservableCollection<Rezyseruja> GetMovieDirectors()
@@ -23,6 +24,21 @@ namespace WPFilmweb.DAL.Repozytoria
                 connection.Close();
             }
             return movieDirectors;
+        }
+
+        public static bool AddDirect(Rezyseruja direct)
+        {
+            bool state = false;
+            using (var connection = DBConnection.Instance.Connection)
+            {
+                MySqlCommand command = new MySqlCommand($"{ADD_DIRECT} ({direct.IDmovie}, {direct.IDdirector})", connection);
+                connection.Open();
+                var id = command.ExecuteNonQuery();
+                state = true;
+                direct.IDdirector = (int)command.LastInsertedId;
+                connection.Close();
+            }
+            return state;
         }
     }
 }

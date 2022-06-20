@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Marian\OneDrive\Pulpit\WPFilmweb-main\WPFilmweb\obj\Debug\
+D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\
 WPFilmweb
 none
 false
 DEBUG;TRACE
-C:\Users\Marian\OneDrive\Pulpit\WPFilmweb-main\WPFilmweb\App.xaml
+D:\Programowanie\C#\WPFilmweb\WPFilmweb\App.xaml
 11-35349960
 
-54-53193980
-341577617329
+53-1974972101
+138-1320238973
 View\ActorDescription.xaml;View\Actors.xaml;View\AdminPanel.xaml;View\AwardDescription.xaml;View\Awards.xaml;View\DirectorDescription.xaml;View\Directors.xaml;View\Login.xaml;View\MainWindow.xaml;View\MovieDescription.xaml;View\Movies.xaml;
 
-True
+False
 

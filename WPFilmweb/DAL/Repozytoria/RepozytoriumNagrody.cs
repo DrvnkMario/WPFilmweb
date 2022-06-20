@@ -1,14 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using WPFilmweb.DAL.Encje;
 using MySql.Data.MySqlClient;
-
+using System;
 namespace WPFilmweb.DAL.Repozytoria
 {
     class RepozytoriumNagrody
     {
         #region Queries
         private const string GET_EVERY_AWARD = "SELECT * FROM nagrody";
-        private const string ADD_AWARD = "INSERT INTO 'nagrody'( 'nazwa', 'opis_nagrody', 'zdjecie') VALUES";
+        private const string ADD_AWARD = "INSERT INTO nagrody(nazwa, opis_nagrody, zdjecie) VALUES";
         #endregion
 
         #region CRUD methods
@@ -34,6 +34,7 @@ namespace WPFilmweb.DAL.Repozytoria
             {
                 MySqlCommand command = new MySqlCommand($"{ADD_AWARD} {award.ToInsert()}", connection);
                 connection.Open();
+                Console.WriteLine(command.CommandText);
                 var id = command.ExecuteNonQuery();
                 state = true;
                 award.IDAward = (int)command.LastInsertedId;

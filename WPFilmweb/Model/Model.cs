@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
-
+using Microsoft.Win32;
 namespace WPFilmweb.Model
 {
     using DAL.Encje;
@@ -63,7 +63,7 @@ namespace WPFilmweb.Model
 
         #region Awards
 
-            public ObservableCollection<Nagrody> Awards { get; set; } = new ObservableCollection<Nagrody>();
+            public ObservableCollection<Nagrody> AwardList { get; set; } = new ObservableCollection<Nagrody>();
             public ObservableCollection<Nagradzaja> MoviesAwards { get; set; } = new ObservableCollection<Nagradzaja>();
             public ObservableCollection<string> AwardsVisibility { get; set; } = new ObservableCollection<string>();
 
@@ -182,6 +182,18 @@ namespace WPFilmweb.Model
                 }
                 return null;
             }
+
+            public Filmy FindMovieByTitle(string title)
+            {
+                foreach (var m in MoviesList)
+                {
+                    if (m.Title == title)
+                        return m;
+                }
+                return null;
+            }
+
+
             public ObservableCollection<string> GetRatingsForMovieList(ObservableCollection<Filmy> movies)
             {
                 double grade = 0;
@@ -241,6 +253,36 @@ namespace WPFilmweb.Model
                     MoviesList = temp;
                 }
             }
+        public string GetMovieDirectors(Filmy movie)
+        {
+            string dir = "";
+            foreach (var d in DirectorsMoviesList)
+            {
+                if (d.IDmovie == movie.IDmovie)
+                {
+                    dir += FindDirectorById(d.IDdirector).Name + " " + FindDirectorById(d.IDdirector).Surname + ", ";
+                }
+            }
+            if (dir != String.Empty)
+                return dir.Remove(dir.Length - 2);
+            else
+                return "Brak danych";
+        }
+        public string GetMovieCast(Filmy movie)
+        {
+            string cast = "";
+            foreach (var m in ActorsMoviesList)
+            {
+                if (m.IDmovie == movie.IDmovie)
+                {
+                    cast += FindActorById(m.IDactor).Name + " " + FindActorById(m.IDactor).Surname + ", ";
+                }
+            }
+            if (cast != String.Empty)
+                return cast.Remove(cast.Length - 2);
+            else
+                return "Brak danych";
+        }
         #endregion
 
         #region Actors methods
@@ -278,7 +320,8 @@ namespace WPFilmweb.Model
                 }
                 ActorList = new ObservableCollection<Aktorzy>(ActorList.OrderBy(actor => (actor.Name + actor.Surname)).ToList());
             }
-            public void GetActorsMovies()
+        
+        public void GetActorsMovies()
             {
                 var actorsMovies = RepozytoriumGraja_w.GetPlayingActors();
                 ActorsMoviesList.Clear();
@@ -378,7 +421,21 @@ namespace WPFilmweb.Model
                 }
                 return movies;
             }
-
+        public string GetActorsMovies(Aktorzy actor)
+        {
+            string movies = "";
+            foreach (var m in ActorsMoviesList)
+            {
+                if (m.IDactor == actor.IDActor)
+                {
+                    movies += FindMovieById(m.IDmovie).Title + ", ";
+                }
+            }
+            if (movies != String.Empty)
+                return movies.Remove(movies.Length - 2);
+            else
+                return "Brak danych";
+        }
         #endregion
 
         #region Directos methods
@@ -527,6 +584,21 @@ namespace WPFilmweb.Model
                 }
                 return movies;
             }
+        public string GetDirectorsMovies(Rezyserzy director)
+        {
+            string movies = "";
+            foreach (var m in DirectorsMoviesList)
+            {
+                if (m.IDdirector == director.IDDirector)
+                {
+                    movies += FindMovieById(m.IDmovie).Title + ", ";
+                }
+            }
+            if (movies != String.Empty)
+                return movies.Remove(movies.Length - 2);
+            else
+                return "Brak danych";
+        }
         #endregion
 
         #region Users methods
@@ -645,11 +717,11 @@ namespace WPFilmweb.Model
                 {
                     if (g.IDmovie == movie.IDmovie)
                     {
-                        genre += FindGenreByID(g.IDgenre).Name;
+                        genre += FindGenreByID(g.IDgenre).Name + ", ";
                     }
                 }
                 if (genre != String.Empty)
-                    return genre;
+                    return genre.Remove(genre.Length-2);
                 else
                     return "Brak danych";
             }
@@ -659,23 +731,23 @@ namespace WPFilmweb.Model
         public void GetAwards()
             {
                 var awards = RepozytoriumNagrody.GetAllAwards();
-                Awards.Clear();
+                AwardList.Clear();
                 foreach (var award in awards)
                 {
-                    Awards.Add(award);
+                AwardList.Add(award);
                 }
             }
             public void RefreshAwards(ObservableCollection<Nagrody> awards, int n)
             {
-                if (Awards.Count != 0)
+                if (AwardList.Count != 0)
                 {
                     awards.Clear(); // this line is intentional. It's purpouse is clearing ObservableCollection passed as reference, that way it is always filled with 4 objects
                     AwardsVisibility.Clear();
                     for (int i = 4 * n - 4; i <= n * 3 + 1; i++)
                     {
-                        awards.Add(Awards[i]);
+                        awards.Add(AwardList[i]);
                         AwardsVisibility.Add("Visible");
-                        if (i == Awards.Count()-1)
+                        if (i == AwardList.Count()-1)
                         {
                             for (int z = i; z <= n * 3 + 2; z++)
                             {
@@ -696,7 +768,14 @@ namespace WPFilmweb.Model
                     }
                 }
             }
-            public void GetAwardsByName(string name)
+        public void AddAward(string name, string description)
+        {
+            Nagrody award = new Nagrody(name, description, null);
+            RepozytoriumNagrody.AddAward(award);
+            GetAwards();
+            //GetActorNames();
+        }
+        public void GetAwardsByName(string name)
             {
                 if (string.IsNullOrEmpty(name))
                 {
@@ -707,7 +786,7 @@ namespace WPFilmweb.Model
                     GetAwards();
                     ObservableCollection<Nagrody> temp = new ObservableCollection<Nagrody>();
                     AwardsVisibility.Clear();
-                    foreach (var award in Awards)
+                    foreach (var award in AwardList)
                     {
                         if (award.Name.ToLower().Contains(name.ToLower()))
                         {
@@ -719,8 +798,8 @@ namespace WPFilmweb.Model
                             AwardsVisibility.Add("Hidden");
                         }
                     }
-                    Awards.Clear();
-                    Awards = temp;
+                    AwardList.Clear();
+                AwardList = temp;
                 }
             }
             public void GetMoviesAwards()
@@ -733,7 +812,7 @@ namespace WPFilmweb.Model
             }
             private Nagrody GetAwardById(int id)
             {
-                foreach (var a in Awards)
+                foreach (var a in AwardList)
                 {
                     if (a.IDAward == id)
                         return a;
@@ -747,16 +826,73 @@ namespace WPFilmweb.Model
                 {
                     if (a.IDmovie == movie.IDmovie)
                     {
-                        awards += GetAwardById(a.IDaward).Name;
+                        awards += GetAwardById(a.IDaward).Name + ", ";
                     }
                 }
                 if (awards != String.Empty)
-                    return awards;
+                    return awards.Remove(awards.Length-2);
                 else
                     return "Brak danych";
             }
         #endregion
 
+        #region PlayIn methods
+            
+        public void AddPlayIn(int movieId, int actorId)
+        {
+            Graja_w playIn = new Graja_w(movieId, actorId);
+            RepozytoriumGraja_w.AddPlayIn(playIn);
+            GetActorsMovies();
+        }
+
         #endregion
+
+        #region Direct methods
+
+        public void AddDirect(int movieId, int directorId)
+        {
+            Rezyseruja direct = new Rezyseruja(movieId, directorId);
+            RepozytoriumRezyseruja.AddDirect(direct);
+            GetDirectorsMovies();
+        }
+
+        #endregion
+
+        #region Reward methods
+
+        public void AddReward(int movieId, int rewardId)
+        {
+            Nagradzaja reward = new Nagradzaja(movieId, rewardId);
+            RepozytoriumNagradzaja.AddReward(reward);
+            GetMoviesAwards();
+        }
+
+        #endregion
+
+        #endregion
+
+        public string BirthDateToString(string Date)
+        {
+            string result = string.Empty;
+            for (int i = 0; i < 10; i++)
+            {
+                result += Date.ToString()[i];
+            }
+            return result;
+        }
+        public void GetImage()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            Nullable<bool> result = openFileDialog.ShowDialog();
+
+            if(result == true)
+            {
+                string filename = openFileDialog.FileName;
+                Console.WriteLine(filename);
+            }
+
+        }
+
+
     }
 }

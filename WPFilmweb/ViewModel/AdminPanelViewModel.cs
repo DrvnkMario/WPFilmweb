@@ -16,7 +16,7 @@ namespace WPFilmweb.ViewModel
     using System.Windows.Input;
     using WPFilmweb.Model;
     using WPFilmweb.ViewModel.BaseClasses;
-    
+
     internal class AdminPanelViewModel : ViewModelBase
     {
         private NavigationModel navigationModel { get; set; }
@@ -205,6 +205,33 @@ namespace WPFilmweb.ViewModel
 
         #endregion
 
+        #region Award properties
+        private string awardDescription { get; set; }
+
+        public string AwardDescription
+        {
+            get { return awardDescription; }
+            set
+            {
+                awardDescription = value;
+                onPropertyChanged(nameof(AwardDescription));
+            }
+        }
+
+        private string awardName { get; set; }
+
+        public string AwardName
+        {
+            get { return awardName; }
+            set
+            {
+                awardName = value;
+                onPropertyChanged(nameof(AwardName));
+            }
+        }
+        
+        #endregion
+
         private ObservableCollection<string> movieTitles { get; set; }
         public ObservableCollection<string> MovieTitles
         {
@@ -227,7 +254,7 @@ namespace WPFilmweb.ViewModel
             }
         }
 
-        
+
 
         private ObservableCollection<string> directorNames { get; set; }
         public ObservableCollection<string> DirectorNames
@@ -262,6 +289,38 @@ namespace WPFilmweb.ViewModel
             }
         }
 
+        private Aktorzy selectedActor { get; set; }
+        public Aktorzy SelectedActor
+        {
+            get { return selectedActor; }
+            set
+            {
+                selectedActor = value;
+                onPropertyChanged(nameof(SelectedActor));
+            }
+        }
+        private ObservableCollection<Aktorzy> actorsToAdd { get; set; }
+        public ObservableCollection<Aktorzy> ActorsToAdd
+        {
+            get { return actorsToAdd; }
+            set
+            {
+                actorsToAdd = value;
+                onPropertyChanged(nameof(ActorsToAdd));
+            }
+        }
+
+        private ObservableCollection<Aktorzy> castActors { get; set; }
+        public ObservableCollection<Aktorzy> CastActors
+        {
+            get { return castActors; }
+            set
+            {
+                castActors = value;
+                onPropertyChanged(nameof(CastActors));
+            }
+        }
+
         private int directorIndex { get; set; }
         public int DirectorIndex
         {
@@ -272,15 +331,69 @@ namespace WPFilmweb.ViewModel
                 onPropertyChanged(nameof(DirectorIndex));
             }
         }
-        // --------------------------------------------------------------------------
-        private ObservableCollection<Aktorzy> actorToAddNames { get; set; }
-        public ObservableCollection<Aktorzy> ActorToAddNames
+
+        private Rezyserzy selectedDirector { get; set; }
+        public Rezyserzy SelectedDirector
         {
-            get { return actorToAddNames; }
+            get { return selectedDirector; }
             set
             {
-                actorToAddNames = value;
-                onPropertyChanged(nameof(actorToAddNames));
+                selectedDirector = value;
+                onPropertyChanged(nameof(SelectedDirector));
+            }
+        }
+        private ObservableCollection<Rezyserzy> directorsToAdd { get; set; }
+        public ObservableCollection<Rezyserzy> DirectorsToAdd
+        {
+            get { return directorsToAdd; }
+            set
+            {
+                directorsToAdd = value;
+                onPropertyChanged(nameof(DirectorsToAdd));
+            }
+        }
+
+        private ObservableCollection<Rezyserzy> movieDirectors { get; set; }
+        public ObservableCollection<Rezyserzy> MovieDirectors
+        {
+            get { return movieDirectors; }
+            set
+            {
+                movieDirectors = value;
+                onPropertyChanged(nameof(MovieDirectors));
+            }
+        }
+        // --------------------------------------------------------------------------
+
+        private Nagrody selectedAward { get; set; }
+        public Nagrody SelectedAward
+        {
+            get { return selectedAward; }
+            set
+            {
+                selectedAward = value;
+                onPropertyChanged(nameof(SelectedAward));
+            }
+        }
+        private ObservableCollection<Nagrody> awardToAdd { get; set; }
+        public ObservableCollection<Nagrody> AwardToAdd
+        {
+            get { return awardToAdd; }
+            set
+            {
+                awardToAdd = value;
+                onPropertyChanged(nameof(AwardToAdd));
+            }
+        }
+
+        private ObservableCollection<Nagrody> movieAward { get; set; }
+        public ObservableCollection<Nagrody> MovieAward
+        {
+            get { return movieAward; }
+            set
+            {
+                movieAward = value;
+                onPropertyChanged(nameof(MovieAward));
             }
         }
 
@@ -293,9 +406,19 @@ namespace WPFilmweb.ViewModel
             MovieTitles = Model.MoviesTitles;
             DirectorNames = Model.DirectorNames;
             ActorNames = Model.ActorNames;
-            Model.GetActors();
-            ActorToAddNames = Model.ActorList;
+            
 
+            Model.GetActors();
+            ActorsToAdd = Model.ActorList;
+            CastActors = new ObservableCollection<Aktorzy>();
+
+            Model.GetDirectors();
+            DirectorsToAdd = Model.DirectorsList;
+            MovieDirectors = new ObservableCollection<Rezyserzy>();
+
+            Model.GetAwards();
+            AwardToAdd = Model.AwardList;
+            MovieAward = new ObservableCollection<Nagrody>();
         }
 
         private ICommand addActorToList;
@@ -303,7 +426,67 @@ namespace WPFilmweb.ViewModel
         public ICommand AddActorToList => addActorToList ?? (addActorToList = new RelayCommand(
             o =>
             {
+                CastActors.Add(SelectedActor);
+                ActorsToAdd.Remove(SelectedActor);
+                
+            }, null
+            ));
 
+        private ICommand resetActors;
+
+        public ICommand ResetActors => resetActors ?? (resetActors = new RelayCommand(
+            o =>
+            {
+                SelectedActor = null;
+                CastActors.Clear();
+                Model.GetActors();
+                ActorsToAdd = Model.ActorList;
+            }, null
+            ));
+
+        private ICommand addDirectorToList;
+
+        public ICommand AddDirectorToList => addDirectorToList ?? (addDirectorToList = new RelayCommand(
+            o =>
+            {
+                MovieDirectors.Add(SelectedDirector);
+                DirectorsToAdd.Remove(SelectedDirector);
+
+            }, null
+            ));
+
+        private ICommand resetDirectors;
+
+        public ICommand ResetDirectors => resetDirectors ?? (resetDirectors = new RelayCommand(
+            o =>
+            {
+                SelectedDirector = null;
+                MovieDirectors.Clear();
+                Model.GetAwards();
+                AwardToAdd = Model.AwardList;
+            }, null
+            ));
+
+        private ICommand addAwardToList;
+
+        public ICommand AddAwardToList => addAwardToList ?? (addAwardToList = new RelayCommand(
+            o =>
+            {
+                MovieAward.Add(SelectedAward);
+                AwardToAdd.Remove(SelectedAward);
+
+            }, null
+            ));
+
+        private ICommand resetAwards;
+
+        public ICommand ResetAwards => resetAwards ?? (resetAwards = new RelayCommand(
+            o =>
+            {
+                SelectedDirector = null;
+                MovieAward.Clear();
+                Model.GetAwards();
+                AwardToAdd = Model.AwardList;
             }, null
             ));
 
@@ -317,11 +500,41 @@ namespace WPFilmweb.ViewModel
                 if (int.TryParse(MovieReleaseYear, out i) && MovieTitle != "" && MovieReleaseYear != "" && MovieLength != "")
                 {
                     Model.AddMovie(MovieTitle, int.Parse(MovieReleaseYear), MovieLength, MovieDescription);
-                    
+
+                    Filmy tempMovie = Model.FindMovieByTitle(MovieTitle);
+
+                    for (int j= 0; j<CastActors.Count; j++)
+                    {
+                        Model.AddPlayIn(tempMovie.IDmovie, (int)CastActors[j].IDActor);
+                    }
+
+                    for (int j = 0; j < MovieDirectors.Count; j++)
+                    {
+                        Model.AddDirect(tempMovie.IDmovie, (int)MovieDirectors[j].IDDirector);
+                    }
+
+                    for (int j = 0; j < MovieAward.Count; j++)
+                    {
+                        Model.AddReward(tempMovie.IDmovie, (int)MovieAward[j].IDAward);
+                    }
+
+
                     MovieReleaseYear = "";
                     MovieLength = "";
                     MovieTitle = "";
                     MovieDescription = "";
+
+                    Model.GetActors();
+                    Model.GetDirectors();
+                    Model.GetAwards();
+
+                    ActorsToAdd = Model.ActorList;
+                    DirectorsToAdd = Model.DirectorsList;
+                    AwardToAdd = Model.AwardList;
+
+                    CastActors.Clear();
+                    MovieDirectors.Clear();
+                    MovieAward.Clear();
                 }
                 
             }, null
@@ -355,6 +568,22 @@ namespace WPFilmweb.ViewModel
                     DirectorSurname = "";
                     DirectorDateOfBirth = "";
                     DirectorBio = "";
+                }
+
+            }, null
+            ));
+
+        private ICommand addAward;
+
+        public ICommand AddAward => addAward ?? (addAward = new RelayCommand(
+            o =>
+            {
+                if (AwardName != "" && AwardDescription != "")
+                {
+                    Model.AddAward(AwardName, AwardDescription);
+
+                    AwardName = "";
+                    AwardDescription = "";
                 }
 
             }, null
@@ -396,6 +625,13 @@ namespace WPFilmweb.ViewModel
             }, null
             ));
 
-        
+        private ICommand addMovieImage;
+        public ICommand AddMovieImage => addMovieImage ?? (addMovieImage = new RelayCommand(
+            o=>
+            {
+                Model.GetImage();
+            }, null
+            )
+            );
     }
 }

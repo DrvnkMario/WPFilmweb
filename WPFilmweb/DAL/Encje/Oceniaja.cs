@@ -25,7 +25,7 @@ namespace WPFilmweb.DAL.Encje
             IDmovie = int.Parse(reader["IDfilmu"].ToString());
             IDuser = int.Parse(reader["IDuzytkownika"].ToString());
             Comment = reader["komentarz"].ToString();
-            Grade = double.Parse(reader["wartość"].ToString());
+            Grade = double.Parse(reader["wartosc"].ToString());
         }
         #endregion
     }

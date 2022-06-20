@@ -8,6 +8,7 @@ namespace WPFilmweb.DAL.Repozytoria
     {
         #region Queries
         private const string ALL_PLAYING_ACTORS = "SELECT * FROM graja_w";
+        private const string ADD_PLAY_IN = "INSERT INTO graja_w(IDfilmu, IDaktora) VALUES";
         #endregion
 
         public static ObservableCollection<Graja_w> GetPlayingActors()
@@ -23,6 +24,21 @@ namespace WPFilmweb.DAL.Repozytoria
                 connection.Close();
             }
             return playingActors;
+        }
+
+        public static bool AddPlayIn(Graja_w playIn)
+        {
+            bool state = false;
+            using (var connection = DBConnection.Instance.Connection)
+            {
+                MySqlCommand command = new MySqlCommand($"{ADD_PLAY_IN} ({playIn.IDmovie}, {playIn.IDactor})", connection);
+                connection.Open();
+                var id = command.ExecuteNonQuery();
+                state = true;
+                playIn.IDactor = (int)command.LastInsertedId;
+                connection.Close();
+            }
+            return state;
         }
     }
 }

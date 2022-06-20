@@ -20,6 +20,12 @@ namespace WPFilmweb.DAL.Encje
             IDdirector = int.Parse(reader["IDrezysera"].ToString());
             IDmovie = int.Parse(reader["IDfilmu"].ToString());
         }
+
+        public Rezyseruja(int movieId, int directorId)
+        {
+            IDdirector = directorId;
+            IDmovie = movieId;
+        }
         #endregion
     }
 }

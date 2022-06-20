@@ -90,6 +90,11 @@ namespace WPFilmweb.DAL.Encje
         {
             return base.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return $"{Name} {Surname}";
+        }
         #endregion
     }
 }

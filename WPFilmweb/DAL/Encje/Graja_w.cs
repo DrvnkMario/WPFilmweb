@@ -20,6 +20,12 @@ namespace WPFilmweb.DAL.Encje
             IDmovie = int.Parse(reader["IDfilmu"].ToString());
             IDactor = int.Parse(reader["IDaktora"].ToString());
         }
+
+        public Graja_w(int movieId, int actorId)
+        {
+            IDmovie = movieId;
+            IDactor = actorId;
+        }
         #endregion
     }
 }
