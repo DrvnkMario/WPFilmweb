@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 13 Cze 2022, 19:16
+-- Czas generowania: 21 Cze 2022, 20:28
 -- Wersja serwera: 10.4.24-MariaDB
 -- Wersja PHP: 7.4.29
 
@@ -157,20 +157,19 @@ INSERT INTO `graja_w` (`IDfilmu`, `IDaktora`) VALUES
 
 CREATE TABLE `nagradzaja` (
   `IDfilmu` int(11) DEFAULT NULL,
-  `IDnagrody` int(11) DEFAULT NULL,
-  `data_przyznania` date DEFAULT '2000-06-06'
+  `IDnagrody` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Zrzut danych tabeli `nagradzaja`
 --
 
-INSERT INTO `nagradzaja` (`IDfilmu`, `IDnagrody`, `data_przyznania`) VALUES
-(3, 2, '2000-06-06'),
-(9, 1, '2000-06-06'),
-(6, 1, '2000-06-06'),
-(4, 2, '2000-06-06'),
-(8, 1, '2000-06-06');
+INSERT INTO `nagradzaja` (`IDfilmu`, `IDnagrody`) VALUES
+(3, 2),
+(9, 1),
+(6, 1),
+(4, 2),
+(8, 1);
 
 -- --------------------------------------------------------
 
@@ -205,20 +204,19 @@ INSERT INTO `nagrody` (`IDnagrody`, `nazwa`, `opis_nagrody`, `zdjecie`) VALUES
 CREATE TABLE `oceniaja` (
   `IDfilmu` int(11) DEFAULT NULL,
   `IDuzytkownika` int(11) DEFAULT NULL,
-  `Komentarz` varchar(300) DEFAULT 'Dobry film :D',
-  `Wartość` int(11) NOT NULL DEFAULT 5
+  `Wartosc` int(11) NOT NULL DEFAULT 5
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Zrzut danych tabeli `oceniaja`
 --
 
-INSERT INTO `oceniaja` (`IDfilmu`, `IDuzytkownika`, `Komentarz`, `Wartość`) VALUES
-(3, 1, 'Dobry film :D', 5),
-(9, 1, 'Dobry film :D', 5),
-(6, 1, 'Dobry film :D', 5),
-(1, 1, 'Dobry film :D', 5),
-(8, 1, 'Dobry film :D', 5);
+INSERT INTO `oceniaja` (`IDfilmu`, `IDuzytkownika`, `Wartosc`) VALUES
+(3, 1, 5),
+(9, 1, 5),
+(6, 1, 5),
+(1, 1, 5),
+(8, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -433,36 +431,36 @@ ALTER TABLE `uzytkownicy`
 -- Ograniczenia dla tabeli `graja_w`
 --
 ALTER TABLE `graja_w`
-  ADD CONSTRAINT `graja_w_ibfk_1` FOREIGN KEY (`IDfilmu`) REFERENCES `filmy` (`IDfilmu`),
-  ADD CONSTRAINT `graja_w_ibfk_2` FOREIGN KEY (`IDaktora`) REFERENCES `aktorzy` (`IDaktora`);
+  ADD CONSTRAINT `graja_w_ibfk_1` FOREIGN KEY (`IDfilmu`) REFERENCES `filmy` (`IDfilmu`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `graja_w_ibfk_2` FOREIGN KEY (`IDaktora`) REFERENCES `aktorzy` (`IDaktora`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ograniczenia dla tabeli `nagradzaja`
 --
 ALTER TABLE `nagradzaja`
-  ADD CONSTRAINT `nagradzaja_ibfk_1` FOREIGN KEY (`IDfilmu`) REFERENCES `filmy` (`IDfilmu`),
-  ADD CONSTRAINT `nagradzaja_ibfk_2` FOREIGN KEY (`IDnagrody`) REFERENCES `nagrody` (`IDnagrody`);
+  ADD CONSTRAINT `nagradzaja_ibfk_1` FOREIGN KEY (`IDfilmu`) REFERENCES `filmy` (`IDfilmu`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nagradzaja_ibfk_2` FOREIGN KEY (`IDnagrody`) REFERENCES `nagrody` (`IDnagrody`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ograniczenia dla tabeli `oceniaja`
 --
 ALTER TABLE `oceniaja`
-  ADD CONSTRAINT `oceniaja_ibfk_1` FOREIGN KEY (`IDfilmu`) REFERENCES `filmy` (`IDfilmu`),
-  ADD CONSTRAINT `oceniaja_ibfk_2` FOREIGN KEY (`IDuzytkownika`) REFERENCES `uzytkownicy` (`IDuzytkownika`);
+  ADD CONSTRAINT `oceniaja_ibfk_1` FOREIGN KEY (`IDfilmu`) REFERENCES `filmy` (`IDfilmu`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `oceniaja_ibfk_2` FOREIGN KEY (`IDuzytkownika`) REFERENCES `uzytkownicy` (`IDuzytkownika`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ograniczenia dla tabeli `okresla`
 --
 ALTER TABLE `okresla`
-  ADD CONSTRAINT `okresla_ibfk_1` FOREIGN KEY (`IDfilmu`) REFERENCES `filmy` (`IDfilmu`),
-  ADD CONSTRAINT `okresla_ibfk_2` FOREIGN KEY (`IDgatunku`) REFERENCES `gatunek` (`IDgatunku`);
+  ADD CONSTRAINT `okresla_ibfk_1` FOREIGN KEY (`IDfilmu`) REFERENCES `filmy` (`IDfilmu`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `okresla_ibfk_2` FOREIGN KEY (`IDgatunku`) REFERENCES `gatunek` (`IDgatunku`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ograniczenia dla tabeli `rezyseruja`
 --
 ALTER TABLE `rezyseruja`
-  ADD CONSTRAINT `rezyseruja_ibfk_1` FOREIGN KEY (`IDfilmu`) REFERENCES `filmy` (`IDfilmu`),
-  ADD CONSTRAINT `rezyseruja_ibfk_2` FOREIGN KEY (`IDrezysera`) REFERENCES `rezyserzy` (`IDrezysera`);
+  ADD CONSTRAINT `rezyseruja_ibfk_1` FOREIGN KEY (`IDfilmu`) REFERENCES `filmy` (`IDfilmu`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `rezyseruja_ibfk_2` FOREIGN KEY (`IDrezysera`) REFERENCES `rezyserzy` (`IDrezysera`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
