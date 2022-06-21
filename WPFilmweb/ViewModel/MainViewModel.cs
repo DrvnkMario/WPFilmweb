@@ -248,6 +248,7 @@ namespace WPFilmweb.ViewModel
         public ICommand Back => back ?? (back = new RelayCommand(
             o =>
             {
+                Model.resetModel();
                 NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel, CurrentUserId));
                 SelectedItem = ComboContent[0];
                 ComboVisibility = "Visible";

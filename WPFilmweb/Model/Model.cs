@@ -80,6 +80,27 @@ namespace WPFilmweb.Model
 
         #region Constructors
 
+        public void resetModel()
+        {
+
+            GetMovies();
+            MoviesVisibility.Clear();
+            GetActors();
+            GetActorsMovies();
+            ActorsVisibility.Clear();
+            GetDirectors();
+            GetDirectorsMovies();
+            DirectorsVisibility.Clear();
+            GetGenres();
+            MoviesAndGenres();
+            GetAwards();
+            GetMoviesAwards();
+            GetUsers();
+            GetMoviesRatio();
+            GetMovieTitles();
+            GetActorNames();
+            GetDirectorNames();
+        }
         private Model()
         {
             GetMovies();
@@ -99,7 +120,6 @@ namespace WPFilmweb.Model
             GetMovieTitles();
             GetActorNames();
             GetDirectorNames();
-
         }
         private static Model instance = null;
         public static Model getInstance()
@@ -825,6 +845,7 @@ namespace WPFilmweb.Model
             }
             public void GetMoviesAwards()
             {
+                MoviesAwards.Clear();
                 var MoviesRewards = RepozytoriumNagradzaja.GetMovieRewards();
                 foreach (var mr in MoviesRewards)
                 {
