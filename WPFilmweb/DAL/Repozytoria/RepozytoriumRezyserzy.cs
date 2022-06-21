@@ -8,7 +8,7 @@ namespace WPFilmweb.DAL.Repozytoria
     {
         #region Queries
         private const string GET_EVERY_DIRECTOR = "SELECT * FROM rezyserzy";
-        private const string ADD_DIRECTOR = "INSERT INTO rezyserzy(imie, nazwisko, data_urodzenia, biografia, zdjecie) VALUES";
+        private const string ADD_DIRECTOR = "INSERT INTO rezyserzy(imie, nazwisko, data_urodzenia, biografia, zdjecie) VALUES (@i, @n, @d, @b, @z)";
         #endregion
 
         #region CRUD methods
@@ -32,8 +32,18 @@ namespace WPFilmweb.DAL.Repozytoria
             bool state = false;
             using (var connection = DBConnection.Instance.Connection)
             {
-                MySqlCommand command = new MySqlCommand($"{ADD_DIRECTOR} {director.ToInsert()}", connection);
+                MySqlCommand command = new MySqlCommand($"{ADD_DIRECTOR}", connection);
                 connection.Open();
+                command.Parameters.Add("@i", MySqlDbType.VarChar);
+                command.Parameters.Add("@n", MySqlDbType.VarChar);
+                command.Parameters.Add("@d", MySqlDbType.Date);
+                command.Parameters.Add("@b", MySqlDbType.VarChar);
+                command.Parameters.Add("@z", MySqlDbType.Blob);
+                command.Parameters["@i"].Value = director.Name;
+                command.Parameters["@n"].Value = director.Surname;
+                command.Parameters["@d"].Value = director.Birthdate;
+                command.Parameters["@b"].Value = director.Bio;
+                command.Parameters["@z"].Value = director.DirectorImage;
                 var id = command.ExecuteNonQuery();
                 state = true;
                 director.IDDirector = (int)command.LastInsertedId;

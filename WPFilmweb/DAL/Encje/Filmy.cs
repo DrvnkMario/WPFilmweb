@@ -19,7 +19,7 @@ namespace WPFilmweb.DAL.Encje
         public int ReleaseYear { get; set; }
         public string Length { get; set; }
         public string Description { get; set; }
-        public ImageSource Poster { get; set; }
+        public byte[] Poster { get; set; }
 
         #endregion
 
@@ -32,21 +32,13 @@ namespace WPFilmweb.DAL.Encje
             ReleaseYear = int.Parse(reader["rok_wydania"].ToString());
             Length = reader["czas_trwania"].ToString();
             Description = reader["opis"].ToString();
-
-            BitmapImage temp = new BitmapImage();
-            MemoryStream ms = new MemoryStream((byte[])reader["plakat"]);
-            if (ms.Length > 0)
-            {
-                temp.BeginInit();
-                temp.StreamSource = ms;
-                temp.EndInit();
-                Poster = temp as ImageSource;
-            }
-            else
+            if (reader["plakat"] == DBNull.Value)
                 Poster = null;
+            else
+                Poster = (byte[])reader["plakat"];
         }
         // New object ctcreated from scratch, to add into database
-        public Filmy(string title, int releaseYear, string length, string description, ImageSource poster)
+        public Filmy(string title, int releaseYear, string length, string description, byte[] poster)
         {
             //IDmovie = null;
             Title = title;
@@ -80,10 +72,6 @@ namespace WPFilmweb.DAL.Encje
 
         #region Methods
 
-        public string ToInsert()
-        {
-            return $"'{Title}','{ReleaseYear}','{Length}','{Description}','{Poster}'";
-        }
         // Override Equals method to check if actor is not duplicated with Contains function
         public override bool Equals(object obj)
         {

@@ -5,6 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using Microsoft.Win32;
+using System.IO;
+using System.Windows.Media.Imaging;
+using MySql.Data.MySqlClient;
+
 namespace WPFilmweb.Model
 {
     using DAL.Encje;
@@ -66,6 +70,7 @@ namespace WPFilmweb.Model
             public ObservableCollection<Nagrody> AwardList { get; set; } = new ObservableCollection<Nagrody>();
             public ObservableCollection<Nagradzaja> MoviesAwards { get; set; } = new ObservableCollection<Nagradzaja>();
             public ObservableCollection<string> AwardsVisibility { get; set; } = new ObservableCollection<string>();
+            
 
             private Nagrody emptyAward = new Nagrody("", "", null);
 
@@ -94,6 +99,7 @@ namespace WPFilmweb.Model
             GetMovieTitles();
             GetActorNames();
             GetDirectorNames();
+
         }
         private static Model instance = null;
         public static Model getInstance()
@@ -117,9 +123,9 @@ namespace WPFilmweb.Model
                 MoviesTitles.Add(movie.Title);
             }
         }
-        public void AddMovie(string title, int releaseYear, string length, string description)
+        public void AddMovie(string title, int releaseYear, string length, string description, byte[] image = null)
         {
-            Filmy movie = new Filmy(title, releaseYear, length, description);
+            Filmy movie = new Filmy(title, releaseYear, length, description, image);
             RepozytoriumFilmy.AddMovie(movie);
             GetMovies();
             GetMovieTitles();
@@ -143,9 +149,11 @@ namespace WPFilmweb.Model
             }
             public void RefreshMovies(ObservableCollection<Filmy> movies, int n)
             {
+                movies.Clear();
+                MoviesVisibility.Clear();
                 if (MoviesList.Count != 0)
                 {
-                    movies.Clear(); // this line is intentional. It's purpouse is clearing ObservableCollection passed as reference, that way it is always filled with 4 objects
+                     // this line is intentional. It's purpouse is clearing ObservableCollection passed as reference, that way it is always filled with 4 objects
                     MoviesVisibility.Clear();
                     for (int i = 4 * n - 4; i <= n * 3 + 1; i++)
                     {
@@ -286,9 +294,9 @@ namespace WPFilmweb.Model
         #endregion
 
         #region Actors methods
-        public void AddActor(string name, string surname, string dateOfBirth, string bio)
+        public void AddActor(string name, string surname, string dateOfBirth, string bio, byte[] image = null)
         {
-            Aktorzy actor = new Aktorzy(name, surname, dateOfBirth, bio, null);
+            Aktorzy actor = new Aktorzy(name, surname, dateOfBirth, bio, image);
             RepozytoriumAktorzy.AddActor(actor);
             GetActors();
             GetActorNames();
@@ -309,6 +317,7 @@ namespace WPFilmweb.Model
                 ActorNames.Add(actor.Name + " " + actor.Surname);
             }
         }
+
 
         public void GetActors()
             {
@@ -332,9 +341,11 @@ namespace WPFilmweb.Model
             }
             public void RefreshActors(ObservableCollection<Aktorzy> actors, int n)
             {
+                ActorsVisibility.Clear();
+                actors.Clear();
                 if (ActorList.Count != 0)
                 {
-                    ActorsVisibility.Clear();
+                    
                     actors.Clear(); // this line is intentional. It's purpouse is clearing ObservableCollection passed as reference, that way it is always filled with 4 objects
                     for (int i = 4 * n - 4; i <= n * 3 + 1; i++)
                     {
@@ -449,9 +460,9 @@ namespace WPFilmweb.Model
             }
         }
 
-        public void AddDirector(string name, string surname, string dateOfBirth, string bio)
+        public void AddDirector(string name, string surname, string dateOfBirth, string bio, byte[] image = null)
         {
-            Rezyserzy director = new Rezyserzy(name, surname, dateOfBirth, bio, null);
+            Rezyserzy director = new Rezyserzy(name, surname, dateOfBirth, bio, image);
             RepozytoriumRezyserzy.AddDirector(director);
             GetDirectors();
             GetDirectorsName();
@@ -495,9 +506,11 @@ namespace WPFilmweb.Model
             }
             public void RefreshDirectors(ObservableCollection<Rezyserzy> directors, int n)
             {
+                DirectorsVisibility.Clear();
+                directors.Clear();
                 if (DirectorsList.Count != 0)
                 {
-                    DirectorsVisibility.Clear();
+                    
                     directors.Clear(); // this line is intentional. It's purpouse is clearing ObservableCollection passed as reference, that way it is always filled with 4 objects
                     for (int i = 4 * n - 4; i <= n * 3 + 1; i++)
                     {
@@ -728,6 +741,13 @@ namespace WPFilmweb.Model
         #endregion
 
         #region Awards methods
+
+        public void DeleteAward(int index)
+        {
+            Nagrody award = AwardList[index];
+            RepozytoriumNagrody.DeleteAward(award);
+        }
+
         public void GetAwards()
             {
                 var awards = RepozytoriumNagrody.GetAllAwards();
@@ -739,10 +759,11 @@ namespace WPFilmweb.Model
             }
             public void RefreshAwards(ObservableCollection<Nagrody> awards, int n)
             {
+                awards.Clear(); // this line is intentional. It's purpouse is clearing ObservableCollection passed as reference, that way it is always filled with 4 objects
+                AwardsVisibility.Clear();
                 if (AwardList.Count != 0)
                 {
-                    awards.Clear(); // this line is intentional. It's purpouse is clearing ObservableCollection passed as reference, that way it is always filled with 4 objects
-                    AwardsVisibility.Clear();
+                    
                     for (int i = 4 * n - 4; i <= n * 3 + 1; i++)
                     {
                         awards.Add(AwardList[i]);
@@ -768,9 +789,9 @@ namespace WPFilmweb.Model
                     }
                 }
             }
-        public void AddAward(string name, string description)
+        public void AddAward(string name, string description, byte[] image = null)
         {
-            Nagrody award = new Nagrody(name, description, null);
+            Nagrody award = new Nagrody(name, description, image);
             RepozytoriumNagrody.AddAward(award);
             GetAwards();
             //GetActorNames();
@@ -867,6 +888,17 @@ namespace WPFilmweb.Model
             GetMoviesAwards();
         }
 
+        #region Genre methods
+
+        public void AddGenre(int movieId, int genreId)
+        {
+            Okresla genre = new Okresla(movieId, genreId);
+            RepozytoriumOkresla.AddGenre(genre);
+            MoviesAndGenres();
+        }
+
+        #endregion
+
         #endregion
 
         #endregion
@@ -880,19 +912,25 @@ namespace WPFilmweb.Model
             }
             return result;
         }
-        public void GetImage()
+        public byte[] GetImage()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             Nullable<bool> result = openFileDialog.ShowDialog();
-
-            if(result == true)
+            if (result == true)
             {
                 string filename = openFileDialog.FileName;
-                Console.WriteLine(filename);
+                if(Path.GetExtension(filename) == ".jpg")
+                {
+                    
+                    byte[] file =  File.ReadAllBytes(filename);
+                    return file;
+                }
             }
-
+            return null;
         }
+        /*public MySqlDbType.Blob GetImages()
+        {
 
-
+        }*/
     }
 }

@@ -13,7 +13,7 @@ namespace WPFilmweb.DAL.Encje
         public string Surname { get; set; }
         public string Birthdate { get; set; }
         public string Bio { get; set; }
-        public ImageSource DirectorImage { get; set; }
+        public byte[] DirectorImage { get; set; }
         #endregion
 
         #region Constructors
@@ -25,24 +25,14 @@ namespace WPFilmweb.DAL.Encje
             Surname = reader["nazwisko"].ToString();
             Birthdate = reader["data_urodzenia"].ToString(); 
             Bio = reader["biografia"].ToString();
-            //DateTime.ToString()
-            BitmapImage temp = new BitmapImage();
-            MemoryStream ms = new MemoryStream((byte[])reader["zdjecie"]);
-            if(ms.Length > 0)
-            {
-                temp.BeginInit();
-                temp.StreamSource = ms;
-                temp.EndInit();
-                DirectorImage = temp as ImageSource;
-            }
-            else
-            {
+            if (reader["zdjecie"] == DBNull.Value)
                 DirectorImage = null;
-            }
+            else
+                DirectorImage = (byte[])reader["zdjecie"];
             
         }
         // New object ctcreated from scratch, to add into database
-        public Rezyserzy(string name, string surname, string birthdate, string bio, ImageSource image)
+        public Rezyserzy(string name, string surname, string birthdate, string bio, byte[] image)
         {
             IDDirector = null;
             Name = name;

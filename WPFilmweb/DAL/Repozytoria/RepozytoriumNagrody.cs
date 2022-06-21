@@ -8,7 +8,7 @@ namespace WPFilmweb.DAL.Repozytoria
     {
         #region Queries
         private const string GET_EVERY_AWARD = "SELECT * FROM nagrody";
-        private const string ADD_AWARD = "INSERT INTO nagrody(nazwa, opis_nagrody, zdjecie) VALUES";
+        private const string ADD_AWARD = "INSERT INTO nagrody(nazwa, opis_nagrody, zdjecie) VALUES (@n, @o, @z)";
         #endregion
 
         #region CRUD methods
@@ -32,9 +32,15 @@ namespace WPFilmweb.DAL.Repozytoria
             bool state = false;
             using (var connection = DBConnection.Instance.Connection)
             {
-                MySqlCommand command = new MySqlCommand($"{ADD_AWARD} {award.ToInsert()}", connection);
+                MySqlCommand command = new MySqlCommand($"{ADD_AWARD}", connection);
                 connection.Open();
                 Console.WriteLine(command.CommandText);
+                command.Parameters.Add("@n", MySqlDbType.VarChar);
+                command.Parameters.Add("@o", MySqlDbType.VarChar);
+                command.Parameters.Add("@z", MySqlDbType.Blob);
+                command.Parameters["@n"].Value = award.Name;
+                command.Parameters["@o"].Value = award.Description;
+                command.Parameters["@z"].Value = award.AwardImage;
                 var id = command.ExecuteNonQuery();
                 state = true;
                 award.IDAward = (int)command.LastInsertedId;

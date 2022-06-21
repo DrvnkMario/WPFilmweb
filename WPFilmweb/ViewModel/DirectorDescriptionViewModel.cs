@@ -55,7 +55,7 @@ namespace WPFilmweb.ViewModel
 
         public string NameSurname => CurrentDirector.Name + " " + CurrentDirector.Surname;
         public string Bio => "Biografia: " + CurrentDirector.Bio;
-        public ImageSource ActorImage => CurrentDirector.DirectorImage;
+        public ImageSource ActorImage => Tools.ByteArrToImageSrc(CurrentDirector.DirectorImage);
         public string BirthDate => "Data Urodzenia: " + Model.BirthDateToString(CurrentDirector.Birthdate);
         public string Movies => "Wyreżyserował: " + Model.GetDirectorsMovies(CurrentDirector);
 

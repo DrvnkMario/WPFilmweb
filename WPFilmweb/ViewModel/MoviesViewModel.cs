@@ -82,10 +82,10 @@ namespace WPFilmweb.ViewModel
             Movies = new ObservableCollection<Filmy>();
             CurrentPage = navimodel.CurrentPage;
             model.RefreshMovies(movies, currentPage);
+            //MoviesVisibility.Clear();
             MoviesVisibility = model.MoviesVisibility;
             CurrentUderId = id;
             Ratings = model.GetRatingsForMovieList(Movies);
-            
         }
         public int CurrentPage
         {
@@ -149,7 +149,6 @@ namespace WPFilmweb.ViewModel
         public ICommand MovieClick1 => movieClick1 ?? (movieClick1 = new RelayCommand(
             o =>
             {
-
                 if (Movies[0].Title != "")
                 {
                     NavigationModel.ChangeVM(new MovieDescriptionViewModel(Movies[0], CurrentUderId, NavigationModel, Model));

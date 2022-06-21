@@ -173,3 +173,5 @@ C:\Users\fojo\Desktop\WPFilmweb-main\WPFilmweb\obj\Debug\WPFilmweb.exe
 C:\Users\fojo\Desktop\WPFilmweb-main\WPFilmweb\obj\Debug\WPFilmweb.pdb
 D:\Programowanie\C#\WPFilmweb\WPFilmweb\bin\Debug\Microsoft.Win32.dll
 D:\Programowanie\C#\WPFilmweb\WPFilmweb\bin\Debug\Microsoft.Win32.xml
+D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\Components\BindablePasswordBox.g.cs
+D:\Programowanie\C#\WPFilmweb\WPFilmweb\obj\Debug\View\Components\BindablePasswordBox.baml

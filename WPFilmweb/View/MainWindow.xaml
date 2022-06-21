@@ -7,6 +7,7 @@
         xmlns:ViewModels="clr-namespace:WPFilmweb.ViewModel"
         xmlns:Views="clr-namespace:WPFilmweb.View"
         xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:Components="clr-namespace:WPFilmweb.View.Components"
         mc:Ignorable="d"
         Title="Filmweb" Height="720" Width="1280">
 
@@ -30,10 +31,8 @@
                 <Label Margin="5">Username:</Label>
                 <TextBox Margin="5" Height="25" Text="{Binding CurrentUsername}"/>
                 <Label Margin="5">Password:</Label>
-                <TextBox Margin="5" Height="25" Text="{Binding CurrentPassword}"/>
-                <!--Password="{Binding CurrentPassword}"-->
+                <Components:BindablePasswordBox Margin="5" Height="25" Password="{Binding CurrentPassword}"/>
                 <Button Margin="5" Height="30" Content="Login" Command="{Binding Login}"/>
-                <!--<Button Margin="5" Height="30" Content="Create account"/>-->
             </StackPanel>
         </StackPanel>
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
@@ -94,6 +93,9 @@
                 FontSize="30"/>
             <Button Content="Admin Panel" Grid.Column="2" FontSize="18" Margin="10" 
                     Visibility="{Binding AdminPanelVisibility}" Command="{Binding AdminPanel}"/>
+            <Button Content="Back" Grid.Column="2" FontSize="18" Margin="10" 
+                    Visibility="{Binding BackVisibility}" Command="{Binding Back}"/>
+            
         </Grid>
         <ContentControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Content="{Binding NavigationModel.CurrentViewModel, UpdateSourceTrigger=PropertyChanged}">
             <ContentControl.Resources>

@@ -55,7 +55,7 @@ namespace WPFilmweb.ViewModel
 
         public string Name => CurrentAward.Name;
         public string Description => "Opis: " + CurrentAward.Description;
-        public ImageSource AwardImage => CurrentAward.AwardImage;
+        public ImageSource AwardImage => Tools.ByteArrToImageSrc(CurrentAward.AwardImage);
 
         private ICommand back;
 

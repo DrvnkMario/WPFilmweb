@@ -21,6 +21,12 @@ namespace WPFilmweb.DAL.Encje
             IDmovie = int.Parse(reader["IDfilmu"].ToString());
             IDgenre = int.Parse(reader["IDgatunku"].ToString());
         }
+
+        public Okresla(int idMovie, int idGenre)
+        {
+            IDmovie = idMovie;
+            IDgenre = idGenre;
+        }
         #endregion
     }
 }

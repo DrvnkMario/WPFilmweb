@@ -8,6 +8,7 @@ namespace WPFilmweb.DAL.Repozytoria
     {
         #region Queries
         private const string GET_DEFINING_GENRES = "SELECT * FROM okresla";
+        private const string ADD_GENRE = "INSERT INTO okresla(IDfilmu, IDgatunku) VALUES";
         #endregion
 
         public static ObservableCollection<Okresla> GetDefiningGenres()
@@ -23,6 +24,21 @@ namespace WPFilmweb.DAL.Repozytoria
                 connection.Close();
             }
             return definingGenres;
+        }
+
+        public static bool AddGenre(Okresla genre)
+        {
+            bool state = false;
+            using (var connection = DBConnection.Instance.Connection)
+            {
+                MySqlCommand command = new MySqlCommand($"{ADD_GENRE} ({genre.IDmovie}, {genre.IDgenre})", connection);
+                connection.Open();
+                var id = command.ExecuteNonQuery();
+                state = true;
+                genre.IDgenre = (int)command.LastInsertedId;
+                connection.Close();
+            }
+            return state;
         }
     }
 }

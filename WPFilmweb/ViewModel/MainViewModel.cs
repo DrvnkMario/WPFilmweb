@@ -145,6 +145,18 @@ namespace WPFilmweb.ViewModel
                 onPropertyChanged(nameof(AdminPanelVisibility));
             }
         }
+
+        private string backVisibility { get; set; }
+
+        public string BackVisibility
+        {
+            get { return backVisibility; }
+            set
+            {
+                backVisibility = value;
+                onPropertyChanged(nameof(BackVisibility));
+            }
+        }
         #endregion
 
         #region Constructors 
@@ -161,6 +173,7 @@ namespace WPFilmweb.ViewModel
             welcomeText = "Welcome to MVVM movies!";
             ComboVisibility = "Hidden";
             AdminPanelVisibility = "Hidden";
+            BackVisibility = "Hidden";
         }
 
         //tu dopisalem
@@ -224,6 +237,21 @@ namespace WPFilmweb.ViewModel
             o =>
             {
                 NavigationModel.ChangeVM(new AdminPanelViewModel(Model, NavigationModel));
+                ComboVisibility = "Hidden";
+                AdminPanelVisibility = "Hidden";
+                BackVisibility = "Visible";
+            }, null));
+
+        private ICommand back;
+
+        public ICommand Back => back ?? (back = new RelayCommand(
+            o =>
+            {
+                NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel, CurrentUserId));
+                SelectedItem = ComboContent[0];
+                ComboVisibility = "Visible";
+                AdminPanelVisibility = "Visible";
+                BackVisibility = "Hidden";
             }, null));
         #endregion
     }

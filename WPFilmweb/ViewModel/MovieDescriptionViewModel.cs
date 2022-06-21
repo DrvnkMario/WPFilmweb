@@ -99,7 +99,7 @@ namespace WPFilmweb.ViewModel
 
         public string Title => CurrentMovie.Title;
         public string Description => "Opis: " + CurrentMovie.Description;
-        public ImageSource Poster => CurrentMovie.Poster;
+        public ImageSource Poster => Tools.ByteArrToImageSrc(CurrentMovie.Poster);
         public string ReleaseYear => "Rok wydania: " + CurrentMovie.ReleaseYear;
         public string Length => "Czas trwania: " + CurrentMovie.Length;
         public string Actors => "Obsada: " + Model.GetMovieCast(CurrentMovie);

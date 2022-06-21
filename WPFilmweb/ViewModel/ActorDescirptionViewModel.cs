@@ -55,7 +55,7 @@ namespace WPFilmweb.ViewModel
 
         public string NameSurname => CurrentActor.Name + " " + CurrentActor.Surname;
         public string Bio => "Biografia: " + CurrentActor.Bio;
-        public ImageSource ActorImage => CurrentActor.ActorImage;
+        public ImageSource ActorImage => Tools.ByteArrToImageSrc(CurrentActor.ActorImage);
         public string BirthDate => "Data Urodzenia: " + Model.BirthDateToString(CurrentActor.BirthDate);
         public string Movies => "Zagrał w: " + Model.GetActorsMovies(CurrentActor);
 

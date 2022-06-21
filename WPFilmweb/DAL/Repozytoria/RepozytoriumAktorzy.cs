@@ -13,7 +13,7 @@ namespace WPFilmweb.DAL.Repozytoria
     {
         #region Queries
         private const string GET_EVERY_ACTOR = "SELECT * FROM aktorzy";
-        private const string ADD_ACTOR = "INSERT INTO aktorzy(imie, nazwisko, data_urodzenia, biografia, zdjecie) VALUES";
+        private const string ADD_ACTOR = "INSERT INTO aktorzy(imie, nazwisko, data_urodzenia, biografia, zdjecie) VALUES (@i, @n, @d, @b, @z)";
         #endregion
 
         #region CRUD methods
@@ -37,7 +37,17 @@ namespace WPFilmweb.DAL.Repozytoria
             bool state = false;
             using (var connection = DBConnection.Instance.Connection)
             {
-                MySqlCommand command = new MySqlCommand($"{ADD_ACTOR} {actor.ToInsert()}", connection);
+                MySqlCommand command = new MySqlCommand($"{ADD_ACTOR}", connection);
+                command.Parameters.Add("@i", MySqlDbType.VarChar);
+                command.Parameters.Add("@n", MySqlDbType.VarChar);
+                command.Parameters.Add("@d", MySqlDbType.Date);
+                command.Parameters.Add("@b", MySqlDbType.VarChar);
+                command.Parameters.Add("@z", MySqlDbType.Blob);
+                command.Parameters["@i"].Value = actor.Name;
+                command.Parameters["@n"].Value = actor.Surname;
+                command.Parameters["@d"].Value = actor.BirthDate;
+                command.Parameters["@b"].Value = actor.Bio;
+                command.Parameters["@z"].Value = actor.ActorImage;
                 connection.Open();
                 var id = command.ExecuteNonQuery();
                 state = true;
