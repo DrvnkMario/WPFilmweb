@@ -45,8 +45,8 @@ namespace WPFilmweb.DAL.Repozytoria
             bool state = false;
             using (var connection = DBConnection.Instance.Connection)
             {
-                MySqlCommand command = new MySqlCommand($"INSERT INTO oceniaja (IDfilmu, IDuzytkownika, Komentarz, wartosc) " +
-                    $"VALUES({movieId},{userId},'xD',{grade});",connection);
+                MySqlCommand command = new MySqlCommand($"INSERT INTO oceniaja (IDfilmu, IDuzytkownika, wartosc) " +
+                    $"VALUES({movieId},{userId},{grade});",connection);
                 connection.Open();
                 var id = command.ExecuteNonQuery();
                 state = true;

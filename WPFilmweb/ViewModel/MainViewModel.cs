@@ -55,8 +55,9 @@ namespace WPFilmweb.ViewModel
             {
                 searchbarText = value;
                 onPropertyChanged(nameof(SearchbarText));
+                NavigationModel.CurrentPage = 1;
                 if(SelectedItem == "Movies")
-                {
+                {       
                     Model.GetMoviesByTitle(SearchbarText);
                     NavigationModel.ChangeVM(new MoviesViewModel(Model, NavigationModel, CurrentUserId));
                 }
